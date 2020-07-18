@@ -476,7 +476,7 @@ class Settings(val config: Config) {
 
 object Settings {
   val resourceDomain = "opencomputers"
-  val namespace = "oc:"
+  val namespace = "opencomputers:"
   val savePath = "opencomputers/"
   val scriptPath: String = "/assets/" + resourceDomain + "/lua/"
   val screenResolutionsByTier: Array[(Int, Int)] = Array((50, 16), (80, 25), (160, 50))

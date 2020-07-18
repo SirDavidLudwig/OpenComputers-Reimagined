@@ -211,21 +211,21 @@ object ExtendedNBT {
   }
 
   class ExtendedCompoundNBT(val nbt: CompoundNBT) {
-    def setNewCompoundTag(name: String, f: (CompoundNBT) => Any) = {
+    def putNewCompoundTag(name: String, f: (CompoundNBT) => Any) = {
       val t = new CompoundNBT()
       f(t)
       nbt.put(name, t)
       nbt
     }
 
-    def setNewTagList(name: String, values: Iterable[INBT]) = {
+    def putNewTagList(name: String, values: Iterable[INBT]) = {
       val t = new ListNBT()
       t.append(values)
       nbt.put(name, t)
       nbt
     }
 
-    def setNewTagList(name: String, values: INBT*): CompoundNBT = setNewTagList(name, values)
+    def putNewTagList(name: String, values: INBT*): CompoundNBT = putNewTagList(name, values)
 
     def getDirection(name: String) = {
       nbt.getByte(name) match {
@@ -234,7 +234,7 @@ object ExtendedNBT {
       }
     }
 
-    def setDirection(name: String, d: Option[Direction]): Unit = {
+    def putDirection(name: String, d: Option[Direction]): Unit = {
       d match {
         case Some(side) => nbt.putByte(name, side.ordinal.toByte)
         case _ => nbt.putByte(name, -1: Byte)
@@ -243,7 +243,7 @@ object ExtendedNBT {
 
     def getBooleanArray(name: String) = nbt.getByteArray(name).map(_ == 1)
 
-    def setBooleanArray(name: String, value: Array[Boolean]) = nbt.put(name, toNbt(value))
+    def putBooleanArray(name: String, value: Array[Boolean]) = nbt.put(name, toNbt(value))
   }
 
   class ExtendedListNBT(val nbt: ListNBT) {

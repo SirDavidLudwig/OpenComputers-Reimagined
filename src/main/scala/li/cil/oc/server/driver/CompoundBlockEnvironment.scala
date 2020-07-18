@@ -1,0 +1,88 @@
+package li.cil.oc.server.driver
+
+import java.nio.charset.Charset
+
+import com.google.common.hash.Hashing
+import li.cil.oc.{OpenComputers, api}
+import li.cil.oc.api.network.{Component, ManagedEnvironment, Message, Node, Visibility}
+import li.cil.oc.util.ExtendedNBT._
+import net.minecraft.nbt.CompoundNBT
+
+class CompoundBlockEnvironment(val name: String, val environments: (String, ManagedEnvironment)*) extends ManagedEnvironment {
+  // Block drivers with visibility < network usually won't make much sense,
+  // but let's play it safe and use the least possible visibility based on
+  // the drivers we encapsulate.
+  val node: Component = api.Network.newNode(this, (environments.filter(_._2.node != null).map(_._2.node.reachability) ++ Seq(Visibility.None)).max).
+    withComponent(name).
+    create()
+
+  val updatingEnvironments: Seq[ManagedEnvironment] = environments.map(_._2).filter(_.canUpdate)
+
+  // Force all wrapped components to be neighbor visible, since we as their
+  // only neighbor will take care of all component-related interaction.
+  for ((_, environment) <- environments) environment.node match {
+    case component: Component => component.setVisibility(Visibility.Neighbors)
+    case _ =>
+  }
+
+  override def canUpdate: Boolean = environments.exists(_._2.canUpdate)
+
+  override def update() {
+    for (environment <- updatingEnvironments) {
+      environment.update()
+    }
+  }
+
+  override def onMessage(message: Message) {}
+
+  override def onConnect(node: Node) {
+    if (node == this.node) {
+      for ((_, environment) <- environments if environment.node != null) {
+        node.connect(environment.node)
+      }
+    }
+  }
+
+  override def onDisconnect(node: Node) {
+    if (node == this.node) {
+      for ((_, environment) <- environments if environment.node != null) {
+        environment.node.remove()
+      }
+    }
+  }
+
+  private final val TypeHashTag = "typeHash"
+
+  override def load(nbt: CompoundNBT) {
+    // Ignore existing data if the underlying type is different.
+    if (nbt.contains(TypeHashTag) && nbt.getLong(TypeHashTag) != typeHash) return
+    node.load(nbt)
+    for ((driver, environment) <- environments) {
+      if (nbt.contains(driver)) {
+        try {
+          environment.load(nbt.getCompound(driver))
+        } catch {
+          case e: Throwable => OpenComputers.log.warn(s"A block component of type '${environment.getClass.getName}' (provided by driver '$driver') threw an error while loading.", e)
+        }
+      }
+    }
+  }
+
+  override def save(nbt: CompoundNBT) {
+    nbt.putLong(TypeHashTag, typeHash)
+    node.save(nbt)
+    for ((driver, environment) <- environments) {
+      try {
+        nbt.putNewCompoundTag(driver, environment.save)
+      } catch {
+        case e: Throwable => OpenComputers.log.warn(s"A block component of type '${environment.getClass.getName}' (provided by driver '$driver') threw an error while saving.", e)
+      }
+    }
+  }
+
+  private def typeHash = {
+    val hash = Hashing.sha256().newHasher()
+    environments.map(_._2.getClass.getName).sorted.foreach(hash.putString(_, Charset.defaultCharset()))
+    hash.hash().asLong()
+  }
+}
