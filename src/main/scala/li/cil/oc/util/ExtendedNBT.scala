@@ -264,7 +264,8 @@ object ExtendedNBT {
     def foreach[Tag <: INBT](f: Tag => Unit): Unit = {
       val iterable = nbt.copy(): ListNBT
       while (iterable.size > 0) {
-        f(iterable.remove(0).asInstanceOf[Tag])
+        val removed: INBT = iterable.remove(0) // A cheap hack to fix issue with ambiguous call
+        f(removed.asInstanceOf[Tag])
       }
     }
 
@@ -272,7 +273,8 @@ object ExtendedNBT {
       val iterable = nbt.copy(): ListNBT
       val buffer = mutable.ArrayBuffer.empty[Value]
       while (iterable.size > 0) {
-        buffer += f(iterable.remove(0).asInstanceOf[Tag])
+        val removed: INBT = iterable.remove(0) // A cheap hack to fix issue with ambiguous call
+        buffer += f(removed.asInstanceOf[Tag])
       }
       buffer.toIndexedSeq
     }

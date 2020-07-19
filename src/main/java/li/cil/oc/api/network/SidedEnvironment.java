@@ -50,9 +50,6 @@ public interface SidedEnvironment {
      * @param side the side to check for.
      * @return whether the environment provides a node for the specified side.
      */
-    /**
-     * @TODO This may not be correct...
-     */
     @OnlyIn(Dist.CLIENT)
     boolean canConnect(Direction side);
 }

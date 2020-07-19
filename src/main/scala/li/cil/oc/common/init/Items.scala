@@ -26,7 +26,7 @@ object Items extends ItemAPI {
   def registerBlock(instance: Block, id: String): Block = {
     if (!descriptors.contains(id)) {
       instance match {
-        case simple: Block =>
+        case simple: SimpleBlock =>
           instance.setRegistryName(id)
         case _ =>
       }
@@ -44,7 +44,6 @@ object Items extends ItemAPI {
       }
       names += instance -> id
     }
-    val info: ItemInfo = descriptors.get(Constants.BlockName.CaseTier1).orNull
     instance
   }
 
