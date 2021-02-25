@@ -126,8 +126,8 @@ public abstract class TileEntityEnvironment extends TileEntity implements Enviro
 
 
     @Override
-    public void func_230337_a_(final BlockState state, final CompoundNBT nbt) {
-        super.func_230337_a_(state, nbt);
+    public void read(final BlockState state, final CompoundNBT nbt) {
+        super.read(state, nbt);
         // The host check may be superfluous for you. It's just there to allow
         // some special cases, where getNode() returns some node managed by
         // some other instance (for example when you have multiple internal

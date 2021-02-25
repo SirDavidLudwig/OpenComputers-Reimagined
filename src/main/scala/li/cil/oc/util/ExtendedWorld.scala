@@ -74,7 +74,7 @@ object ExtendedWorld {
 
 //    def setBlockToAir(position: BlockPosition) = world.setBlockToAir(position.toBlockPos)
 
-    def isSideSolid(position: BlockPosition, entity: Entity, side: Direction) = world.func_234929_a_(position.toBlockPos, entity, side)
+    def isSideSolid(position: BlockPosition, entity: Entity, side: Direction) = world.isDirectionSolid(position.toBlockPos, entity, side)
 
     def isBlockLoaded(position: BlockPosition) = world.isBlockLoaded(position.toBlockPos)
   }

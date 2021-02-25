@@ -26,7 +26,7 @@ trait Rotatable extends RotationAware with internal.Rotatable {
   // ----------------------------------------------------------------------- //
 
   def pitch: Direction = if (getWorld != null && getWorld.isBlockLoaded(getPos)) getBlockState.getBlock match {
-    case rotatable if getWorld.getBlockState(getPos).func_235901_b_(PropertyRotatable.Pitch) => getWorld.getBlockState(getPos).get(PropertyRotatable.Pitch)
+    case rotatable if getWorld.getBlockState(getPos).hasProperty(PropertyRotatable.Pitch) => getWorld.getBlockState(getPos).get(PropertyRotatable.Pitch)
     case _ => Direction.NORTH
   } else null
 
@@ -37,8 +37,8 @@ trait Rotatable extends RotationAware with internal.Rotatable {
     }, yaw)
 
   def yaw: Direction = if (getWorld != null && getWorld.isBlockLoaded(getPos)) getBlockState.getBlock match {
-    case rotatable if getWorld.getBlockState(getPos).func_235901_b_(PropertyRotatable.Yaw) => getWorld.getBlockState(getPos).get(PropertyRotatable.Yaw)
-    case rotatable if getWorld.getBlockState(getPos).func_235901_b_(PropertyRotatable.Facing) => getWorld.getBlockState(getPos).get(PropertyRotatable.Facing)
+    case rotatable if getWorld.getBlockState(getPos).hasProperty(PropertyRotatable.Yaw) => getWorld.getBlockState(getPos).get(PropertyRotatable.Yaw)
+    case rotatable if getWorld.getBlockState(getPos).hasProperty(PropertyRotatable.Facing) => getWorld.getBlockState(getPos).get(PropertyRotatable.Facing)
     case _ => Direction.SOUTH
   } else null
 
@@ -96,7 +96,7 @@ trait Rotatable extends RotationAware with internal.Rotatable {
    * This could possible be implemented better...
    */
   def getValidRotations(state: BlockState): Array[Direction] = {
-    state.func_235904_r_.asScala.foreach {
+    state.getProperties.asScala.foreach {
       case prop: DirectionProperty if prop.getName() == "facing" =>
         return prop.getAllowedValues.toArray.asInstanceOf[Array[Direction]]
     }
@@ -153,9 +153,9 @@ trait Rotatable extends RotationAware with internal.Rotatable {
       else false
     }
     getBlockState.getBlock match {
-      case rotatable if oldState.func_235901_b_(PropertyRotatable.Pitch) && oldState.func_235901_b_(PropertyRotatable.Yaw) =>
+      case rotatable if oldState.hasProperty(PropertyRotatable.Pitch) && oldState.hasProperty(PropertyRotatable.Yaw) =>
         setState(oldState.`with`(PropertyRotatable.Pitch, pitch).`with`(PropertyRotatable.Yaw, yaw))
-      case rotatable if oldState.func_235901_b_(PropertyRotatable.Facing) =>
+      case rotatable if oldState.hasProperty(PropertyRotatable.Facing) =>
         setState(oldState.`with`(PropertyRotatable.Facing, yaw))
       case _ => false
     }

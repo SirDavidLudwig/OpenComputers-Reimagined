@@ -71,7 +71,7 @@ trait TileEntity extends net.minecraft.tileentity.TileEntity {
 
   // ----------------------------------------------------------------------- //
 
-  def readForServer(state: BlockState, nbt: CompoundNBT): Unit = super.func_230337_a_(state, nbt)
+  def readForServer(state: BlockState, nbt: CompoundNBT): Unit = super.read(state, nbt)
 
   def writeForServer(nbt: CompoundNBT): Unit = {
     nbt.putBoolean(IsServerDataTag, true)
@@ -87,7 +87,7 @@ trait TileEntity extends net.minecraft.tileentity.TileEntity {
 
   // ----------------------------------------------------------------------- //
 
-  override def func_230337_a_(state: BlockState, nbt: CompoundNBT): Unit = {
+  override def read(state: BlockState, nbt: CompoundNBT): Unit = {
     if (isServer || nbt.getBoolean(IsServerDataTag)) {
       readForServer(state, nbt)
     }
