@@ -3,6 +3,7 @@ package tech.dlii.opencomputers.item;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -12,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import tech.dlii.opencomputers.CreativeTabs;
 import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.block.Blocks;
+import tech.dlii.opencomputers.component.Consumables;
 
 import java.util.function.Supplier;
 
@@ -22,7 +24,7 @@ public class Items {
     public static final RegistrySupplier<Item> CASE = ITEMS.register(Blocks.CASE.getId().getPath(), () -> new BlockItem(Blocks.CASE.get(), baseProperties(Blocks.CASE.getId().getPath())));
 
     // Items
-    public static final RegistrySupplier<Item> ACID = register("acid", () -> new Item(baseProperties("acid")));
+    public static final RegistrySupplier<Item> ACID = register("acid", () -> new Item(baseProperties("acid").component(DataComponents.CONSUMABLE, Consumables.ACID)));
     public static final RegistrySupplier<Item> ALU = register("alu", () -> new Item(baseProperties("alu")));
     public static final RegistrySupplier<Item> ARROW_KEYS = register("arrow_keys", () -> new Item(baseProperties("arrow_keys")));
     public static final RegistrySupplier<Item> BUTTON_GROUP = register("button_group", () -> new Item(baseProperties("button_group")));
