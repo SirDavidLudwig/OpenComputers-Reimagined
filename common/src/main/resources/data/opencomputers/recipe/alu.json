@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IRI",
+    "TCT",
+    "ITI"
+  ],
+  "key": {
+    "C": "opencomputers:microchip1",
+    "I": "minecraft:iron_nugget",
+    "R":  "minecraft:redstone",
+    "T": "opencomputers:transistor"
+  },
+  "result": {
+    "id": "opencomputers:alu"
+  }
+}
