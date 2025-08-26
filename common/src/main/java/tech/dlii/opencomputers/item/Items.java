@@ -33,6 +33,7 @@ public class Items {
 
     public static final RegistrySupplier<Item> PRINTED_CIRCUIT_BOARD = register("printed_circuit_board", () -> new Item(baseProperties("printed_circuit_board")));
     public static final RegistrySupplier<Item> RAW_CIRCUIT_BOARD = register("raw_circuit_board", () -> new Item(baseProperties("raw_circuit_board")));
+    public static final RegistrySupplier<Item> TRANSISTOR = register("transistor", () -> new Item(baseProperties("transistor")));
 
     public static void initialize() {
         ITEMS.register();

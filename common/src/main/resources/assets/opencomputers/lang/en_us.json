@@ -12,5 +12,6 @@
   "item.opencomputers.memory6": "Memory (Tier 3.5)",
 
   "item.opencomputers.printed_circuit_board": "Printed Circuit Board (PCB)",
-  "item.opencomputers.raw_circuit_board": "Raw Circuit Board"
+  "item.opencomputers.raw_circuit_board": "Raw Circuit Board",
+  "item.opencomputers.transistor": "Transistor"
 }
