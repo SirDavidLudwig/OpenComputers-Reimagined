@@ -31,6 +31,10 @@ public class Items {
     public static final RegistrySupplier<Item> MEMORY5 = register("memory5", () -> new Item(baseProperties("memory5")));
     public static final RegistrySupplier<Item> MEMORY6 = register("memory6", () -> new Item(baseProperties("memory6")));
 
+    public static final RegistrySupplier<Item> MICROCHIP1 = register("microchip1", () -> new Item(baseProperties("microchip1")));
+    public static final RegistrySupplier<Item> MICROCHIP2 = register("microchip2", () -> new Item(baseProperties("microchip2")));
+    public static final RegistrySupplier<Item> MICROCHIP3 = register("microchip3", () -> new Item(baseProperties("microchip3")));
+
     public static final RegistrySupplier<Item> PRINTED_CIRCUIT_BOARD = register("printed_circuit_board", () -> new Item(baseProperties("printed_circuit_board")));
     public static final RegistrySupplier<Item> RAW_CIRCUIT_BOARD = register("raw_circuit_board", () -> new Item(baseProperties("raw_circuit_board")));
     public static final RegistrySupplier<Item> TRANSISTOR = register("transistor", () -> new Item(baseProperties("transistor")));

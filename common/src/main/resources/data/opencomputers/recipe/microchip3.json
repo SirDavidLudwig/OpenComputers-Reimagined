@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "RTR",
+    "DDD"
+  ],
+  "key": {
+    "D": "opencomputers:diamond_nugget",
+    "R": "minecraft:redstone",
+    "T": "opencomputers:transistor"
+  },
+  "result": {
+    "id": "opencomputers:microchip3",
+    "count": 2
+  }
+}

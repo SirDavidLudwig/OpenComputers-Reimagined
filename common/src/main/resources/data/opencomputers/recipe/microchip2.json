@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "RTR",
+    "GGG"
+  ],
+  "key": {
+    "G": "minecraft:gold_nugget",
+    "R": "minecraft:redstone",
+    "T": "opencomputers:transistor"
+  },
+  "result": {
+    "id": "opencomputers:microchip2",
+    "count": 4
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "RTR",
+    "III"
+  ],
+  "key": {
+    "I": "minecraft:iron_nugget",
+    "R": "minecraft:redstone",
+    "T": "opencomputers:transistor"
+  },
+  "result": {
+    "id": "opencomputers:microchip1",
+    "count": 8
+  }
+}
