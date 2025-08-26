@@ -1,4 +1,4 @@
-package tech.dlii.opencomputers.block;
+package tech.dlii.opencomputers.common.block;
 
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -16,7 +16,10 @@ import java.util.function.Supplier;
 public class Blocks {
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(API.MOD_ID, Registries.BLOCK);
 
-    public static final RegistrySupplier<CaseBlock> CASE = register("case", () -> new CaseBlock(baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL)));
+    public static final RegistrySupplier<CaseBlock> CASE1 = register("case1", () -> new CaseBlock(1, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL)));
+    public static final RegistrySupplier<CaseBlock> CASE2 = register("case2", () -> new CaseBlock(2, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL)));
+    public static final RegistrySupplier<CaseBlock> CASE3 = register("case3", () -> new CaseBlock(3, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL)));
+    public static final RegistrySupplier<CaseBlock> CASE_CREATIVE = register("case_creative", () -> new CaseBlock(-1, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL)));
 
     public static void initialize() {
         BLOCKS.register();

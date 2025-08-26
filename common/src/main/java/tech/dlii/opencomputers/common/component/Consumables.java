@@ -1,4 +1,4 @@
-package tech.dlii.opencomputers.component;
+package tech.dlii.opencomputers.common.component;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;

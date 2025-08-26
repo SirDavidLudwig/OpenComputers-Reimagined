@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "opencomputers:block/case",
+    "tints": [
+      {
+        "type": "constant",
+        "value": 16766720
+      }
+    ]
+  }
+}

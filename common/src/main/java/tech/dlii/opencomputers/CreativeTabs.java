@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.API;
-import tech.dlii.opencomputers.item.Items;
+import tech.dlii.opencomputers.common.item.Items;
 
 public class CreativeTabs {
 
@@ -18,7 +18,7 @@ public class CreativeTabs {
             "creative_tab",
             () -> CreativeTabRegistry.create(
                     Component.translatable("category." + API.MOD_ID),
-                    () -> new ItemStack(Items.CASE)
+                    () -> new ItemStack(Items.CASE1)
             )
     );
 

@@ -1,27 +1,28 @@
-package tech.dlii.opencomputers.item;
+package tech.dlii.opencomputers.common.item;
 
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import org.apache.logging.log4j.Logger;
 import tech.dlii.opencomputers.CreativeTabs;
+import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.api.API;
-import tech.dlii.opencomputers.block.Blocks;
-import tech.dlii.opencomputers.component.Consumables;
+import tech.dlii.opencomputers.common.block.Blocks;
+import tech.dlii.opencomputers.common.component.Consumables;
 
 import java.util.function.Supplier;
 
 public class Items {
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(API.MOD_ID, Registries.ITEM);
 
-    // Block Items
-    public static final RegistrySupplier<Item> CASE = ITEMS.register(Blocks.CASE.getId().getPath(), () -> new BlockItem(Blocks.CASE.get(), baseProperties(Blocks.CASE.getId().getPath())));
+    public static final RegistrySupplier<Item> CASE1 = register(Blocks.CASE1.getId().getPath(), () -> new BlockItem(Blocks.CASE1.get(), baseProperties(Blocks.CASE1.getId().getPath())));
+    public static final RegistrySupplier<Item> CASE2 = register(Blocks.CASE2.getId().getPath(), () -> new BlockItem(Blocks.CASE2.get(), baseProperties(Blocks.CASE2.getId().getPath())));
+    public static final RegistrySupplier<Item> CASE3 = register(Blocks.CASE3.getId().getPath(), () -> new BlockItem(Blocks.CASE3.get(), baseProperties(Blocks.CASE3.getId().getPath())));
+    public static final RegistrySupplier<Item> CASE_CREATIVE = register(Blocks.CASE_CREATIVE.getId().getPath(), () -> new BlockItem(Blocks.CASE_CREATIVE.get(), baseProperties(Blocks.CASE_CREATIVE.getId().getPath())));
 
     // Items
     public static final RegistrySupplier<Item> ACID = register("acid", () -> new Item(baseProperties("acid").component(DataComponents.CONSUMABLE, Consumables.ACID)));
@@ -60,7 +61,10 @@ public class Items {
         return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(API.MOD_ID, name))).arch$tab(CreativeTabs.COMMON);
     }
 
-    public static RegistrySupplier<Item> register(String name, Supplier<Item> item) {
+//    public static Item.Properties
+
+    public static <T extends Item> RegistrySupplier<Item> register(String name, Supplier<T> item) {
+        OpenComputers.LOGGER.info("Registering item: " + name + "; Resource Location: " + ResourceLocation.fromNamespaceAndPath(API.MOD_ID, name));
         return ITEMS.register(ResourceLocation.fromNamespaceAndPath(API.MOD_ID, name), item);
     }
 }

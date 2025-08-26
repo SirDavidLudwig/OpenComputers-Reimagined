@@ -1,4 +1,4 @@
-package tech.dlii.opencomputers.block.entity;
+package tech.dlii.opencomputers.common.block.entity;
 
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;

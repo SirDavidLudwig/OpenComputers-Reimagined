@@ -1,6 +1,8 @@
-package tech.dlii.opencomputers.block;
+package tech.dlii.opencomputers.common.block;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -14,17 +16,19 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
-import tech.dlii.opencomputers.block.entity.CaseBlockEntity;
+import tech.dlii.opencomputers.common.block.entity.CaseBlockEntity;
 
 public class CaseBlock extends BaseEntityBlock {
 
-    public static final MapCodec<CaseBlock> CODEC = simpleCodec(CaseBlock::new);
+    public static final MapCodec<CaseBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(Codec.INT.fieldOf("tier").forGetter((caseBlock) -> caseBlock.tier), propertiesCodec()).apply(instance, CaseBlock::new));
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty RUNNING = BooleanProperty.create("running");
 
-    public CaseBlock(Properties properties) {
-        super(properties);
+    public final int tier;
 
+    public CaseBlock(int tier, Properties properties) {
+        super(properties);
+        this.tier = tier;
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(RUNNING, false));
     }
 
