@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:green_dye",
+    "minecraft:gold_ingot",
+    "minecraft:clay"
+  ],
+  "result": {
+    "id": "opencomputers:raw_circuit_board",
+    "count": 8
+  }
+}

@@ -1,10 +1,16 @@
 {
   "item.opencomputers.case": "Case (Tier 1)",
 
+  "item.opencomputers.alu": "ALU",
+  "item.opencomputers.diamond_nugget": "Diamond Nugget",
+
   "item.opencomputers.memory1": "Memory (Tier 1)",
   "item.opencomputers.memory2": "Memory (Tier 1.5)",
   "item.opencomputers.memory3": "Memory (Tier 2)",
   "item.opencomputers.memory4": "Memory (Tier 2.5)",
   "item.opencomputers.memory5": "Memory (Tier 3)",
-  "item.opencomputers.memory6": "Memory (Tier 3.5)"
+  "item.opencomputers.memory6": "Memory (Tier 3.5)",
+
+  "item.opencomputers.printed_circuit_board": "Printed Circuit Board (PCB)",
+  "item.opencomputers.raw_circuit_board": "Raw Circuit Board"
 }
