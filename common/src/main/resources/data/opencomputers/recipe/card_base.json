@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I ",
+    "IP",
+    "IG"
+  ],
+  "key": {
+    "G": "minecraft:gold_nugget",
+    "I": "minecraft:iron_nugget",
+    "P": "opencomputers:printed_circuit_board"
+  },
+  "result": {
+    "id": "opencomputers:card_base"
+  }
+}

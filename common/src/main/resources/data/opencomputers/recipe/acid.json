@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:water_bucket",
+    "minecraft:sugar",
+    "minecraft:slime_ball",
+    "minecraft:fermented_spider_eye",
+    "minecraft:bone"
+  ],
+  "result": {
+    "id": "opencomputers:acid"
+  }
+}

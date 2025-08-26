@@ -2,6 +2,7 @@ package tech.dlii.opencomputers.item;
 
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -21,8 +22,17 @@ public class Items {
     public static final RegistrySupplier<Item> CASE = ITEMS.register(Blocks.CASE.getId().getPath(), () -> new BlockItem(Blocks.CASE.get(), baseProperties(Blocks.CASE.getId().getPath())));
 
     // Items
+    public static final RegistrySupplier<Item> ACID = register("acid", () -> new Item(baseProperties("acid")));
     public static final RegistrySupplier<Item> ALU = register("alu", () -> new Item(baseProperties("alu")));
+    public static final RegistrySupplier<Item> ARROW_KEYS = register("arrow_keys", () -> new Item(baseProperties("arrow_keys")));
+    public static final RegistrySupplier<Item> BUTTON_GROUP = register("button_group", () -> new Item(baseProperties("button_group")));
+    public static final RegistrySupplier<Item> CARD_BASE = register("card_base", () -> new Item(baseProperties("card_base")));
+    public static final RegistrySupplier<Item> CONTROL_UNIT = register("control_unit", () -> new Item(baseProperties("control_unit")));
+    public static final RegistrySupplier<Item> CUTTING_WIRE = register("cutting_wire", () -> new Item(baseProperties("cutting_wire")));
+
     public static final RegistrySupplier<Item> DIAMOND_NUGGET = register("diamond_nugget", () -> new Item(baseProperties("diamond_nugget")));
+    public static final RegistrySupplier<Item> DISK = register("disk", () -> new Item(baseProperties("disk")));
+    public static final RegistrySupplier<Item> INTERWEB = register("interweb", () -> new Item(baseProperties("interweb")));
 
     public static final RegistrySupplier<Item> MEMORY1 = register("memory1", () -> new Item(baseProperties("memory1")));
     public static final RegistrySupplier<Item> MEMORY2 = register("memory2", () -> new Item(baseProperties("memory2")));
@@ -35,6 +45,7 @@ public class Items {
     public static final RegistrySupplier<Item> MICROCHIP2 = register("microchip2", () -> new Item(baseProperties("microchip2")));
     public static final RegistrySupplier<Item> MICROCHIP3 = register("microchip3", () -> new Item(baseProperties("microchip3")));
 
+    public static final RegistrySupplier<Item> NUMPAD = register("numpad", () -> new Item(baseProperties("numpad")));
     public static final RegistrySupplier<Item> PRINTED_CIRCUIT_BOARD = register("printed_circuit_board", () -> new Item(baseProperties("printed_circuit_board")));
     public static final RegistrySupplier<Item> RAW_CIRCUIT_BOARD = register("raw_circuit_board", () -> new Item(baseProperties("raw_circuit_board")));
     public static final RegistrySupplier<Item> TRANSISTOR = register("transistor", () -> new Item(baseProperties("transistor")));

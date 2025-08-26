@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SIS"
+  ],
+  "key": {
+    "I": "minecraft:iron_nugget",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "opencomputers:cutting_wire"
+  }
+}

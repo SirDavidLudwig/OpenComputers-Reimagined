@@ -1,8 +1,16 @@
 {
   "item.opencomputers.case": "Case (Tier 1)",
 
+  "item.opencomputers.acid": "Acid",
   "item.opencomputers.alu": "ALU",
+  "item.opencomputers.arrow_keys": "Arrow Keys",
+  "item.opencomputers.button_group": "Button Group",
+  "item.opencomputers.card_base": "Card Base",
+  "item.opencomputers.control_unit": "Control Unit",
+  "item.opencomputers.cutting_wire": "Cutting Wire",
   "item.opencomputers.diamond_nugget": "Diamond Nugget",
+  "item.opencomputers.disk": "Disk",
+  "item.opencomputers.interweb": "Interweb",
 
   "item.opencomputers.memory1": "Memory (Tier 1)",
   "item.opencomputers.memory2": "Memory (Tier 1.5)",

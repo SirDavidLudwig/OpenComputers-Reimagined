@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GRG",
+    "TCT",
+    "GTG"
+  ],
+  "key": {
+    "C": "minecraft:clock",
+    "G": "minecraft:gold_nugget",
+    "R":  "minecraft:redstone",
+    "T": "opencomputers:transistor"
+  },
+  "result": {
+    "id": "opencomputers:control_unit"
+  }
+}
