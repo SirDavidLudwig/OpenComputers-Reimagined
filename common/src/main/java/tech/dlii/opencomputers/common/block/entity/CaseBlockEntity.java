@@ -12,9 +12,11 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.common.block.CaseBlock;
-import tech.dlii.opencomputers.common.container.CaseMenu;
+import tech.dlii.opencomputers.common.inventory.CaseMenu;
+import tech.dlii.opencomputers.common.inventory.InventorySlots;
 
 public class CaseBlockEntity extends BaseContainerBlockEntity {
 
@@ -26,8 +28,8 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
 
     public CaseBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityTypes.CASE.get(), blockPos, blockState);
-        items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         tier = ((CaseBlock) getBlockState().getBlock()).tier;
+        items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         dataAccess = new ContainerData() {
             @Override
             public int get(int i) {
@@ -52,12 +54,12 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected Component getDefaultName() {
+    protected @NotNull Component getDefaultName() {
         return Component.translatable("container.opencomputers.case");
     }
 
     @Override
-    protected NonNullList<ItemStack> getItems() {
+    protected @NotNull NonNullList<ItemStack> getItems() {
         return items;
     }
 
@@ -67,14 +69,14 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
+    protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
         OpenComputers.LOGGER.info("Creating menu for tier " + tier);
         return new CaseMenu(containerId, inventory, this, this.dataAccess, tier);
     }
 
     @Override
     public int getContainerSize() {
-        return 1;
+        return InventorySlots.CASE.get(tier).size();
     }
 
     public void setRunning(boolean running) {
@@ -88,4 +90,6 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
             OpenComputers.LOGGER.info("Tier " + ((CaseBlockEntity) blockEntity).tier + ": Ticker at " + blockPos.toShortString() + " with state " + blockState.toString() + " and entity type " + blockEntity.getClass().getName());
         }
     }
+
+
 }

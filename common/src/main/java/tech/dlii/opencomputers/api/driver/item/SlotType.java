@@ -1,6 +1,6 @@
 package tech.dlii.opencomputers.api.driver.item;
 
-public class Slot {
+public class SlotType {
 
     public static final String NONE = "none";
     public static final String ANY = "any";
@@ -18,7 +18,7 @@ public class Slot {
     public static final String TOOL = "tool";
     public static final String UPGRADE = "upgrade";
 
-    private Slot() {}
+    private SlotType() {}
 }
 
 

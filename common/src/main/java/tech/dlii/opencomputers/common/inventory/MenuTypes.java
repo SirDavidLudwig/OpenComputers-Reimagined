@@ -1,4 +1,4 @@
-package tech.dlii.opencomputers.common.container;
+package tech.dlii.opencomputers.common.inventory;
 
 import dev.architectury.event.events.client.ClientLifecycleEvent;
 import dev.architectury.platform.Platform;

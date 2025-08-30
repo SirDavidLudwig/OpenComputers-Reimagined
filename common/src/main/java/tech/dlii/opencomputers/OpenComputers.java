@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tech.dlii.opencomputers.common.block.Blocks;
 import tech.dlii.opencomputers.common.item.Items;
-import tech.dlii.opencomputers.common.container.MenuTypes;
+import tech.dlii.opencomputers.common.inventory.MenuTypes;
 
 public final class OpenComputers {
 

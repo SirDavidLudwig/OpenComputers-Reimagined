@@ -11,7 +11,7 @@ import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.client.gui.screens.CaseScreen;
 import tech.dlii.opencomputers.client.renderer.color.CaseBlockColor;
 import tech.dlii.opencomputers.common.block.Blocks;
-import tech.dlii.opencomputers.common.container.MenuTypes;
+import tech.dlii.opencomputers.common.inventory.MenuTypes;
 
 @Mod(value=API.MOD_ID, dist=Dist.CLIENT)
 public final class OpenComputersNeoForgeClient {

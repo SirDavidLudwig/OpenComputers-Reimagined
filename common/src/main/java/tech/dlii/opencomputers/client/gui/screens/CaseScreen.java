@@ -4,20 +4,15 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import tech.dlii.opencomputers.OpenComputers;
-import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.client.Textures;
 import tech.dlii.opencomputers.client.gui.ImageButton;
-import tech.dlii.opencomputers.common.container.CaseMenu;
-import tech.dlii.opencomputers.common.container.ComponentSlot;
+import tech.dlii.opencomputers.common.inventory.CaseMenu;
+import tech.dlii.opencomputers.common.inventory.ComponentSlot;
 
 public class CaseScreen extends AbstractContainerScreen<CaseMenu> {
-
-    public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "textures/gui/background.png");
-    public static final ResourceLocation COMPUTER = ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "textures/gui/computer.png");
 
     public ImageButton powerButton;
 
@@ -58,9 +53,12 @@ public class CaseScreen extends AbstractContainerScreen<CaseMenu> {
         }
         if (slot instanceof ComponentSlot componentSlot) {
             if (!slot.hasItem()) {
-                OpenComputers.LOGGER.info("Drawing background for slot " + componentSlot.slot + " of tier " + componentSlot.tier);
-                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, componentSlot.background, leftPos + slot.x, topPos + slot.y, 0, 0, 16, 16, 16, 16);
-                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, componentSlot.tierIcon, leftPos + slot.x, topPos + slot.y, 0, 0, 16, 16, 16, 16);
+                if (componentSlot.background != null) {
+                    guiGraphics.blit(RenderPipelines.GUI_TEXTURED, componentSlot.background, leftPos + slot.x, topPos + slot.y, 0, 0, 16, 16, 16, 16);
+                }
+                if (componentSlot.tierIcon != null) {
+                    guiGraphics.blit(RenderPipelines.GUI_TEXTURED, componentSlot.tierIcon, leftPos + slot.x, topPos + slot.y, 0, 0, 16, 16, 16, 16);
+                }
             }
         }
     }
@@ -69,8 +67,8 @@ public class CaseScreen extends AbstractContainerScreen<CaseMenu> {
     protected void renderBg(GuiGraphics guiGraphics, float f, int i, int j) {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, COMPUTER, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Textures.GUI.BACKGROUND, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Textures.GUI.COMPUTER, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         drawInventorySlots(guiGraphics);
     }
