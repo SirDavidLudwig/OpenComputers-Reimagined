@@ -1,5 +1,8 @@
 {
   "category.opencomputers": "OpenComputers",
+
+  "container.opencomputers.case": "Computer",
+
   "item.opencomputers.case1": "Case (Tier 1)",
   "item.opencomputers.case2": "Case (Tier 2)",
   "item.opencomputers.case3": "Case (Tier 3)",
