@@ -10,9 +10,9 @@ public class BlockEntityTypesFabric extends BlockEntityTypes {
     public static void initialize() {
         CASE = register("case", () -> FabricBlockEntityTypeBuilder.create(
                 CaseBlockEntity::new,
-                Blocks.CASE1.get(),
-                Blocks.CASE2.get(),
-                Blocks.CASE3.get(),
+                Blocks.CASE_1.get(),
+                Blocks.CASE_2.get(),
+                Blocks.CASE_3.get(),
                 Blocks.CASE_CREATIVE.get()
         ).build());
 

@@ -14,6 +14,9 @@
   "item.opencomputers.button_group": "Button Group",
   "item.opencomputers.card_base": "Card Base",
   "item.opencomputers.control_unit": "Control Unit",
+  "item.opencomputers.cpu_0": "CPU (Tier 1)",
+  "item.opencomputers.cpu_1": "CPU (Tier 2)",
+  "item.opencomputers.cpu_2": "CPU (Tier 3)",
   "item.opencomputers.cutting_wire": "Cutting Wire",
   "item.opencomputers.diamond_nugget": "Diamond Nugget",
   "item.opencomputers.disk": "Disk",
@@ -30,6 +33,7 @@
   "item.opencomputers.microchip2": "Microchip (Tier 2)",
   "item.opencomputers.microchip3": "Microchip (Tier 3)",
 
+  "item.opencomputers.numpad": "Numpad",
   "item.opencomputers.printed_circuit_board": "Printed Circuit Board (PCB)",
   "item.opencomputers.raw_circuit_board": "Raw Circuit Board",
   "item.opencomputers.transistor": "Transistor"
