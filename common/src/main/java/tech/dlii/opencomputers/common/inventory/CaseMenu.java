@@ -4,23 +4,14 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
 
 import java.util.List;
 
-public class CaseMenu extends AbstractContainerMenu {
-
-    public static int SLOT_SIZE = 18;
-
-    public final Inventory playerInventory;
-    public final Container container;
+public class CaseMenu extends AbstractBaseContainerMenu {
     public final ContainerData data;
     public final int tier;
 
@@ -32,15 +23,13 @@ public class CaseMenu extends AbstractContainerMenu {
 
     // Server-side Constructor
     public CaseMenu(int containerId, Inventory playerInventory, Container container, ContainerData containerData, int tier) {
-        super(MenuTypes.CASE.get(), containerId);
+        super(MenuTypes.CASE.get(), containerId, playerInventory, container);
 
         InventorySlots inventorySlots = InventorySlots.CASE.get(tier);
 
         checkContainerSize(container, inventorySlots.size());
         checkContainerDataCount(containerData, 1);
 
-        this.container = container;
-        this.playerInventory = playerInventory;
         this.data = containerData;
         this.tier = tier;
 
@@ -83,19 +72,6 @@ public class CaseMenu extends AbstractContainerMenu {
             this.addSlot(new ComponentSlot(container, slot.index(), 142, 16 + (i+inventorySlots.get(SlotType.HDD).size())*18, slot.type(), slot.tier()));
         }
 
-
-//        int[] rows = new int[]{0, 0, 0};
-//        for (InventorySlots.InventorySlot slot : inventorySlots.asList()) {
-//            int col = switch (slot.type()) {
-//                case SlotType.CARD -> 0;
-//                case SlotType.CPU,SlotType.MEMORY -> 1;
-//                case SlotType.HDD, SlotType.FLOPPY -> 2;
-//                default -> -1;
-//            };
-//            int row = rows[col]++;
-//            this.addSlot(new ComponentSlot(container, slot.index(), 98 + 22*col, 16 + row*18, slot.type(), slot.tier()));
-//        }
-
         // Add player inventory slots
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {
@@ -108,15 +84,5 @@ public class CaseMenu extends AbstractContainerMenu {
         }
 
         this.addDataSlots(containerData);
-    }
-
-    @Override
-    public ItemStack quickMoveStack(Player player, int i) {
-        return null;
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return container.stillValid(player);
     }
 }

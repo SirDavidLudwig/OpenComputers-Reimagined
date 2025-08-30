@@ -55,6 +55,7 @@ public class ComponentSlot extends net.minecraft.world.inventory.Slot {
         if (slot == SlotType.TOOL) {
             return true;
         }
+//        if (slot == itemStack.getItem().slotType)
         // Needs finishing
         return true;
     }

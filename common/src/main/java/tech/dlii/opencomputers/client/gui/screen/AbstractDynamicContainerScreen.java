@@ -1,44 +1,29 @@
-package tech.dlii.opencomputers.client.gui.screens;
+package tech.dlii.opencomputers.client.gui.screen;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.client.Textures;
-import tech.dlii.opencomputers.client.gui.ImageButton;
-import tech.dlii.opencomputers.common.inventory.CaseMenu;
+import tech.dlii.opencomputers.common.inventory.AbstractBaseContainerMenu;
 import tech.dlii.opencomputers.common.inventory.ComponentSlot;
 
-public class CaseScreen extends AbstractContainerScreen<CaseMenu> {
+public abstract class AbstractDynamicContainerScreen<T extends AbstractBaseContainerMenu> extends AbstractContainerScreen<T> {
 
-    public ImageButton powerButton;
-
-    public CaseScreen(CaseMenu abstractContainerMenu, Inventory inventory, Component component) {
+    public AbstractDynamicContainerScreen(T abstractContainerMenu, Inventory inventory, Component component) {
         super(abstractContainerMenu, inventory, component);
     }
 
-    @Override
-    protected void init() {
-        super.init();
-        powerButton = addRenderableWidget(
-            new ImageButton(
-                    leftPos + 70,
-                    topPos + 33,
-                    18,
-                    18,
-                    true,
-                    Textures.GUI.POWER_BUTTON,
-                    Component.translatable("component.opencomputers.power_button"),
-                    button -> OpenComputers.LOGGER.info("Power button pressed on tier " + menu.tier + " computer case.")
-            )
-        );
+    protected void drawSecondaryBackgroundLayer(GuiGraphics guiGraphics) {
+        // NO-OP
     }
 
     protected void drawSecondaryForegroundLayer(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-
+        // NO-OP
     }
 
     protected void drawInventorySlots(GuiGraphics guiGraphics) {
@@ -63,13 +48,45 @@ public class CaseScreen extends AbstractContainerScreen<CaseMenu> {
         }
     }
 
+    protected void drawSlotHighlight(GuiGraphics guiGraphics, Slot slot) {
+        // If nothing is hovered, nothing to highlight.
+        if (hoveredSlot == null) {
+            return;
+        }
+        // Hovering over a slot, highlight any items that can go here
+        if (hoveredSlot instanceof ComponentSlot componentSlot) {
+            if (componentSlot.hasItem()) {
+                return;
+            }
+            if (!isInPlayerInventory(componentSlot)) {
+                return;
+            }
+            if (!hoveredSlot.mayPlace(slot.getItem())) {
+                return;
+            }
+        }
+        // Hovering over an item in player inventory, highlight any slots that the item can fit in
+        else if (isInPlayerInventory(hoveredSlot)) {
+            if (!hoveredSlot.hasItem()) {
+                return;
+            }
+            if (isInPlayerInventory(slot)) {
+                return;
+            }
+            if (!slot.mayPlace(hoveredSlot.getItem())) {
+                return;
+            }
+        }
+        guiGraphics.fillGradient(slot.x, slot.y, slot.x + 16, slot.y + 16, 0x80FFFFFF, 0x80FFFFFF);
+    }
+
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float f, int i, int j) {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Textures.GUI.BACKGROUND, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Textures.GUI.COMPUTER, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
+        drawSecondaryBackgroundLayer(guiGraphics);
         drawInventorySlots(guiGraphics);
     }
 
@@ -77,16 +94,19 @@ public class CaseScreen extends AbstractContainerScreen<CaseMenu> {
     protected void renderLabels(GuiGraphics guiGraphics, int i, int j) {
         super.renderLabels(guiGraphics, i, j);
         drawSecondaryForegroundLayer(guiGraphics, i, j);
+        for (Slot slot : menu.slots) {
+            drawSlotHighlight(guiGraphics, slot);
+        }
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        powerButton.toggled = menu.data.get(0) != 0;
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         renderTooltip(guiGraphics, mouseX, mouseY);
-
-        int y = ((height - imageHeight) / 2) + 24;
-        guiGraphics.drawCenteredString(font, "Computer Case", width / 2, y, 0x404040);
-        guiGraphics.drawString(font, "Test", leftPos + 8, topPos + 72, 0x404040);
     }
+
+    protected boolean isInPlayerInventory(Slot slot) {
+        return slot.container == menu.playerInventory;
+    }
+
 }

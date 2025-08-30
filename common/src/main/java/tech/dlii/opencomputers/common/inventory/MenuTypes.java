@@ -9,7 +9,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import tech.dlii.opencomputers.api.API;
-import tech.dlii.opencomputers.client.gui.screens.CaseScreen;
+import tech.dlii.opencomputers.client.gui.screen.CaseScreen;
 
 import java.util.function.Supplier;
 

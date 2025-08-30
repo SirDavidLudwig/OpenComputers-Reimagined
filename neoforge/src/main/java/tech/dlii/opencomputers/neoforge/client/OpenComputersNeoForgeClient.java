@@ -8,7 +8,7 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.api.API;
-import tech.dlii.opencomputers.client.gui.screens.CaseScreen;
+import tech.dlii.opencomputers.client.gui.screen.CaseScreen;
 import tech.dlii.opencomputers.client.renderer.color.CaseBlockColor;
 import tech.dlii.opencomputers.common.block.Blocks;
 import tech.dlii.opencomputers.common.inventory.MenuTypes;
