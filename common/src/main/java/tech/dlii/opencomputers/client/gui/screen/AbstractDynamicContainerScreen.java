@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import tech.dlii.opencomputers.OpenComputers;
+import tech.dlii.opencomputers.api.driver.item.SlotType;
 import tech.dlii.opencomputers.client.Textures;
 import tech.dlii.opencomputers.common.inventory.AbstractBaseContainerMenu;
 import tech.dlii.opencomputers.common.inventory.ComponentSlot;
@@ -49,6 +50,11 @@ public abstract class AbstractDynamicContainerScreen<T extends AbstractBaseConta
     }
 
     protected void drawSlotHighlight(GuiGraphics guiGraphics, Slot slot) {
+        // If the player is currently moving an item, don't do any highlighting.
+
+        if (!minecraft.player.containerMenu.getCarried().isEmpty()) {
+            return;
+        }
         // If nothing is hovered, nothing to highlight.
         if (hoveredSlot == null) {
             return;
@@ -58,7 +64,7 @@ public abstract class AbstractDynamicContainerScreen<T extends AbstractBaseConta
             if (componentSlot.hasItem()) {
                 return;
             }
-            if (!isInPlayerInventory(componentSlot)) {
+            if (isInPlayerInventory(componentSlot)) {
                 return;
             }
             if (!hoveredSlot.mayPlace(slot.getItem())) {
@@ -70,6 +76,9 @@ public abstract class AbstractDynamicContainerScreen<T extends AbstractBaseConta
             if (!hoveredSlot.hasItem()) {
                 return;
             }
+            if (slot.hasItem()) {
+                return;
+            }
             if (isInPlayerInventory(slot)) {
                 return;
             }
@@ -77,7 +86,8 @@ public abstract class AbstractDynamicContainerScreen<T extends AbstractBaseConta
                 return;
             }
         }
-        guiGraphics.fillGradient(slot.x, slot.y, slot.x + 16, slot.y + 16, 0x80FFFFFF, 0x80FFFFFF);
+        guiGraphics.fill(RenderPipelines.GUI, slot.x, slot.y, slot.x + 16, slot.y + 16, 0x80FFFFFF);
+//        guiGraphics.fillGradient(slot.x, slot.y, slot.x + 16, slot.y + 16, 0x80FFFFFF, 0x80FFFFFF);
     }
 
     @Override
@@ -91,18 +101,22 @@ public abstract class AbstractDynamicContainerScreen<T extends AbstractBaseConta
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int i, int j) {
-        super.renderLabels(guiGraphics, i, j);
-        drawSecondaryForegroundLayer(guiGraphics, i, j);
-        for (Slot slot : menu.slots) {
-            drawSlotHighlight(guiGraphics, slot);
-        }
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderLabels(guiGraphics, mouseX, mouseY);
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
+        guiGraphics.pose().pushMatrix();
+        guiGraphics.pose().translate(leftPos, topPos);
+        drawSecondaryForegroundLayer(guiGraphics, mouseX, mouseY);
+        for (Slot slot : menu.slots) {
+            drawSlotHighlight(guiGraphics, slot);
+        }
+        guiGraphics.pose().popMatrix();
         renderTooltip(guiGraphics, mouseX, mouseY);
+
     }
 
     protected boolean isInPlayerInventory(Slot slot) {
