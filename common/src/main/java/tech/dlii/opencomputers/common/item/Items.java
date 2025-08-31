@@ -41,12 +41,12 @@ public class Items {
     public static final RegistrySupplier<Item> DISK = register("disk", () -> new Item(baseProperties("disk")));
     public static final RegistrySupplier<Item> INTERWEB = register("interweb", () -> new Item(baseProperties("interweb")));
 
-    public static final RegistrySupplier<Item> MEMORY1 = register("memory1", () -> new Item(baseProperties("memory1")));
-    public static final RegistrySupplier<Item> MEMORY2 = register("memory2", () -> new Item(baseProperties("memory2")));
-    public static final RegistrySupplier<Item> MEMORY3 = register("memory3", () -> new Item(baseProperties("memory3")));
-    public static final RegistrySupplier<Item> MEMORY4 = register("memory4", () -> new Item(baseProperties("memory4")));
-    public static final RegistrySupplier<Item> MEMORY5 = register("memory5", () -> new Item(baseProperties("memory5")));
-    public static final RegistrySupplier<Item> MEMORY6 = register("memory6", () -> new Item(baseProperties("memory6")));
+    public static final RegistrySupplier<Item> MEMORY1 = register("memory1", () -> new Memory(Tier.ONE, baseProperties("memory1")));
+    public static final RegistrySupplier<Item> MEMORY2 = register("memory2", () -> new Memory(Tier.ONE, baseProperties("memory2")));
+    public static final RegistrySupplier<Item> MEMORY3 = register("memory3", () -> new Memory(Tier.TWO, baseProperties("memory3")));
+    public static final RegistrySupplier<Item> MEMORY4 = register("memory4", () -> new Memory(Tier.TWO, baseProperties("memory4")));
+    public static final RegistrySupplier<Item> MEMORY5 = register("memory5", () -> new Memory(Tier.THREE, baseProperties("memory5")));
+    public static final RegistrySupplier<Item> MEMORY6 = register("memory6", () -> new Memory(Tier.THREE, baseProperties("memory6")));
 
     public static final RegistrySupplier<Item> MICROCHIP1 = register("microchip1", () -> new Item(baseProperties("microchip1")));
     public static final RegistrySupplier<Item> MICROCHIP2 = register("microchip2", () -> new Item(baseProperties("microchip2")));

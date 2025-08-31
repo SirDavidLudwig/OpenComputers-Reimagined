@@ -12,7 +12,7 @@ import tech.dlii.opencomputers.client.Textures;
 
 public class ComponentSlot extends net.minecraft.world.inventory.Slot {
 
-    public final String slot;
+    public final String slotType;
     public final int tier;
 
     public final @Nullable ResourceLocation tierIcon;
@@ -20,7 +20,7 @@ public class ComponentSlot extends net.minecraft.world.inventory.Slot {
 
     public ComponentSlot(Container container, int index, int x, int y, String slot, int tier) {
         super(container, index, x, y);
-        this.slot = slot;
+        this.slotType = slot;
         this.tier = tier;
 
         this.tierIcon = switch (tier) {
@@ -48,20 +48,20 @@ public class ComponentSlot extends net.minecraft.world.inventory.Slot {
         if (!container.canPlaceItem(getContainerSlot(), itemStack)) {
             return false;
         }
-        if (slot.equals(SlotType.NONE) || tier == Tier.NONE) {
+        if (slotType.equals(SlotType.NONE) || tier == Tier.NONE) {
             return false;
         }
-        if (slot.equals(SlotType.ANY) && tier == Tier.ANY) {
+        if (slotType.equals(SlotType.ANY) && tier == Tier.ANY) {
             return true;
         }
-        if (slot.equals(SlotType.TOOL)) {
+        if (slotType.equals(SlotType.TOOL)) {
             return true;
         }
         DriverItem driver = API.driver.driverFor(itemStack);
         if (driver == null) {
             return false;
         }
-        return (slot.equals(SlotType.ANY) || driver.slot(itemStack).equals(slot))
+        return (slotType.equals(SlotType.ANY) || driver.slot(itemStack).equals(slotType))
                 && ((tier == Tier.ANY || driver.tier(itemStack) <= tier));
     }
 }

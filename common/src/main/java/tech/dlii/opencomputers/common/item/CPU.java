@@ -1,17 +1,9 @@
 package tech.dlii.opencomputers.common.item;
 
-import net.minecraft.world.item.Item;
+import tech.dlii.opencomputers.api.driver.item.SlotType;
 
-public class CPU extends Item {
-
-    private final int tier;
-
+public class CPU extends ComponentItem {
     public CPU(int tier, Properties properties) {
-        super(properties);
-        this.tier = tier;
-    }
-
-    public int tier() {
-        return tier;
+        super(SlotType.CPU, tier, properties);
     }
 }

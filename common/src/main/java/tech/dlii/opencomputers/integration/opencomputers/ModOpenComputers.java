@@ -14,5 +14,6 @@ public class ModOpenComputers extends Mod {
     @Override
     public void initialize() {
         API.driver.add(new DriverCPU());
+        API.driver.add(new DriverMemory());
     }
 }
