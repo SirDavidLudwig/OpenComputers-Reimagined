@@ -2,6 +2,7 @@ package tech.dlii.opencomputers.server.driver;
 
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.api.driver.DriverAPI;
 import tech.dlii.opencomputers.api.driver.item.DriverItem;
 
@@ -15,6 +16,7 @@ public class DriverRegistry implements DriverAPI {
     @Override
     public void add(DriverItem driver) {
         assertNotLocked();
+        driverItems.add(driver);
     }
 
     @Override

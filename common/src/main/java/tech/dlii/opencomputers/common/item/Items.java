@@ -32,8 +32,8 @@ public class Items {
     public static final RegistrySupplier<Item> BUTTON_GROUP = register("button_group", () -> new Item(baseProperties("button_group")));
     public static final RegistrySupplier<Item> CARD_BASE = register("card_base", () -> new Item(baseProperties("card_base")));
     public static final RegistrySupplier<Item> CPU_TIER_1 = register("cpu_0", () -> new CPU(Tier.ONE, baseProperties("cpu_0")));
-    public static final RegistrySupplier<Item> CPU_TIER_2 = register("cpu_1", () -> new CPU(Tier.ONE, baseProperties("cpu_1")));
-    public static final RegistrySupplier<Item> CPU_TIER_3 = register("cpu_2", () -> new CPU(Tier.ONE, baseProperties("cpu_2")));
+    public static final RegistrySupplier<Item> CPU_TIER_2 = register("cpu_1", () -> new CPU(Tier.TWO, baseProperties("cpu_1")));
+    public static final RegistrySupplier<Item> CPU_TIER_3 = register("cpu_2", () -> new CPU(Tier.THREE, baseProperties("cpu_2")));
     public static final RegistrySupplier<Item> CONTROL_UNIT = register("control_unit", () -> new Item(baseProperties("control_unit")));
     public static final RegistrySupplier<Item> CUTTING_WIRE = register("cutting_wire", () -> new Item(baseProperties("cutting_wire")));
 

@@ -3,6 +3,7 @@ package tech.dlii.opencomputers.integration.opencomputers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
 import tech.dlii.opencomputers.common.item.CPU;
