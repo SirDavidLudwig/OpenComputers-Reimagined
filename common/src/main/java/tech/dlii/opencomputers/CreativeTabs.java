@@ -18,7 +18,7 @@ public class CreativeTabs {
             "creative_tab",
             () -> CreativeTabRegistry.create(
                     Component.translatable("category." + API.MOD_ID),
-                    () -> new ItemStack(Items.CASE_1)
+                    () -> new ItemStack(Items.CASE_TIER_1)
             )
     );
 

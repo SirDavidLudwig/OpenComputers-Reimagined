@@ -9,6 +9,6 @@ public final class OpenComputersFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         // This entrypoint is suitable for setting up client-specific logic, such as rendering.
-        ColorHandlerRegistry.registerBlockColors(new CaseBlockColor(), Blocks.CASE_1.get(), Blocks.CASE_2.get(), Blocks.CASE_3.get(), Blocks.CASE_CREATIVE.get());
+        ColorHandlerRegistry.registerBlockColors(new CaseBlockColor(), Blocks.CASE_TIER_1.get(), Blocks.CASE_TIER_2.get(), Blocks.CASE_TIER_3.get(), Blocks.CASE_CREATIVE.get());
     }
 }

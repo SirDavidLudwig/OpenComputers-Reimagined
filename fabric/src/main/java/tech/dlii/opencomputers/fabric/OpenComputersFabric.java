@@ -12,6 +12,8 @@ public final class OpenComputersFabric implements ModInitializer {
         // However, some things (like resources) may still be uninitialized.
         // Proceed with mild caution.
 
+        OpenComputers.LOGGER.info("Initializing OpenComputers...");
+
         // Run our common setup.
         OpenComputers.init();
 

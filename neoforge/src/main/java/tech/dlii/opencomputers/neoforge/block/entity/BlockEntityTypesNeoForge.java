@@ -9,9 +9,9 @@ public class BlockEntityTypesNeoForge extends BlockEntityTypes {
     public static void initialize() {
         CASE = register("case", () -> new BlockEntityType<>(
                 CaseBlockEntity::new,
-                Blocks.CASE_1.get(),
-                Blocks.CASE_2.get(),
-                Blocks.CASE_3.get(),
+                Blocks.CASE_TIER_1.get(),
+                Blocks.CASE_TIER_2.get(),
+                Blocks.CASE_TIER_3.get(),
                 Blocks.CASE_CREATIVE.get()
         ));
 

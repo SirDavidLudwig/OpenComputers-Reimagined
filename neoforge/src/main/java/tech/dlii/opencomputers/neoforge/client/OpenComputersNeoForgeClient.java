@@ -23,7 +23,7 @@ public final class OpenComputersNeoForgeClient {
 
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
         OpenComputers.LOGGER.info("Registering Block Colors");
-        event.register(new CaseBlockColor(), Blocks.CASE_1.get(), Blocks.CASE_2.get(), Blocks.CASE_3.get(), Blocks.CASE_CREATIVE.get());
+        event.register(new CaseBlockColor(), Blocks.CASE_TIER_1.get(), Blocks.CASE_TIER_2.get(), Blocks.CASE_TIER_3.get(), Blocks.CASE_CREATIVE.get());
     }
 
     public static void registerScreens(RegisterMenuScreensEvent event) {

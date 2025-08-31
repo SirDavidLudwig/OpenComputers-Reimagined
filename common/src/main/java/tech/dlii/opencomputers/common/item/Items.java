@@ -20,9 +20,9 @@ import java.util.function.Supplier;
 public class Items {
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(API.MOD_ID, Registries.ITEM);
 
-    public static final RegistrySupplier<Item> CASE_1 = register(Blocks.CASE_1.getId().getPath(), () -> new BlockItem(Blocks.CASE_1.get(), baseProperties(Blocks.CASE_1.getId().getPath())));
-    public static final RegistrySupplier<Item> CASE_2 = register(Blocks.CASE_2.getId().getPath(), () -> new BlockItem(Blocks.CASE_2.get(), baseProperties(Blocks.CASE_2.getId().getPath())));
-    public static final RegistrySupplier<Item> CASE_3 = register(Blocks.CASE_3.getId().getPath(), () -> new BlockItem(Blocks.CASE_3.get(), baseProperties(Blocks.CASE_3.getId().getPath())));
+    public static final RegistrySupplier<Item> CASE_TIER_1 = register(Blocks.CASE_TIER_1.getId().getPath(), () -> new BlockItem(Blocks.CASE_TIER_1.get(), baseProperties(Blocks.CASE_TIER_1.getId().getPath())));
+    public static final RegistrySupplier<Item> CASE_TIER_2 = register(Blocks.CASE_TIER_2.getId().getPath(), () -> new BlockItem(Blocks.CASE_TIER_2.get(), baseProperties(Blocks.CASE_TIER_2.getId().getPath())));
+    public static final RegistrySupplier<Item> CASE_TIER_3 = register(Blocks.CASE_TIER_3.getId().getPath(), () -> new BlockItem(Blocks.CASE_TIER_3.get(), baseProperties(Blocks.CASE_TIER_3.getId().getPath())));
     public static final RegistrySupplier<Item> CASE_CREATIVE = register(Blocks.CASE_CREATIVE.getId().getPath(), () -> new BlockItem(Blocks.CASE_CREATIVE.get(), baseProperties(Blocks.CASE_CREATIVE.getId().getPath())));
 
     // Items
@@ -31,9 +31,9 @@ public class Items {
     public static final RegistrySupplier<Item> ARROW_KEYS = register("arrow_keys", () -> new Item(baseProperties("arrow_keys")));
     public static final RegistrySupplier<Item> BUTTON_GROUP = register("button_group", () -> new Item(baseProperties("button_group")));
     public static final RegistrySupplier<Item> CARD_BASE = register("card_base", () -> new Item(baseProperties("card_base")));
-    public static final RegistrySupplier<Item> CPU_0 = register("cpu_0", () -> new CPU(Tier.ONE, baseProperties("cpu_0")));
-    public static final RegistrySupplier<Item> CPU_1 = register("cpu_1", () -> new CPU(Tier.ONE, baseProperties("cpu_1")));
-    public static final RegistrySupplier<Item> CPU_2 = register("cpu_2", () -> new CPU(Tier.ONE, baseProperties("cpu_2")));
+    public static final RegistrySupplier<Item> CPU_TIER_1 = register("cpu_0", () -> new CPU(Tier.ONE, baseProperties("cpu_0")));
+    public static final RegistrySupplier<Item> CPU_TIER_2 = register("cpu_1", () -> new CPU(Tier.ONE, baseProperties("cpu_1")));
+    public static final RegistrySupplier<Item> CPU_TIER_3 = register("cpu_2", () -> new CPU(Tier.ONE, baseProperties("cpu_2")));
     public static final RegistrySupplier<Item> CONTROL_UNIT = register("control_unit", () -> new Item(baseProperties("control_unit")));
     public static final RegistrySupplier<Item> CUTTING_WIRE = register("cutting_wire", () -> new Item(baseProperties("cutting_wire")));
 
@@ -65,10 +65,7 @@ public class Items {
         return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(API.MOD_ID, name))).arch$tab(CreativeTabs.COMMON);
     }
 
-//    public static Item.Properties
-
     public static <T extends Item> RegistrySupplier<Item> register(String name, Supplier<T> item) {
-        OpenComputers.LOGGER.info("Registering item: " + name + "; Resource Location: " + ResourceLocation.fromNamespaceAndPath(API.MOD_ID, name));
         return ITEMS.register(ResourceLocation.fromNamespaceAndPath(API.MOD_ID, name), item);
     }
 }

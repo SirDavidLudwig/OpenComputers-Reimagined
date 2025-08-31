@@ -4,7 +4,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.api.Tier;
+import tech.dlii.opencomputers.api.driver.item.DriverItem;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
 import tech.dlii.opencomputers.client.Textures;
 
@@ -49,14 +51,17 @@ public class ComponentSlot extends net.minecraft.world.inventory.Slot {
         if (slot.equals(SlotType.NONE) || tier == Tier.NONE) {
             return false;
         }
-        if (slot == SlotType.ANY && tier == Tier.ANY) {
+        if (slot.equals(SlotType.ANY) && tier == Tier.ANY) {
             return true;
         }
-        if (slot == SlotType.TOOL) {
+        if (slot.equals(SlotType.TOOL)) {
             return true;
         }
-//        if (slot == itemStack.getItem().slotType)
-        // Needs finishing
-        return true;
+        DriverItem driver = API.driver.driverFor(itemStack);
+        if (driver == null) {
+            return false;
+        }
+        return (slot.equals(SlotType.ANY) || driver.slot(itemStack).equals(slot))
+                && ((tier == Tier.ANY || driver.tier(itemStack) <= tier));
     }
 }
