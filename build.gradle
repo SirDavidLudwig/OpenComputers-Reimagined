@@ -29,6 +29,18 @@ subprojects {
         // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
         // See https://docs.gradle.org/current/userguide/declaring_repositories.html
         // for more information about repositories.
+        ivy {
+            name 'asie dependency mirror'
+            artifactPattern "https://asie.pl/javadeps/[module]-[revision](-[classifier]).[ext]"
+            content {
+                includeModule '', 'OC-LuaJ'
+                includeModule '', 'OC-JNLua'
+                includeModule '', 'OC-JNLua-Natives'
+            }
+            metadataSources {
+                artifact()
+            }
+        }
     }
 
     loom {
@@ -38,6 +50,10 @@ subprojects {
     dependencies {
         minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
         mappings loom.officialMojangMappings()
+
+        implementation name: 'OC-LuaJ', version: '20220907.1', ext: 'jar'
+        implementation name: 'OC-JNLua', version: '20230530.0', ext: 'jar'
+        implementation name: 'OC-JNLua-Natives', version: '20220928.1', ext: 'jar'
     }
 
     java {
