@@ -3,15 +3,20 @@ package tech.dlii.opencomputers.integration.opencomputers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import tech.dlii.opencomputers.OpenComputers;
+import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.api.Tier;
+import tech.dlii.opencomputers.api.driver.item.CallBudget;
+import tech.dlii.opencomputers.api.driver.item.MutableControlProcessingUnit;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
+import tech.dlii.opencomputers.api.machine.Architecture;
 import tech.dlii.opencomputers.common.item.CPU;
 import tech.dlii.opencomputers.common.item.Items;
+import tech.dlii.opencomputers.config.Configuration;
 
+import java.util.Collection;
 import java.util.List;
 
-public class DriverCPU extends OpenComputersItem {
+public class DriverCPU extends OpenComputersItem implements MutableControlProcessingUnit, CallBudget {
 
     private final List<Item> COMPATIBLE_ITEMS;
 
@@ -21,6 +26,34 @@ public class DriverCPU extends OpenComputersItem {
                 Items.CPU_TIER_2.get(),
                 Items.CPU_TIER_3.get()
         );
+    }
+
+    @Override
+    public double getCallBudget(ItemStack stack) {
+        return Configuration.CALL_BUDGETS[tier(stack)];
+    }
+
+    @Override
+    public Collection<Class<? extends Architecture>> allArchitectures() {
+        return API.machine.architectures();
+    }
+
+    @Override
+    public void setArchitecture(ItemStack stack, Class<? extends Architecture> architecture) {
+        if (!worksWith(stack)) {
+            throw new IllegalArgumentException("Unsupported CPU type.");
+        }
+
+    }
+
+    @Override
+    public int supportedComponents(ItemStack stack) {
+        return Configuration.CPU_COMPONENT_COUNT[tier(stack)];
+    }
+
+    @Override
+    public Class<? extends Architecture> architecture(ItemStack stack) {
+        return API.machine.architectures().stream().findFirst().orElse(null);
     }
 
     @Override
