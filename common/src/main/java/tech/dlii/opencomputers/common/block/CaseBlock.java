@@ -47,7 +47,6 @@ public class CaseBlock extends BaseEntityBlock implements InteractionEvent.Right
         if (player.isShiftKeyDown()) {
             return InteractionResult.PASS;
         }
-
         if (!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
             MenuRegistry.openExtendedMenu(serverPlayer, blockEntity, (buf) -> buf.writeInt(blockEntity.tier));
         }

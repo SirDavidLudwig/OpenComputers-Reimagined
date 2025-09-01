@@ -61,7 +61,7 @@ public class ComponentSlot extends net.minecraft.world.inventory.Slot {
         if (driver == null) {
             return false;
         }
-        return (slotType.equals(SlotType.ANY) || driver.slot(itemStack).equals(slotType))
+        return (slotType.equals(SlotType.ANY) || driver.slotType(itemStack).equals(slotType))
                 && ((tier == Tier.ANY || driver.tier(itemStack) <= tier));
     }
 }

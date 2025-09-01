@@ -14,6 +14,8 @@ public interface MachineAPI {
      */
     void add(Class<? extends Architecture> architecture);
 
+    Class<? extends Architecture> getDefaultArchitecture();
+
     /**
      * A list of all <em>registered</em> architectures.
      * <br>

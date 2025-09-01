@@ -13,7 +13,7 @@ public class OpenComputersItem implements DriverItem {
     }
 
     @Override
-    public String slot(ItemStack stack) {
+    public String slotType(ItemStack stack) {
         return "";
     }
 

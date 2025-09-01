@@ -24,6 +24,7 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
     private NonNullList<ItemStack> items;
     public final ContainerData dataAccess;
 
+    private int color;
     boolean isRunning = false;
 
     public CaseBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -91,5 +92,25 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
+    // Coloring
 
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        if (color == this.color) {
+            return;
+        }
+        this.color = color;
+        onColorChanged();
+    }
+
+    public void onColorChanged() {
+        if (getLevel()== null || !getLevel().isClientSide()) {
+            return;
+        }
+        // Send the color change
+        OpenComputers.LOGGER.debug("Sending the color change");
+    }
 }

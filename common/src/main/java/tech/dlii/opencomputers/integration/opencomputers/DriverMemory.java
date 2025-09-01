@@ -32,7 +32,7 @@ public class DriverMemory extends OpenComputersItem {
     }
 
     @Override
-    public String slot(ItemStack stack) {
+    public String slotType(ItemStack stack) {
         return SlotType.MEMORY;
     }
 

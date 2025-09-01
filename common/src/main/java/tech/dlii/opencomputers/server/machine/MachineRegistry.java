@@ -12,7 +12,7 @@ public class MachineRegistry implements MachineAPI {
 
     @Override
     public void add(Class<? extends Architecture> architecture) {
-
+        architectures.add(architecture);
     }
 
     @Override
@@ -22,6 +22,14 @@ public class MachineRegistry implements MachineAPI {
 
     @Override
     public String getArchitectureName(Class<? extends Architecture> architecture) {
-        return "";
+        Architecture.Name annotation = architecture.getAnnotation(Architecture.Name.class);
+        if (annotation == null) {
+            return architecture.getSimpleName();
+        }
+        return annotation.value();
+    }
+
+    public Class<? extends Architecture> getDefaultArchitecture() {
+        return architectures.getFirst();
     }
 }

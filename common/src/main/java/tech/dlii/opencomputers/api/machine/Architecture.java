@@ -133,27 +133,6 @@ public interface Architecture {
     void onConnect();
 
     /**
-     * Restores the state of this architecture as previously saved in
-     * {@link #saveData(CompoundTag)}. The architecture should be in the same
-     * state it was when it was saved after this, so it can be resumed from
-     * whatever state the owning machine was in when it was saved.
-     *
-     * @param nbt the tag compound to save to.
-     */
-    void loadData(CompoundTag nbt);
-
-    /**
-     * Saves the architecture for later restoration, e.g. across games or chunk
-     * unloads. Used to persist a machine's execution state. For native Lua this
-     * uses the Eris library to persist the main coroutine, for example.
-     * <br>
-     * Note that the tag compound is shared with the Machine.
-     *
-     * @param nbt the tag compound to save to.
-     */
-    void saveData(CompoundTag nbt);
-
-    /**
      * Architectures can be annotated with this to provide a nice display name.
      * <br>
      * This is used when the name of an architecture has to be displayed to the

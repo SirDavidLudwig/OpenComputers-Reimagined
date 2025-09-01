@@ -31,7 +31,7 @@ public interface DriverItem {
      * @return the slot type of the specified item.
      * @see li.cil.oc.api.driver.item.Slot
      */
-    String slot(ItemStack stack);
+    String slotType(ItemStack stack);
 
     /**
      * The tier of the specified item this driver supports.

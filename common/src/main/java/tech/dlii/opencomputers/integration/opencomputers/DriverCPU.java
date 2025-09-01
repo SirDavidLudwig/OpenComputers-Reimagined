@@ -9,6 +9,8 @@ import tech.dlii.opencomputers.api.driver.item.CallBudget;
 import tech.dlii.opencomputers.api.driver.item.MutableControlProcessingUnit;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
 import tech.dlii.opencomputers.api.machine.Architecture;
+import tech.dlii.opencomputers.common.component.ArchitectureComponent;
+import tech.dlii.opencomputers.common.component.DataComponents;
 import tech.dlii.opencomputers.common.item.CPU;
 import tech.dlii.opencomputers.common.item.Items;
 import tech.dlii.opencomputers.config.Configuration;
@@ -30,7 +32,7 @@ public class DriverCPU extends OpenComputersItem implements MutableControlProces
 
     @Override
     public double getCallBudget(ItemStack stack) {
-        return Configuration.CALL_BUDGETS[tier(stack)];
+        return Configuration.CALL_BUDGETS[Math.clamp(tier(stack), Tier.ONE, Tier.THREE)];
     }
 
     @Override
@@ -43,7 +45,7 @@ public class DriverCPU extends OpenComputersItem implements MutableControlProces
         if (!worksWith(stack)) {
             throw new IllegalArgumentException("Unsupported CPU type.");
         }
-
+        stack.set(DataComponents.ARCHITECTURE.get(), new ArchitectureComponent(architecture.getName(), API.machine.getArchitectureName(architecture)));
     }
 
     @Override
@@ -53,7 +55,20 @@ public class DriverCPU extends OpenComputersItem implements MutableControlProces
 
     @Override
     public Class<? extends Architecture> architecture(ItemStack stack) {
-        return API.machine.architectures().stream().findFirst().orElse(null);
+        ArchitectureComponent component = stack.get(DataComponents.ARCHITECTURE.get());
+        Class<? extends Architecture> architecture;
+        if (component == null) {
+            // Add a default architecture
+            architecture = API.machine.architectures().stream().findFirst().orElse(null);
+            setArchitecture(stack, architecture);
+        }
+        try {
+            architecture = Class.forName(component.className()).asSubclass(Architecture.class);
+        } catch (Throwable t) {
+            architecture = API.machine.architectures().stream().findFirst().orElse(null);
+            setArchitecture(stack, API.machine.architectures().stream().findFirst().orElse(null));
+        }
+        return architecture;
     }
 
     @Override
@@ -62,7 +77,7 @@ public class DriverCPU extends OpenComputersItem implements MutableControlProces
     }
 
     @Override
-    public String slot(ItemStack stack) {
+    public String slotType(ItemStack stack) {
         return SlotType.CPU;
     }
 
@@ -72,10 +87,5 @@ public class DriverCPU extends OpenComputersItem implements MutableControlProces
             return cpu.tier();
         }
         return Tier.ONE;
-    }
-
-    @Override
-    public CompoundTag dataTag(ItemStack stack) {
-        return super.dataTag(stack);
     }
 }
