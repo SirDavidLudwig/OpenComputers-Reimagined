@@ -5,10 +5,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
-import tech.dlii.opencomputers.OpenComputers;
-import tech.dlii.opencomputers.api.driver.item.SlotType;
 import tech.dlii.opencomputers.client.Textures;
 import tech.dlii.opencomputers.common.inventory.AbstractBaseContainerMenu;
 import tech.dlii.opencomputers.common.inventory.ComponentSlot;
@@ -51,7 +48,6 @@ public abstract class AbstractDynamicContainerScreen<T extends AbstractBaseConta
 
     protected void drawSlotHighlight(GuiGraphics guiGraphics, Slot slot) {
         // If the player is currently moving an item, don't do any highlighting.
-
         if (!minecraft.player.containerMenu.getCarried().isEmpty()) {
             return;
         }
@@ -87,7 +83,6 @@ public abstract class AbstractDynamicContainerScreen<T extends AbstractBaseConta
             }
         }
         guiGraphics.fill(RenderPipelines.GUI, slot.x, slot.y, slot.x + 16, slot.y + 16, 0x80FFFFFF);
-//        guiGraphics.fillGradient(slot.x, slot.y, slot.x + 16, slot.y + 16, 0x80FFFFFF, 0x80FFFFFF);
     }
 
     @Override

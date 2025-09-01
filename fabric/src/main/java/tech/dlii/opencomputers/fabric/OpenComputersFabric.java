@@ -12,12 +12,13 @@ public final class OpenComputersFabric implements ModInitializer {
         // However, some things (like resources) may still be uninitialized.
         // Proceed with mild caution.
 
-        OpenComputers.LOGGER.info("Initializing OpenComputers...");
-
         // Run our common setup.
-        OpenComputers.init();
+        OpenComputers.initialize();
 
         // Register the block entity types.
         BlockEntityTypesFabric.initialize();
+
+        // Connect everything together
+        OpenComputers.setup();
     }
 }
