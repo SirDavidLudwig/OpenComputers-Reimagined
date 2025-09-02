@@ -21,7 +21,7 @@ public class CaseBlockColor implements BlockColor {
                     return 0xFFD700; // Gold for tier 2
                 case Tier.THREE:
                     return 0x00FFFF; // Cyan for tier 3
-                case Tier.NONE:
+                case Tier.FOUR:
                     return 0xFF00FF; // Magenta for creative tier
             }
         }

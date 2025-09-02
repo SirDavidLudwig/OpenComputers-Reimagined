@@ -4,9 +4,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
+import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
 
 import java.util.List;
@@ -85,4 +87,9 @@ public class CaseMenu extends AbstractBaseContainerMenu {
 
         this.addDataSlots(containerData);
     }
+
+    @Override
+    public boolean stillValid(Player player) {
+        // Prevent interacting with creative cases while not in creative mode
+        return super.stillValid(player) && (tier != Tier.FOUR || player.isCreative());    }
 }

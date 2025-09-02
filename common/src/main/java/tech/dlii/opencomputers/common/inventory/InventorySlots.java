@@ -39,7 +39,7 @@ public final class InventorySlots {
                     .build(),
 
             // Case (Creative)
-            Tier.NONE, new InventorySlots.Builder()
+            Tier.FOUR, new InventorySlots.Builder()
                     .put(SlotType.CARD, Tier.THREE, Tier.THREE, Tier.THREE)
                     .put(SlotType.CPU, Tier.THREE)
                     .put(SlotType.EEPROM, Tier.ANY)

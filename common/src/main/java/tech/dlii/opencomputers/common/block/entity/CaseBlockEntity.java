@@ -5,6 +5,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import tech.dlii.opencomputers.OpenComputers;
+import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.common.block.CaseBlock;
 import tech.dlii.opencomputers.common.inventory.CaseMenu;
 import tech.dlii.opencomputers.common.inventory.InventorySlots;
@@ -86,6 +88,11 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
     @Override
     protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
         return new CaseMenu(containerId, inventory, this, this.dataAccess, tier);
+    }
+
+    @Override
+    public boolean canOpen(Player player) {
+        return super.canOpen(player) && (tier != Tier.FOUR || player.isCreative());
     }
 
     @Override
