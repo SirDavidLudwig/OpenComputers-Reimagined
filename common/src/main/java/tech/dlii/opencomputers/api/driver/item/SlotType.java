@@ -4,6 +4,7 @@ public class SlotType {
 
     public static final String NONE = "none";
     public static final String ANY = "any";
+    public static final String FILTERED = "filtered";
 
     public static final String CARD = "card";
     public static final String COMPONENT_BUS = "component_bus";

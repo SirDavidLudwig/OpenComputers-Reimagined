@@ -64,4 +64,13 @@ public class ComponentSlot extends net.minecraft.world.inventory.Slot {
         return (slotType.equals(SlotType.ANY) || driver.slotType(itemStack).equals(slotType))
                 && ((tier == Tier.ANY || driver.tier(itemStack) <= tier));
     }
+
+    @Override
+    public int getMaxStackSize() {
+        return switch (slotType) {
+            case SlotType.TOOL, SlotType.ANY, SlotType.FILTERED -> super.getMaxStackSize();
+            case SlotType.NONE -> 0;
+            default -> 1;
+        };
+    }
 }
