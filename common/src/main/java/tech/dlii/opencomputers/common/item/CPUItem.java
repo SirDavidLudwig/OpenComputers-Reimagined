@@ -6,7 +6,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.api.driver.item.DriverItem;
 import tech.dlii.opencomputers.api.driver.item.MutableControlProcessingUnit;
@@ -15,11 +14,10 @@ import tech.dlii.opencomputers.api.machine.Architecture;
 import tech.dlii.opencomputers.common.component.ArchitectureComponent;
 import tech.dlii.opencomputers.common.component.DataComponents;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CPU extends ComputerComponentItem {
-    public CPU(int tier, Properties properties) {
+public class CPUItem extends ComputerComponentItem {
+    public CPUItem(int tier, Properties properties) {
         super(SlotType.CPU, tier, properties.component(DataComponents.ARCHITECTURE.get(), ArchitectureComponent.fromArchitecture(API.machine.getDefaultArchitecture())));
     }
 

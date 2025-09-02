@@ -1,12 +1,11 @@
 package tech.dlii.opencomputers.integration.opencomputers;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.CallBudget;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
-import tech.dlii.opencomputers.common.item.Memory;
+import tech.dlii.opencomputers.common.item.MemoryItem;
 import tech.dlii.opencomputers.common.item.Items;
 import tech.dlii.opencomputers.config.Configuration;
 
@@ -29,7 +28,7 @@ public class DriverMemory extends ComponentDriver implements tech.dlii.opencompu
 
     @Override
     public double amount(ItemStack stack) {
-        if (!(stack.getItem() instanceof Memory memory)) {
+        if (!(stack.getItem() instanceof MemoryItem memory)) {
             return 0.0;
         }
         return Configuration.RAM_SIZES[memory.tier()];
@@ -47,7 +46,7 @@ public class DriverMemory extends ComponentDriver implements tech.dlii.opencompu
 
     @Override
     public int tier(ItemStack stack) {
-        if (!(stack.getItem() instanceof Memory memory)) {
+        if (!(stack.getItem() instanceof MemoryItem memory)) {
             return Tier.ONE;
         }
         return memory.tier() / 2;

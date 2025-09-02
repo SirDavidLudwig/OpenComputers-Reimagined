@@ -10,7 +10,7 @@ import tech.dlii.opencomputers.api.driver.item.SlotType;
 import tech.dlii.opencomputers.api.machine.Architecture;
 import tech.dlii.opencomputers.common.component.ArchitectureComponent;
 import tech.dlii.opencomputers.common.component.DataComponents;
-import tech.dlii.opencomputers.common.item.CPU;
+import tech.dlii.opencomputers.common.item.CPUItem;
 import tech.dlii.opencomputers.common.item.Items;
 import tech.dlii.opencomputers.config.Configuration;
 
@@ -77,7 +77,7 @@ public class DriverCPU extends ComponentDriver implements MutableControlProcessi
 
     @Override
     public int tier(ItemStack stack) {
-        if (stack.getItem() instanceof CPU cpu) {
+        if (stack.getItem() instanceof CPUItem cpu) {
             return cpu.tier();
         }
         return Tier.ONE;
