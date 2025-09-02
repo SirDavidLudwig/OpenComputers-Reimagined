@@ -4,14 +4,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.Tier;
+import tech.dlii.opencomputers.api.driver.item.CallBudget;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
-import tech.dlii.opencomputers.common.item.CPU;
 import tech.dlii.opencomputers.common.item.Memory;
 import tech.dlii.opencomputers.common.item.Items;
+import tech.dlii.opencomputers.config.Configuration;
 
 import java.util.List;
 
-public class DriverMemory extends OpenComputersItem {
+public class DriverMemory extends ComponentDriver implements tech.dlii.opencomputers.api.driver.item.Memory, CallBudget {
 
     private final List<Item> COMPATIBLE_ITEMS;
 
@@ -27,6 +28,14 @@ public class DriverMemory extends OpenComputersItem {
     }
 
     @Override
+    public double amount(ItemStack stack) {
+        if (!(stack.getItem() instanceof Memory memory)) {
+            return 0.0;
+        }
+        return Configuration.RAM_SIZES[memory.tier()];
+    }
+
+    @Override
     public boolean worksWith(ItemStack stack) {
         return this.COMPATIBLE_ITEMS.contains(stack.getItem());
     }
@@ -38,14 +47,14 @@ public class DriverMemory extends OpenComputersItem {
 
     @Override
     public int tier(ItemStack stack) {
-        if (stack.getItem() instanceof Memory memory) {
-            return memory.tier();
+        if (!(stack.getItem() instanceof Memory memory)) {
+            return Tier.ONE;
         }
-        return Tier.ONE;
+        return memory.tier() / 2;
     }
 
     @Override
-    public CompoundTag dataTag(ItemStack stack) {
-        return super.dataTag(stack);
+    public double getCallBudget(ItemStack stack) {
+        return Configuration.CALL_BUDGETS[Math.clamp(tier(stack), Tier.ONE, Tier.THREE)];
     }
 }

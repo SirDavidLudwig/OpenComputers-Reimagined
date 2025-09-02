@@ -1,6 +1,5 @@
 package tech.dlii.opencomputers.integration.opencomputers;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.API;
@@ -18,7 +17,7 @@ import tech.dlii.opencomputers.config.Configuration;
 import java.util.Collection;
 import java.util.List;
 
-public class DriverCPU extends OpenComputersItem implements MutableControlProcessingUnit, CallBudget {
+public class DriverCPU extends ComponentDriver implements MutableControlProcessingUnit, CallBudget {
 
     private final List<Item> COMPATIBLE_ITEMS;
 
@@ -28,11 +27,6 @@ public class DriverCPU extends OpenComputersItem implements MutableControlProces
                 Items.CPU_TIER_2.get(),
                 Items.CPU_TIER_3.get()
         );
-    }
-
-    @Override
-    public double getCallBudget(ItemStack stack) {
-        return Configuration.CALL_BUDGETS[Math.clamp(tier(stack), Tier.ONE, Tier.THREE)];
     }
 
     @Override
@@ -87,5 +81,10 @@ public class DriverCPU extends OpenComputersItem implements MutableControlProces
             return cpu.tier();
         }
         return Tier.ONE;
+    }
+
+    @Override
+    public double getCallBudget(ItemStack stack) {
+        return Configuration.CALL_BUDGETS[Math.clamp(tier(stack), Tier.ONE, Tier.THREE)];
     }
 }

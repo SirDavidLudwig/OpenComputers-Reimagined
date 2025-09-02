@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.DriverItem;
 
-public class OpenComputersItem implements DriverItem {
+public class ComponentDriver implements DriverItem {
 
     @Override
     public boolean worksWith(ItemStack stack) {
