@@ -10,6 +10,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.client.gui.screen.CaseScreen;
 import tech.dlii.opencomputers.client.renderer.color.CaseBlockColor;
+import tech.dlii.opencomputers.client.renderer.color.ScreenBlockColor;
 import tech.dlii.opencomputers.common.block.Blocks;
 import tech.dlii.opencomputers.common.inventory.MenuTypes;
 
@@ -22,6 +23,7 @@ public final class OpenComputersNeoForgeClient {
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
         event.register(new CaseBlockColor(), Blocks.CASE_TIER_1.get(), Blocks.CASE_TIER_2.get(), Blocks.CASE_TIER_3.get(), Blocks.CASE_CREATIVE.get());
+        event.register(new ScreenBlockColor(), Blocks.SCREEN_TIER_1.get(), Blocks.SCREEN_TIER_2.get(), Blocks.SCREEN_TIER_3.get());
     }
 
     @SubscribeEvent

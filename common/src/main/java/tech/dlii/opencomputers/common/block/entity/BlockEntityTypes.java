@@ -13,6 +13,7 @@ public class BlockEntityTypes {
     public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(API.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
 
     public static RegistrySupplier<BlockEntityType<CaseBlockEntity>> CASE;
+    public static RegistrySupplier<BlockEntityType<ScreenBlockEntity>> SCREEN;
 
     public static <T extends BlockEntityType<?>> RegistrySupplier<T> register(String name, Supplier<T> blockEntityType) {
         return BLOCK_ENTITY_TYPES.register(ResourceLocation.fromNamespaceAndPath(API.MOD_ID, name), blockEntityType);

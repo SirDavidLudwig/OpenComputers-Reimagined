@@ -9,10 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -33,7 +30,7 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
 
     public CaseBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityTypes.CASE.get(), blockPos, blockState);
-        tier = ((CaseBlock) getBlockState().getBlock()).tier;
+        tier = ((CaseBlock) getBlockState().getBlock()).tier();
         items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         dataAccess = new ContainerData() {
             @Override
@@ -105,10 +102,26 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
         OpenComputers.LOGGER.info("Powering on");
     }
 
-    public static class Ticker<T extends BlockEntity> implements BlockEntityTicker<T> {
-        @Override
-        public void tick(Level level, BlockPos blockPos, BlockState blockState, T blockEntity) {
-            OpenComputers.LOGGER.info("Tier " + ((CaseBlockEntity) blockEntity).tier + ": Ticker at " + blockPos.toShortString() + " with state " + blockState.toString() + " and entity type " + blockEntity.getClass().getName());
-        }
+//    public static class Ticker<T extends BlockEntity> implements BlockEntityTicker<T> {
+//        @Override
+//        public void tick(Level level, BlockPos blockPos, BlockState blockState, T blockEntity) {
+//            OpenComputers.LOGGER.info("Tier " + ((CaseBlockEntity) blockEntity).tier + ": Ticker at " + blockPos.toShortString() + " with state " + blockState.toString() + " and entity type " + blockEntity.getClass().getName());
+//        }
+//    }
+
+    // Machine Stuff
+
+    public void updateComponents() {
+
+    }
+
+    public void connectComponents() {
+        // Loop over container slots
+        // If the slot is a component slot, not empty, and it has not yet been added as a component,
+        // Create the environment
+    }
+
+    public void disconnectComponents() {
+        // Loop through registered components and remove the nodes.
     }
 }

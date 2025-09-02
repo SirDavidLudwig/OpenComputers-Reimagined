@@ -21,6 +21,9 @@ public class Blocks {
     public static final RegistrySupplier<CaseBlock> CASE_TIER_2 = register("case_" + Tier.TWO, () -> new CaseBlock(Tier.TWO, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
     public static final RegistrySupplier<CaseBlock> CASE_TIER_3 = register("case_" + Tier.THREE, () -> new CaseBlock(Tier.THREE, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
     public static final RegistrySupplier<CaseBlock> CASE_CREATIVE = register("case_creative", () -> new CaseBlock(Tier.FOUR, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
+    public static final RegistrySupplier<ScreenBlock> SCREEN_TIER_1 = register("screen_" + Tier.ONE, () -> new ScreenBlock(Tier.ONE, baseProperties("screen").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
+    public static final RegistrySupplier<ScreenBlock> SCREEN_TIER_2 = register("screen_" + Tier.TWO, () -> new ScreenBlock(Tier.TWO, baseProperties("screen").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
+    public static final RegistrySupplier<ScreenBlock> SCREEN_TIER_3 = register("screen_" + Tier.THREE, () -> new ScreenBlock(Tier.THREE, baseProperties("screen").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
 
     public static void initialize() {
         BLOCKS.register();

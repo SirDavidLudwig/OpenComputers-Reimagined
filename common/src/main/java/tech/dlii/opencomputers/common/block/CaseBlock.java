@@ -30,7 +30,7 @@ public class CaseBlock extends BaseEntityBlock implements InteractionEvent.Right
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty RUNNING = BooleanProperty.create("running");
 
-    public final int tier;
+    private final int tier;
 
     public CaseBlock(int tier, Properties properties) {
         super(properties);
@@ -61,6 +61,10 @@ public class CaseBlock extends BaseEntityBlock implements InteractionEvent.Right
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         return defaultBlockState().setValue(FACING, blockPlaceContext.getHorizontalDirection().getOpposite());
+    }
+
+    public int tier() {
+        return this.tier;
     }
 
     @Override

@@ -12,6 +12,10 @@
   "item.opencomputers.case_2": "Case (Tier 3)",
   "item.opencomputers.case_creative": "Case (Creative)",
 
+  "item.opencomputers.screen_0": "Screen (Tier 1)",
+  "item.opencomputers.screen_1": "Screen (Tier 2)",
+  "item.opencomputers.screen_2": "Screen (Tier 3)",
+
   "item.opencomputers.acid": "Acid",
   "item.opencomputers.alu": "ALU",
   "item.opencomputers.arrow_keys": "Arrow Keys",

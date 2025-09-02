@@ -24,6 +24,10 @@ public class Items {
     public static final RegistrySupplier<Item> CASE_TIER_3 = register(Blocks.CASE_TIER_3.getId().getPath(), () -> new BlockItem(Blocks.CASE_TIER_3.get(), baseProperties(Blocks.CASE_TIER_3.getId().getPath())));
     public static final RegistrySupplier<Item> CASE_CREATIVE = register(Blocks.CASE_CREATIVE.getId().getPath(), () -> new BlockItem(Blocks.CASE_CREATIVE.get(), baseProperties(Blocks.CASE_CREATIVE.getId().getPath())));
 
+    public static final RegistrySupplier<Item> SCREEN_TIER_1 = register(Blocks.SCREEN_TIER_1.getId().getPath(), () -> new BlockItem(Blocks.SCREEN_TIER_1.get(), baseProperties(Blocks.SCREEN_TIER_1.getId().getPath())));
+    public static final RegistrySupplier<Item> SCREEN_TIER_2 = register(Blocks.SCREEN_TIER_2.getId().getPath(), () -> new BlockItem(Blocks.SCREEN_TIER_2.get(), baseProperties(Blocks.SCREEN_TIER_2.getId().getPath())));
+    public static final RegistrySupplier<Item> SCREEN_TIER_3 = register(Blocks.SCREEN_TIER_3.getId().getPath(), () -> new BlockItem(Blocks.SCREEN_TIER_3.get(), baseProperties(Blocks.SCREEN_TIER_3.getId().getPath())));
+
     // Items
     public static final RegistrySupplier<Item> ACID = register("acid", () -> new Item(baseProperties("acid").component(DataComponents.CONSUMABLE, Consumables.ACID)));
     public static final RegistrySupplier<Item> ALU = register("alu", () -> new Item(baseProperties("alu")));
