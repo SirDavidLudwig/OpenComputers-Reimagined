@@ -1,5 +1,6 @@
 package tech.dlii.opencomputers.api.driver.item;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.machine.Architecture;
 
@@ -32,5 +33,5 @@ public interface ControlProcessingUnit extends DriverItem {
      * @param stack the stack representing the CPU to get the architecture for.
      * @return the type of this CPU's architecture.
      */
-    Class<? extends Architecture> architecture(ItemStack stack);
+    ResourceLocation architecture(ItemStack stack);
 }

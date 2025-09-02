@@ -5,12 +5,12 @@ import tech.dlii.opencomputers.config.Configuration;
 
 import java.util.Map;
 
-public class Memory implements DeviceInfo {
+public class MemoryComponent implements DeviceInfo {
 
     int tier;
     private final Map<String, String> deviceInfo;
 
-    public Memory(int tier) {
+    public MemoryComponent(int tier) {
         this.tier = tier;
         int x = ((int) Configuration.CALL_BUDGETS[tier] * 1000);
         this.deviceInfo = Map.of(

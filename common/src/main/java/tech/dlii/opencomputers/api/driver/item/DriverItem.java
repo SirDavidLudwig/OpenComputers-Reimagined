@@ -46,27 +46,4 @@ public interface DriverItem {
      * @return the tier of the specified item.
      */
     int tier(ItemStack stack);
-
-    /**
-     * Get the tag compound based on the item stack to use for persisting the
-     * environment associated with the specified item stack.
-     * <br>
-     * This is only used if the item has an environment. This must always be a
-     * child tag of the item stack's own tag compound, it will not be saved
-     * otherwise. Use this in the unlikely case that the default name collides
-     * with something. The built-in components use a child tag-compound with
-     * the name {@code oc:data}, which will also be used if this returns
-     * {@code null}.
-     * <br>
-     * This tag will be passed to the environment's
-     * {@link li.cil.oc.api.Persistable#saveData saveData} and
-     * {@link li.cil.oc.api.Persistable#loadData loadData} methods when
-     * appropriate (world save / load and when removed from their hosting
-     * inventory).
-     *
-     * @param stack the item to get the child tag from.
-     * @return the tag to use for saving and loading, or {@code null} to use
-     * the default tag {@code oc:data}.
-     */
-    CompoundTag dataTag(ItemStack stack);
 }

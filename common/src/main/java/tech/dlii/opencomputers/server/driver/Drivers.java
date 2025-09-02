@@ -2,19 +2,25 @@ package tech.dlii.opencomputers.server.driver;
 
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import tech.dlii.opencomputers.OpenComputers;
+import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.api.driver.DriverAPI;
 import tech.dlii.opencomputers.api.driver.item.DriverItem;
 
 import java.util.ArrayList;
 
-public class DriverRegistry implements DriverAPI {
+public class Drivers implements DriverAPI {
 
     private boolean locked = false;
     private ArrayList<DriverItem> driverItems = new ArrayList<>();
 
+    public static void initialize() {
+        API.driver = new Drivers();
+        API.driver.register(new CPUDriver());
+        API.driver.register(new MemoryDriver());
+    }
+
     @Override
-    public void add(DriverItem driver) {
+    public void register(DriverItem driver) {
         assertNotLocked();
         driverItems.add(driver);
     }

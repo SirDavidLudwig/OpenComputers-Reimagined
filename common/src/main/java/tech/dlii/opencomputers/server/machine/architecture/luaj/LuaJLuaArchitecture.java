@@ -4,7 +4,6 @@ import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.machine.Architecture;
 import tech.dlii.opencomputers.api.machine.ExecutionResult;
 
-@Architecture.Name("LuaJ")
 public class LuaJLuaArchitecture implements Architecture {
     @Override
     public boolean isInitialized() {

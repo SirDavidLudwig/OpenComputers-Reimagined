@@ -138,11 +138,11 @@ public interface Architecture {
      * This is used when the name of an architecture has to be displayed to the
      * user, such as when cycling architectures on a CPU.
      */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
-    @interface Name {
-        String value();
-    }
+//    @Retention(RetentionPolicy.RUNTIME)
+//    @Target(ElementType.TYPE)
+//    @interface Name {
+//        String value();
+//    }
 
     /**
      * Architectures flagged with this annotation can potentially run without
@@ -154,9 +154,9 @@ public interface Architecture {
      * start up you only need to always return {@code true} from
      * {@link #recomputeMemory}.
      */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
-    @Inherited
-    @interface NoMemoryRequirements {
-    }
+//    @Retention(RetentionPolicy.RUNTIME)
+//    @Target(ElementType.TYPE)
+//    @Inherited
+//    @interface NoMemoryRequirements {
+//    }
 }

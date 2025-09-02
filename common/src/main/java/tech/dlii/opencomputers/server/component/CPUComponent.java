@@ -4,12 +4,12 @@ import tech.dlii.opencomputers.api.driver.DeviceInfo;
 
 import java.util.Map;
 
-public class CPU implements DeviceInfo {
+public class CPUComponent implements DeviceInfo {
 
     int tier;
     private final Map<String, String> deviceInfo;
 
-    public CPU(int tier) {
+    public CPUComponent(int tier) {
         this.tier = tier;
         this.deviceInfo = Map.of(
                 DeviceAttribute.Class, DeviceClass.Processor,

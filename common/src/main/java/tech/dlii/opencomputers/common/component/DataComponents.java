@@ -12,9 +12,9 @@ import java.util.function.UnaryOperator;
 public class DataComponents {
     private static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.create(API.MOD_ID, Registries.DATA_COMPONENT_TYPE);
 
-    public static final RegistrySupplier<DataComponentType<ArchitectureComponent>> ARCHITECTURE = register(
+    public static final RegistrySupplier<DataComponentType<ResourceLocation>> ARCHITECTURE = register(
             "architecture",
-            builder -> builder.persistent(ArchitectureComponent.CODEC).networkSynchronized(ArchitectureComponent.STREAM_CODEC));
+            builder -> builder.persistent(ResourceLocation.CODEC).networkSynchronized(ResourceLocation.STREAM_CODEC));
 
     public static void initialize() {
         DATA_COMPONENT_TYPES.register();

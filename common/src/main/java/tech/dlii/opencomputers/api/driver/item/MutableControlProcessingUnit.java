@@ -1,7 +1,9 @@
 package tech.dlii.opencomputers.api.driver.item;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import tech.dlii.opencomputers.api.machine.Architecture;
+
+import java.util.List;
 
 /**
  * May be implemented in processor drivers of processors that can be reconfigured.
@@ -15,13 +17,13 @@ public interface MutableControlProcessingUnit extends ControlProcessingUnit {
     /**
      * Get a list of all architectures supported by this processor.
      */
-    java.util.Collection<Class<? extends Architecture>> allArchitectures();
+    List<ResourceLocation> architectures();
 
     /**
      * Set the architecture to use for the specified processor.
      *
-     * @param stack        the processor to set the architecture for.
-     * @param architecture the architecture to use on the processor.
+     * @param stack      the processor to set the architecture for.
+     * @param identifier the architecture to use on the processor.
      */
-    void setArchitecture(ItemStack stack, Class<? extends Architecture> architecture);
+    void setArchitecture(ItemStack stack, ResourceLocation identifier);
 }

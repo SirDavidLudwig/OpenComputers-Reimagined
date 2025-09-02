@@ -16,7 +16,7 @@ public interface DriverAPI {
      *
      * @param driver the driver for an item component.
      */
-    void add(DriverItem driver);
+    void register(DriverItem driver);
 
     /**
      * Looks up a driver for the specified item stack.

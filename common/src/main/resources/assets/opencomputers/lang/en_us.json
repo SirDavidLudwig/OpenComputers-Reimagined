@@ -1,4 +1,8 @@
 {
+  "architecture.opencomputers.lua52": "Lua 5.2",
+  "architecture.opencomputers.lua53": "Lua 5.3",
+  "architecture.opencomputers.lua54": "Lua 5.4",
+
   "category.opencomputers": "OpenComputers",
 
   "container.opencomputers.case": "Computer",

@@ -1,5 +1,6 @@
-package tech.dlii.opencomputers.integration.opencomputers;
+package tech.dlii.opencomputers.server.driver;
 
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.Tier;
@@ -11,20 +12,16 @@ import tech.dlii.opencomputers.config.Configuration;
 
 import java.util.List;
 
-public class DriverMemory extends ComponentDriver implements tech.dlii.opencomputers.api.driver.item.Memory, CallBudget {
+public class MemoryDriver extends ComponentDriver implements tech.dlii.opencomputers.api.driver.item.Memory, CallBudget {
 
-    private final List<Item> COMPATIBLE_ITEMS;
-
-    public DriverMemory() {
-        this.COMPATIBLE_ITEMS = List.of(
-                Items.MEMORY1.get(),
-                Items.MEMORY2.get(),
-                Items.MEMORY3.get(),
-                Items.MEMORY4.get(),
-                Items.MEMORY5.get(),
-                Items.MEMORY6.get()
-        );
-    }
+    private final List<RegistrySupplier<Item>> COMPATIBLE_ITEMS = List.of(
+            Items.MEMORY1,
+            Items.MEMORY2,
+            Items.MEMORY3,
+            Items.MEMORY4,
+            Items.MEMORY5,
+            Items.MEMORY6
+    );
 
     @Override
     public double amount(ItemStack stack) {
@@ -36,7 +33,8 @@ public class DriverMemory extends ComponentDriver implements tech.dlii.opencompu
 
     @Override
     public boolean worksWith(ItemStack stack) {
-        return this.COMPATIBLE_ITEMS.contains(stack.getItem());
+        Item stackItem = stack.getItem();
+        return COMPATIBLE_ITEMS.stream().anyMatch(item -> item.get() == stackItem);
     }
 
     @Override
