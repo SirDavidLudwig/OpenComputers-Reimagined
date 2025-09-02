@@ -10,10 +10,7 @@
             {
               "function": "minecraft:copy_components",
               "include": [
-                "minecraft:custom_name",
-                "minecraft:container",
-                "minecraft:lock",
-                "minecraft:container_loot"
+                "minecraft:custom_name"
               ],
               "source": "block_entity"
             }
