@@ -15,7 +15,7 @@ import tech.dlii.opencomputers.common.component.DataComponents;
 
 import java.util.List;
 
-public class CPUItem extends ComputerComponentItem {
+public class CPUItem extends ComponentItem {
     public CPUItem(int tier, Properties properties) {
         super(SlotType.CPU, tier, properties.component(DataComponents.ARCHITECTURE.get(), API.architectures.defaultArchitecture().getKey()));
     }

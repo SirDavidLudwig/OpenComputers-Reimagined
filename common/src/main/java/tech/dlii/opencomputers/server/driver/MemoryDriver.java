@@ -6,9 +6,9 @@ import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.CallBudget;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
+import tech.dlii.opencomputers.common.config.Configuration;
 import tech.dlii.opencomputers.common.item.MemoryItem;
 import tech.dlii.opencomputers.common.item.Items;
-import tech.dlii.opencomputers.config.Configuration;
 
 import java.util.List;
 

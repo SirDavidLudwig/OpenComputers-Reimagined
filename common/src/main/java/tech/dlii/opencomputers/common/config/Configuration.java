@@ -1,4 +1,4 @@
-package tech.dlii.opencomputers.config;
+package tech.dlii.opencomputers.common.config;
 
 public final class Configuration {
 

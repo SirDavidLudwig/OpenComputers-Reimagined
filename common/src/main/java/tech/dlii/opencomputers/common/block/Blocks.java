@@ -17,10 +17,10 @@ import java.util.function.Supplier;
 public class Blocks {
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(API.MOD_ID, Registries.BLOCK);
 
-    public static final RegistrySupplier<CaseBlock> CASE_TIER_1 = register("case_" + Tier.ONE, () -> new CaseBlock(Tier.ONE, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL)));
-    public static final RegistrySupplier<CaseBlock> CASE_TIER_2 = register("case_" + Tier.TWO, () -> new CaseBlock(Tier.TWO, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL)));
-    public static final RegistrySupplier<CaseBlock> CASE_TIER_3 = register("case_" + Tier.THREE, () -> new CaseBlock(Tier.THREE, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL)));
-    public static final RegistrySupplier<CaseBlock> CASE_CREATIVE = register("case_creative", () -> new CaseBlock(Tier.NONE, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL)));
+    public static final RegistrySupplier<CaseBlock> CASE_TIER_1 = register("case_" + Tier.ONE, () -> new CaseBlock(Tier.ONE, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
+    public static final RegistrySupplier<CaseBlock> CASE_TIER_2 = register("case_" + Tier.TWO, () -> new CaseBlock(Tier.TWO, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
+    public static final RegistrySupplier<CaseBlock> CASE_TIER_3 = register("case_" + Tier.THREE, () -> new CaseBlock(Tier.THREE, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
+    public static final RegistrySupplier<CaseBlock> CASE_CREATIVE = register("case_creative", () -> new CaseBlock(Tier.NONE, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
 
     public static void initialize() {
         BLOCKS.register();

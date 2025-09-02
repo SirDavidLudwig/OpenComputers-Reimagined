@@ -1,7 +1,7 @@
 package tech.dlii.opencomputers.server.component;
 
 import tech.dlii.opencomputers.api.driver.DeviceInfo;
-import tech.dlii.opencomputers.config.Configuration;
+import tech.dlii.opencomputers.common.config.Configuration;
 
 import java.util.Map;
 

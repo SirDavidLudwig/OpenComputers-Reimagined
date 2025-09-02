@@ -68,7 +68,6 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected void setItems(NonNullList<ItemStack> nonNullList) {
-        OpenComputers.LOGGER.info("Setting case items:", nonNullList);
         items = nonNullList;
     }
 
@@ -86,13 +85,11 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected @NotNull AbstractContainerMenu createMenu(int containerId, Inventory inventory) {
-        OpenComputers.LOGGER.info("Creating menu for tier " + tier);
         return new CaseMenu(containerId, inventory, this, this.dataAccess, tier);
     }
 
     @Override
     public int getContainerSize() {
-        OpenComputers.LOGGER.info("Getting container size of tier: " + tier + " with size " + InventorySlots.CASE.get(tier).size());
         return InventorySlots.CASE.get(tier).size();
     }
 

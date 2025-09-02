@@ -10,9 +10,9 @@ import tech.dlii.opencomputers.api.driver.item.CallBudget;
 import tech.dlii.opencomputers.api.driver.item.MutableControlProcessingUnit;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
 import tech.dlii.opencomputers.common.component.DataComponents;
+import tech.dlii.opencomputers.common.config.Configuration;
 import tech.dlii.opencomputers.common.item.CPUItem;
 import tech.dlii.opencomputers.common.item.Items;
-import tech.dlii.opencomputers.config.Configuration;
 
 import java.util.List;
 

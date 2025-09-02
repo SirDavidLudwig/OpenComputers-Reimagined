@@ -4,16 +4,16 @@ import net.minecraft.world.item.Item;
 import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
 
-public class ComputerComponentItem extends Item {
+public class ComponentItem extends Item {
 
     private final String slotType;
     private final int tier;
 
-    public ComputerComponentItem(Properties properties) {
+    public ComponentItem(Properties properties) {
         this(SlotType.NONE, Tier.NONE, properties);
     }
 
-    public ComputerComponentItem(String slotType, int tier, Properties properties) {
+    public ComponentItem(String slotType, int tier, Properties properties) {
         super(properties);
         this.slotType = slotType;
         this.tier = tier;
