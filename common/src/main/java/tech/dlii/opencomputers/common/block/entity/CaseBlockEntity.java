@@ -3,6 +3,7 @@ package tech.dlii.opencomputers.common.block.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
@@ -12,6 +13,8 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.common.block.CaseBlock;
@@ -24,7 +27,6 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
     private NonNullList<ItemStack> items;
     public final ContainerData dataAccess;
 
-    private int color;
     boolean isRunning = false;
 
     public CaseBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -66,7 +68,20 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected void setItems(NonNullList<ItemStack> nonNullList) {
+        OpenComputers.LOGGER.info("Setting case items:", nonNullList);
         items = nonNullList;
+    }
+
+    @Override
+    protected void loadAdditional(ValueInput valueInput) {
+        super.loadAdditional(valueInput);
+        ContainerHelper.loadAllItems(valueInput, this.items);
+    }
+
+    @Override
+    protected void saveAdditional(ValueOutput valueOutput) {
+        super.saveAdditional(valueOutput);
+        ContainerHelper.saveAllItems(valueOutput, this.items);
     }
 
     @Override
@@ -77,6 +92,7 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public int getContainerSize() {
+        OpenComputers.LOGGER.info("Getting container size of tier: " + tier + " with size " + InventorySlots.CASE.get(tier).size());
         return InventorySlots.CASE.get(tier).size();
     }
 
@@ -90,27 +106,5 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
         public void tick(Level level, BlockPos blockPos, BlockState blockState, T blockEntity) {
             OpenComputers.LOGGER.info("Tier " + ((CaseBlockEntity) blockEntity).tier + ": Ticker at " + blockPos.toShortString() + " with state " + blockState.toString() + " and entity type " + blockEntity.getClass().getName());
         }
-    }
-
-    // Coloring
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        if (color == this.color) {
-            return;
-        }
-        this.color = color;
-        onColorChanged();
-    }
-
-    public void onColorChanged() {
-        if (getLevel()== null || !getLevel().isClientSide()) {
-            return;
-        }
-        // Send the color change
-        OpenComputers.LOGGER.debug("Sending the color change");
     }
 }
