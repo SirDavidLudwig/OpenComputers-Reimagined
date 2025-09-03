@@ -3,8 +3,7 @@
   "textures": {
     "bottom": "opencomputers:block/generic_top",
     "top": "opencomputers:block/generic_top",
-    "side": "opencomputers:block/generic_side",
-    "front": "opencomputers:block/case_front"
+    "side": "opencomputers:block/generic_side"
   },
   "elements": [
     {
@@ -13,7 +12,7 @@
       "faces": {
         "down":  { "texture": "#bottom", "cullface": "down",  "tintindex": 0 },
         "up":    { "texture": "#top",    "cullface": "up",    "tintindex": 0 },
-        "north": { "texture": "#front",  "cullface": "north", "tintindex": 0 },
+        "north": { "texture": "#side",   "cullface": "north", "tintindex": 0 },
         "south": { "texture": "#side",   "cullface": "south", "tintindex": 0 },
         "west":  { "texture": "#side",   "cullface": "west",  "tintindex": 0 },
         "east":  { "texture": "#side",   "cullface": "east",  "tintindex": 0 }
