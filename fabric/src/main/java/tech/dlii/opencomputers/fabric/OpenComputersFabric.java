@@ -18,6 +18,8 @@ public final class OpenComputersFabric implements ModInitializer {
         // Register the block entity types.
         BlockEntityTypesFabric.initialize();
 
+
+
         // Connect everything together
         OpenComputers.setup();
     }
