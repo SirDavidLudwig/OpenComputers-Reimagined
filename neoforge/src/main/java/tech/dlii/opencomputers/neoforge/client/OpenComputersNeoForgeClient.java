@@ -24,6 +24,8 @@ public final class OpenComputersNeoForgeClient {
         modBus.register(OpenComputersNeoForgeClient.class);
     }
 
+
+
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
         event.register(new CaseBlockColor(), Blocks.CASE_TIER_1.get(), Blocks.CASE_TIER_2.get(), Blocks.CASE_TIER_3.get(), Blocks.CASE_CREATIVE.get());

@@ -1,4 +1,4 @@
-package tech.dlii.opencomputers.fabric.integration;
+package tech.dlii.opencomputers.integration;
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
@@ -43,11 +43,11 @@ public class ClothConfigAPI
 
         // Save the config.
         builder.setSavingRunnable(() -> {
-            OpenComputers.LOGGER.log(Level.INFO, "Saving config");
+            OpenComputers.LOGGER.log(Level.INFO, "Saving config ..");
 
+            //File file = new File()
 
-
-            OpenComputers.LOGGER.log(Level.INFO, "Done saving config");
+            OpenComputers.LOGGER.log(Level.INFO, "Done");
         });
 
         return builder.build();

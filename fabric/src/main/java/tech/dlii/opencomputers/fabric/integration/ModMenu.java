@@ -15,7 +15,7 @@ public class ModMenu implements ModMenuApi
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
 
         if (isClothConfigLoaded())
-            return ClothConfigAPI::createConfigScreen;
+            return tech.dlii.opencomputers.integration.ClothConfigAPI::createConfigScreen;
         return parent -> null;
     }
 
