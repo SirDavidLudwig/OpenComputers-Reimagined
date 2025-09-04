@@ -29,4 +29,10 @@ public final class Configuration {
             16,
             1024
     };
+
+    public static int[][] SCREEN_RESOLUTIONS = new int[][] {
+            new int[] {50, 16},
+            new int[] {80, 25},
+            new int[] {160, 50}
+    };
 }
