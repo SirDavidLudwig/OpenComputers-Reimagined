@@ -37,6 +37,12 @@ dependencies {
     // Architectury API. This is optional, and you can comment it out if you don't need it.
     modImplementation "dev.architectury:architectury-neoforge:$rootProject.architectury_api_version"
 
+    // Cloth Config API. Will most defiantly want in-game settings.
+    //modImplementation "maven.modrinth:cloth-config:$rootProject.cloth_config_api_version+neoforge"
+    modApi("me.shedaniel.cloth:cloth-config-neoforge:$rootProject.cloth_config_api_version")
+
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:20.0.811"
+
     common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
 }
