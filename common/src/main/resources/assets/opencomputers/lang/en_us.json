@@ -44,5 +44,13 @@
   "item.opencomputers.numpad": "Numpad",
   "item.opencomputers.printed_circuit_board": "Printed Circuit Board (PCB)",
   "item.opencomputers.raw_circuit_board": "Raw Circuit Board",
-  "item.opencomputers.transistor": "Transistor"
+  "item.opencomputers.transistor": "Transistor",
+
+  "config.opencomputers": "Configuration",
+  "config.opencomputers.server": "Server",
+  "config.opencomputers.server.use_power": "Use Power",
+  "config.opencomputers.server.use_power.desc": "Will computers use power",
+  "config.opencomputers.client": "Client",
+  "config.opencomputers.client.screen_render_distance": "Screen Render Distance",
+  "config.opencomputers.client.screen_render_distance.desc": "How far away screens will render, 0 to disable"
 }

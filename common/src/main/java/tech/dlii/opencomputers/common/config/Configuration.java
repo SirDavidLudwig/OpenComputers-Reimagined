@@ -8,6 +8,10 @@ public final class Configuration {
 
     public static int EXECUTION_DELAY = 12;
 
+    public static boolean USE_POWER = true;
+
+    public static int SCREEN_RENDER_DISTANCE = 16;
+
     public static int[] RAM_SIZES = new int[] {
             192,
             256,

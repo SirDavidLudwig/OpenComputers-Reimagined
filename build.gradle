@@ -41,6 +41,15 @@ subprojects {
                 artifact()
             }
         }
+        maven {
+            name = "Modrinth"
+            url = "https://api.modrinth.com/maven"
+        }
+        maven {
+            name = "shedaniel"
+            url "https://maven.shedaniel.me/"
+        }
+        maven { url "https://maven.terraformersmc.com/releases/" }
     }
 
     loom {

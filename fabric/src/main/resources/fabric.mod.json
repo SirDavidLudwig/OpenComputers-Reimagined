@@ -20,6 +20,9 @@
     ],
     "client": [
       "tech.dlii.opencomputers.fabric.client.OpenComputersFabricClient"
+    ],
+    "modmenu": [
+      "tech.dlii.opencomputers.fabric.integration.ModMenu"
     ]
   },
   "mixins": [
