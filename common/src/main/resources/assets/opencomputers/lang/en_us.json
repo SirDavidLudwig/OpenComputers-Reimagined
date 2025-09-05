@@ -3,7 +3,7 @@
   "architecture.opencomputers.lua53": "Lua 5.3",
   "architecture.opencomputers.lua54": "Lua 5.4",
 
-  "category.opencomputers": "OpenComputers",
+  "category.opencomputers": "OpenComputers: Reimagined",
 
   "container.opencomputers.case": "Computer",
 
@@ -46,11 +46,10 @@
   "item.opencomputers.raw_circuit_board": "Raw Circuit Board",
   "item.opencomputers.transistor": "Transistor",
 
-  "config.opencomputers": "Configuration",
-  "config.opencomputers.server": "Server",
-  "config.opencomputers.server.use_power": "Use Power",
-  "config.opencomputers.server.use_power.desc": "Will computers use power",
+  "config.opencomputers": "OpenComputers: Reimagined Config",
   "config.opencomputers.client": "Client",
   "config.opencomputers.client.screen_render_distance": "Screen Render Distance",
-  "config.opencomputers.client.screen_render_distance.desc": "How far away screens will render, 0 to disable"
+  "config.opencomputers.client.screen_render_distance.desc": "How far away screens will render, 0 to disable",
+
+  "config.opencomputers.common": "Common"
 }

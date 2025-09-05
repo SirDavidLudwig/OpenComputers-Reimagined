@@ -6,7 +6,9 @@ import tech.dlii.opencomputers.common.block.Blocks;
 import tech.dlii.opencomputers.common.component.DataComponents;
 import tech.dlii.opencomputers.common.item.Items;
 import tech.dlii.opencomputers.common.inventory.MenuTypes;
+import tech.dlii.opencomputers.config.Config;
 import tech.dlii.opencomputers.integration.Mods;
+import tech.dlii.opencomputers.server.OpenComputersGameRules;
 import tech.dlii.opencomputers.server.driver.Drivers;
 import tech.dlii.opencomputers.server.machine.architecture.Architectures;
 
@@ -18,12 +20,16 @@ public final class OpenComputers {
         Architectures.initialize();
         Drivers.initialize();
 
+        OpenComputersGameRules.initialize();
         CreativeTabs.initialize();
         DataComponents.initialize();
 
         Blocks.initialize();
         Items.initialize();
         // BlockEntityTypes.initialize(); // Invoked in platform-specific code
+
+        Config.read();
+
         MenuTypes.initialize();
     }
 
