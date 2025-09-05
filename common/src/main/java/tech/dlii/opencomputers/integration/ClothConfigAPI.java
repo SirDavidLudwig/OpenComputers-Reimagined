@@ -3,14 +3,15 @@ package tech.dlii.opencomputers.integration;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.api.Requirement;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.apache.logging.log4j.Level;
 import tech.dlii.opencomputers.OpenComputers;
+import tech.dlii.opencomputers.config.Config;
 
 import static tech.dlii.opencomputers.api.API.MOD_ID;
-import static tech.dlii.opencomputers.common.config.Configuration.SCREEN_RENDER_DISTANCE;
-import static tech.dlii.opencomputers.common.config.Configuration.USE_POWER;
+import static tech.dlii.opencomputers.common.config.Configuration.*;
 
 public class ClothConfigAPI
 {
@@ -26,7 +27,11 @@ public class ClothConfigAPI
         // Server specific settings.
         ConfigCategory server = builder.getOrCreateCategory(Component.translatable("config." + MOD_ID + ".server"));
 
+        // Check if in a world.
+        boolean isLogicalServer = false;
+
         server.addEntry(entryBuilder.startBooleanToggle(Component.translatable("config." + MOD_ID + ".server.use_power"), USE_POWER)
+                .setRequirement(Requirement.isTrue(() -> isLogicalServer))
                 .setDefaultValue(true)
                 .setTooltip(Component.translatable("config." + MOD_ID + ".server.use_power.desc"))
                 .setSaveConsumer(newValue -> USE_POWER = newValue)
@@ -45,9 +50,9 @@ public class ClothConfigAPI
         builder.setSavingRunnable(() -> {
             OpenComputers.LOGGER.log(Level.INFO, "Saving config ..");
 
-            //File file = new File()
+            Config.write();
 
-            OpenComputers.LOGGER.log(Level.INFO, "Done");
+            //OpenComputers.LOGGER.log(Level.INFO, "Done");
         });
 
         return builder.build();
