@@ -10,9 +10,21 @@ import java.util.function.Function;
 
 public abstract class CustomRenderTypes extends RenderType {
 
+    private static final RenderType SCREEN_TEXT_BACKGROUND = create(
+            API.MOD_ID + "/screen_text_background",
+            1536,
+            false,
+            true,
+            CustomRenderPipelines.SCREEN_TEXT_BACKGROUND,
+            RenderType.CompositeState.builder()
+                    .setTextureState(NO_TEXTURE)
+                    .setLightmapState(LIGHTMAP)
+                    .createCompositeState(true)
+    );
+
     private static final Function<ResourceLocation, RenderType> SCREEN_TEXT = Util.memoize(
             (resourceLocation -> create(
-                    API.MOD_ID + "/text_polygon_offset",
+                    API.MOD_ID + "/screen_text",
                     1536,
                     false,
                     true,
@@ -23,6 +35,10 @@ public abstract class CustomRenderTypes extends RenderType {
                             .createCompositeState(false)
             ))
     );
+
+    public static RenderType screenTextBackground() {
+        return SCREEN_TEXT_BACKGROUND;
+    }
 
     public static RenderType screenText(ResourceLocation resourceLocation) {
         return SCREEN_TEXT.apply(resourceLocation);

@@ -1,4 +1,4 @@
-package tech.dlii.opencomputers.common.component;
+package tech.dlii.opencomputers.common.machine;
 
 import tech.dlii.opencomputers.util.ExtendedUnicodeHelper;
 

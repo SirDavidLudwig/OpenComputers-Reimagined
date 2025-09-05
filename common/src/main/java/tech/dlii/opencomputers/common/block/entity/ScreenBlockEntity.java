@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import tech.dlii.opencomputers.common.block.ScreenBlock;
 import tech.dlii.opencomputers.common.block.property.BlockStateProperties;
-import tech.dlii.opencomputers.common.component.TextBuffer;
+import tech.dlii.opencomputers.common.machine.TextBuffer;
 import tech.dlii.opencomputers.common.config.Configuration;
 
 public class ScreenBlockEntity extends BlockEntity {

@@ -20,10 +20,21 @@ public final class CustomRenderPipelines {
     public static final Map<ResourceLocation, RenderPipeline> PIPELINES_BY_LOCATION = new HashMap<>();
 
     public static final RenderPipeline.Snippet TEXT_SNIPPET = RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
-            .withBlend(BlendFunction.TRANSLUCENT)
+//            .withBlend(BlendFunction.TRANSLUCENT)
             .withoutBlend()
             .withVertexFormat(DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS)
             .buildSnippet();
+
+    public static final RenderPipeline SCREEN_TEXT_BACKGROUND = register(
+            RenderPipeline.builder(TEXT_SNIPPET, RenderPipelines.FOG_SNIPPET)
+                    .withLocation("pipeline/text_background")
+                    .withVertexShader("core/rendertype_text_background")
+                    .withFragmentShader("core/rendertype_text_background")
+                    .withSampler("Sampler2")
+                    .withVertexFormat(DefaultVertexFormat.POSITION_COLOR_LIGHTMAP, VertexFormat.Mode.QUADS)
+                    .withDepthBias(-1.0f, -10.0f)
+                    .build()
+    );
 
     public static final RenderPipeline SCREEN_TEXT = register(
             RenderPipeline.builder(TEXT_SNIPPET, RenderPipelines.FOG_SNIPPET)
@@ -32,7 +43,7 @@ public final class CustomRenderPipelines {
                     .withFragmentShader("core/rendertype_text")
                     .withSampler("Sampler0")
                     .withSampler("Sampler2")
-                    .withDepthBias(-1.0F, -10.0F)
+                    .withDepthBias(-2.0F, -20.0F)
                     .build()
     );
 

@@ -1,9 +1,10 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "bottom": "opencomputers:block/generic_top",
-    "top": "opencomputers:block/generic_top",
-    "side": "opencomputers:block/generic_side"
+    "bottom": "opencomputers:block/screen/b",
+    "top": "opencomputers:block/screen/b",
+    "side": "opencomputers:block/screen/b2",
+    "front": "opencomputers:block/screen/f2"
   },
   "elements": [
     {
@@ -12,7 +13,7 @@
       "faces": {
         "down":  { "texture": "#bottom", "cullface": "down",  "tintindex": 0 },
         "up":    { "texture": "#top",    "cullface": "up",    "tintindex": 0 },
-        "north": { "texture": "#side",   "cullface": "north", "tintindex": 0 },
+        "north": { "texture": "#front",  "cullface": "north", "tintindex": 0 },
         "south": { "texture": "#side",   "cullface": "south", "tintindex": 0 },
         "west":  { "texture": "#side",   "cullface": "west",  "tintindex": 0 },
         "east":  { "texture": "#side",   "cullface": "east",  "tintindex": 0 }
