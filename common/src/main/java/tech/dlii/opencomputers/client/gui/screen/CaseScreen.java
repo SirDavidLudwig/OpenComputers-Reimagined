@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.client.Textures;
-import tech.dlii.opencomputers.client.gui.ImageButton;
+import tech.dlii.opencomputers.client.gui.widget.ImageButton;
 import tech.dlii.opencomputers.common.inventory.CaseMenu;
 
 public class CaseScreen extends AbstractDynamicContainerScreen<CaseMenu> {

@@ -34,10 +34,5 @@ public interface TextBuffer {
      */
     boolean setResolution(int width, int height);
 
-    int getRenderWidth();
-    int getRenderHeight();
-
-
-
     void setText(int row, int column, int[][] text);
 }

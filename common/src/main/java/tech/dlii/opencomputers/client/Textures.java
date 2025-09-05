@@ -7,6 +7,7 @@ public class Textures {
 
     public static final class GUI {
         public static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "textures/gui/background.png");
+        public static final ResourceLocation BORDERS = ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "textures/gui/borders.png");
         public static final ResourceLocation COMPUTER = ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "textures/gui/computer.png");
         public static final ResourceLocation POWER_BUTTON = ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "textures/gui/button_power.png");
         public static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath(API.MOD_ID, "textures/gui/slot.png");

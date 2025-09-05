@@ -1,9 +1,12 @@
 package tech.dlii.opencomputers.common.block.entity;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import tech.dlii.opencomputers.OpenComputers;
+import tech.dlii.opencomputers.client.gui.screen.ScreenScreen;
 import tech.dlii.opencomputers.common.block.ScreenBlock;
 import tech.dlii.opencomputers.common.block.property.BlockStateProperties;
 import tech.dlii.opencomputers.common.machine.TextBuffer;
@@ -34,11 +37,43 @@ public class ScreenBlockEntity extends BlockEntity {
         );
     }
 
+    @Override
+    public void setRemoved() {
+        super.setRemoved();
+        // destroy multiblock here
+//        if (
+//                level.isClientSide()
+//                && Minecraft.getInstance().screen instanceof ScreenScreen screen
+//                && screen.buffer == buffer) {
+//            screen.onClose();
+//        }
+        OpenComputers.LOGGER.info("Removed screen block");
+    }
+
     public Direction pitch() {
         return this.pitch;
     }
 
     public Direction yaw() {
         return this.yaw;
+    }
+
+    public ScreenBlockEntity origin() {
+        return this.origin;
+    }
+
+    public TextBuffer buffer() {
+        if (origin != this) {
+            return origin.buffer();
+        }
+        return this.buffer;
+    }
+
+    public boolean hasKeyboard() {
+        if (origin != this) {
+            return origin.hasKeyboard();
+        }
+        // @TODO implement logic
+        return true;
     }
 }

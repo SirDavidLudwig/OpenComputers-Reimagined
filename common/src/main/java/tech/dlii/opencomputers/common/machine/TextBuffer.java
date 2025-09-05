@@ -42,16 +42,6 @@ public class TextBuffer implements tech.dlii.opencomputers.api.TextBuffer {
     }
 
     @Override
-    public int getRenderWidth() {
-        return 8;
-    }
-
-    @Override
-    public int getRenderHeight() {
-        return 6;
-    }
-
-    @Override
     public void setText(int column, int row, int[][] text) {
 
     }

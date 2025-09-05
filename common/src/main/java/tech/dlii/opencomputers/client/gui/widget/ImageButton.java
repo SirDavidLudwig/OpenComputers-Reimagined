@@ -1,4 +1,4 @@
-package tech.dlii.opencomputers.client.gui;
+package tech.dlii.opencomputers.client.gui.widget;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;

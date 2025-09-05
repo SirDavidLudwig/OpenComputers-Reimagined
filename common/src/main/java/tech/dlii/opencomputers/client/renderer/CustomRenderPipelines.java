@@ -1,6 +1,5 @@
 package tech.dlii.opencomputers.client.renderer;
 
-import com.mojang.blaze3d.pipeline.BlendFunction;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -20,7 +19,6 @@ public final class CustomRenderPipelines {
     public static final Map<ResourceLocation, RenderPipeline> PIPELINES_BY_LOCATION = new HashMap<>();
 
     public static final RenderPipeline.Snippet TEXT_SNIPPET = RenderPipeline.builder(RenderPipelines.MATRICES_PROJECTION_SNIPPET)
-//            .withBlend(BlendFunction.TRANSLUCENT)
             .withoutBlend()
             .withVertexFormat(DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS)
             .buildSnippet();

@@ -3,8 +3,14 @@ package tech.dlii.opencomputers.common.block;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.architectury.event.events.common.InteractionEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -13,10 +19,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
+import tech.dlii.opencomputers.client.gui.screen.ScreenScreen;
+import tech.dlii.opencomputers.common.block.entity.CaseBlockEntity;
 import tech.dlii.opencomputers.common.block.entity.ScreenBlockEntity;
 import tech.dlii.opencomputers.common.block.property.BlockStateProperties;
 
-public class ScreenBlock extends BaseEntityBlock {
+public class ScreenBlock extends BaseEntityBlock implements InteractionEvent.RightClickBlock {
 
     public static final MapCodec<ScreenBlock> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
@@ -32,6 +40,7 @@ public class ScreenBlock extends BaseEntityBlock {
         super(properties);
         this.tier = tier;
         registerDefaultState(getStateDefinition().any().setValue(PITCH, Direction.NORTH).setValue(YAW, Direction.NORTH));
+        InteractionEvent.RIGHT_CLICK_BLOCK.register(this);
     }
 
     @Override
@@ -52,6 +61,31 @@ public class ScreenBlock extends BaseEntityBlock {
 
     public int tier() {
         return this.tier;
+    }
+
+    @Override
+    public InteractionResult click(Player player, InteractionHand hand, BlockPos pos, Direction face) {
+        if (player.level().getBlockEntity(pos) == null || !(player.level().getBlockEntity(pos) instanceof ScreenBlockEntity blockEntity)) {
+            return InteractionResult.PASS;
+        }
+        if (player.isShiftKeyDown()) {
+            return InteractionResult.PASS;
+        }
+        if (player.level().isClientSide()) {
+            openGui(blockEntity);
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.PASS;
+    }
+
+    public void openGui(ScreenBlockEntity blockEntity) {
+        Minecraft.getInstance().setScreen(
+                new ScreenScreen(
+                        blockEntity.origin().buffer(),
+                        tier,
+                        () -> blockEntity.origin().hasKeyboard()
+                )
+        );
     }
 
     @Override
