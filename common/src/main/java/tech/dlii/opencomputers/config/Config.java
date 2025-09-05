@@ -15,13 +15,13 @@ import static tech.dlii.opencomputers.common.config.Configuration.*;
 public class Config
 {
 
-    private static final Path PATH_COMMON = getCommonConfigPath();
+    private static final Path PATH_CLIENT = getClientConfigPath(), PATH_COMMON = getCommonConfigPath();
 
     public static void read()
     {
-        if (Files.exists(PATH_COMMON)) {
+        if (Files.exists(PATH_CLIENT)) {
 
-            try (BufferedReader br = Files.newBufferedReader(PATH_COMMON)) {
+            try (BufferedReader br = Files.newBufferedReader(PATH_CLIENT)) {
 
                 String line;
 
@@ -50,9 +50,8 @@ public class Config
                                 }
 
                             } catch (Exception e) {
-                                LOGGER.warn("Bad value for option {}", key);
+                                LOGGER.warn("Bad value for option {}, skipping ..", key);
                             }
-
                         }
                     }
                 }
@@ -67,30 +66,46 @@ public class Config
 
     public static void write()
     {
-        try (BufferedWriter bw = Files.newBufferedWriter(PATH_COMMON)) {
+        try (BufferedWriter bw = Files.newBufferedWriter(PATH_CLIENT)) {
 
             // Save the config.
-            bw.write("screen_render_distance=");
-            bw.write(Integer.toString(SCREEN_RENDER_DISTANCE));
-            bw.newLine();
+
+            writeOption(bw,
+                    "screen_render_distance",
+                    "How far away screens will render, 0 to disable.",
+                    SCREEN_RENDER_DISTANCE
+            );
 
             LOGGER.info("Finished saving config.");
 
         } catch (IOException e) {
-            // Something went wrong.
 
+            // Something went wrong.
             LOGGER.error("Unable to save config: {}", e.getMessage());
             LOGGER.error(e.getStackTrace());
-
         }
-
     }
 
+    private static <T> void writeOption(BufferedWriter bw, String key, String comment, T value) throws IOException
+    {
+        bw.write("# " + comment);
+        bw.newLine();
+        writeOption(bw, key, value);
+    }
+    private static <T> void writeOption(BufferedWriter bw, String key, T value) throws IOException
+    {
+        bw.write(key + "=");
+        bw.write(value.toString());
+        bw.newLine();
+    }
+
+    private static Path getClientConfigPath()
+    {
+        return Paths.get(".").resolve("config").resolve(API.MOD_ID + "-client.conf");
+    }
 
     private static Path getCommonConfigPath()
     {
         return Paths.get(".").resolve("config").resolve(API.MOD_ID + "-common.conf");
     }
-
-
 }

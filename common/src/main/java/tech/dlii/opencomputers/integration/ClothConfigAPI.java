@@ -24,7 +24,19 @@ public class ClothConfigAPI
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
-        // Server specific settings.
+        // Client specific settings.
+        ConfigCategory client = builder.getOrCreateCategory(Component.translatable("config." + MOD_ID + ".client"));
+
+        client.addEntry(entryBuilder.startIntSlider(Component.translatable("config." + MOD_ID + ".client.screen_render_distance"), SCREEN_RENDER_DISTANCE, 0, 64)
+                .setDefaultValue(16)
+                .setTooltip(Component.translatable("config." + MOD_ID + ".client.screen_render_distance.desc"))
+                .setSaveConsumer(newValue -> SCREEN_RENDER_DISTANCE = newValue)
+                .build());
+
+        // Common specific settings.
+        ConfigCategory common = builder.getOrCreateCategory(Component.translatable("config." + MOD_ID + ".common"));
+
+        /*// Server specific settings.
         ConfigCategory server = builder.getOrCreateCategory(Component.translatable("config." + MOD_ID + ".server"));
 
         // Check if in a world.
@@ -35,24 +47,13 @@ public class ClothConfigAPI
                 .setDefaultValue(true)
                 .setTooltip(Component.translatable("config." + MOD_ID + ".server.use_power.desc"))
                 .setSaveConsumer(newValue -> USE_POWER = newValue)
-                .build());
-
-        // Client specific settings.
-        ConfigCategory client = builder.getOrCreateCategory(Component.translatable("config." + MOD_ID + ".client"));
-
-        client.addEntry(entryBuilder.startIntSlider(Component.translatable("config." + MOD_ID + ".client.screen_render_distance"), SCREEN_RENDER_DISTANCE, 0, 32)
-                .setDefaultValue(16)
-                .setTooltip(Component.translatable("config." + MOD_ID + ".client.screen_render_distance.desc"))
-                .setSaveConsumer(newValue -> SCREEN_RENDER_DISTANCE = newValue)
-                .build());
+                .build());*/
 
         // Save the config.
         builder.setSavingRunnable(() -> {
             OpenComputers.LOGGER.log(Level.INFO, "Saving config ..");
 
             Config.write();
-
-            //OpenComputers.LOGGER.log(Level.INFO, "Done");
         });
 
         return builder.build();
