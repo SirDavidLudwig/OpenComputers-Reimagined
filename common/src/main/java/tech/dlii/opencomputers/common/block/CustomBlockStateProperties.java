@@ -1,9 +1,9 @@
-package tech.dlii.opencomputers.common.block.property;
+package tech.dlii.opencomputers.common.block;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
-public class BlockStateProperties {
+public class CustomBlockStateProperties {
     public static final EnumProperty<Direction> PITCH = EnumProperty.create("pitch", Direction.class, (direction -> switch (direction) {
         case Direction.UP, Direction.DOWN, Direction.NORTH -> true;
         default -> false;

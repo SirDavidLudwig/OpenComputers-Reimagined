@@ -7,7 +7,6 @@ import dev.architectury.event.events.common.InteractionEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,9 +19,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 import tech.dlii.opencomputers.client.gui.screen.ScreenScreen;
-import tech.dlii.opencomputers.common.block.entity.CaseBlockEntity;
 import tech.dlii.opencomputers.common.block.entity.ScreenBlockEntity;
-import tech.dlii.opencomputers.common.block.property.BlockStateProperties;
 
 public class ScreenBlock extends BaseEntityBlock implements InteractionEvent.RightClickBlock {
 
@@ -31,8 +28,8 @@ public class ScreenBlock extends BaseEntityBlock implements InteractionEvent.Rig
                     Codec.INT.fieldOf("tier").forGetter((screenBlock) -> screenBlock.tier),
                     propertiesCodec()
             ).apply(instance, ScreenBlock::new));
-    public static final EnumProperty<Direction> PITCH = BlockStateProperties.PITCH;
-    public static final EnumProperty<Direction> YAW = BlockStateProperties.YAW;
+    public static final EnumProperty<Direction> PITCH = CustomBlockStateProperties.PITCH;
+    public static final EnumProperty<Direction> YAW = CustomBlockStateProperties.YAW;
 
     private final int tier;
 

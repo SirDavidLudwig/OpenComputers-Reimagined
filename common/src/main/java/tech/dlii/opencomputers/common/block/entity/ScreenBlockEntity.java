@@ -1,14 +1,12 @@
 package tech.dlii.opencomputers.common.block.entity;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import tech.dlii.opencomputers.OpenComputers;
-import tech.dlii.opencomputers.client.gui.screen.ScreenScreen;
+import tech.dlii.opencomputers.common.block.CustomBlockStateProperties;
 import tech.dlii.opencomputers.common.block.ScreenBlock;
-import tech.dlii.opencomputers.common.block.property.BlockStateProperties;
 import tech.dlii.opencomputers.common.machine.TextBuffer;
 import tech.dlii.opencomputers.common.config.Configuration;
 
@@ -28,8 +26,8 @@ public class ScreenBlockEntity extends BlockEntity {
     public ScreenBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityTypes.SCREEN.get(), blockPos, blockState);
         this.tier = ((ScreenBlock) getBlockState().getBlock()).tier();
-        this.pitch = blockState.getValue(BlockStateProperties.PITCH);
-        this.yaw = blockState.getValue(BlockStateProperties.YAW);
+        this.pitch = blockState.getValue(CustomBlockStateProperties.PITCH);
+        this.yaw = blockState.getValue(CustomBlockStateProperties.YAW);
 
         buffer = new TextBuffer(
                 Configuration.SCREEN_RESOLUTIONS[tier][0],
