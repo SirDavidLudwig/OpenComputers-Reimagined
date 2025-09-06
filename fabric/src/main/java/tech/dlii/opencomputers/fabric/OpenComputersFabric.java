@@ -2,6 +2,7 @@ package tech.dlii.opencomputers.fabric;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.minecraft.client.gui.GuiGraphics;
 import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.fabric.block.entity.BlockEntityTypesFabric;
 
@@ -17,8 +18,6 @@ public final class OpenComputersFabric implements ModInitializer {
 
         // Register the block entity types.
         BlockEntityTypesFabric.initialize();
-
-
 
         // Connect everything together
         OpenComputers.setup();

@@ -49,9 +49,6 @@ public class UnicodeFontRenderer implements PreparableReloadListener {
     private Glyph rasterizeGlyph(int character) {
         GlyphVector gv = font.createGlyphVector(frc, Character.toChars(character));
 
-        Rectangle2D bounds = gv.getGlyphMetrics(0).getBounds2D();
-        OpenComputers.LOGGER.info("Bounds are: " + bounds.getWidth());
-
         BufferedImage img = new BufferedImage((isItalic) ? 25 : 20, 32, BufferedImage.TYPE_INT_ARGB); // size can be dynamic
         Graphics2D g = img.createGraphics();
 

@@ -33,12 +33,10 @@ public class ScreenBlockEntityRenderer implements BlockEntityRenderer<ScreenBloc
     public void render(ScreenBlockEntity screen, float partialTicks, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
         poseStack.pushPose();
         transform(screen, poseStack);
-
-        // Insert some test data into the buffer.
-        screen.buffer.data.set(0, 0, "12345678901234567890123456789012345678901234567890", false);
-        StringBuilder builder = new StringBuilder();
-        for (int index = 0; index < screen.buffer.getWidth(); index++) {
-            builder.appendCodePoint(screen.buffer.data.get(0, index));
+//
+//        // Insert some test data into the buffer.
+        for (int i = 0; i < screen.buffer.getWidth(); i++) {
+            screen.buffer.data.set(0, i, Integer.toString(i % 10), false);
         }
 
         // Background
@@ -113,6 +111,7 @@ public class ScreenBlockEntityRenderer implements BlockEntityRenderer<ScreenBloc
                         glyph.uStart, glyph.vStart, glyph.uEnd, glyph.vEnd,
                         15728880
                 );
+
                 x0 += glyph.advance;
             }
         }

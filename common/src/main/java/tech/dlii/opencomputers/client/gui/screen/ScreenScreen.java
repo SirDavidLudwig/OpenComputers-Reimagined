@@ -1,16 +1,10 @@
 package tech.dlii.opencomputers.client.gui.screen;
 
-import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import org.joml.Matrix4f;
 import tech.dlii.opencomputers.client.Textures;
-import tech.dlii.opencomputers.client.font.Fonts;
-import tech.dlii.opencomputers.client.font.Glyph;
 import tech.dlii.opencomputers.client.gui.widget.TerminalWidget;
 import tech.dlii.opencomputers.common.machine.TextBuffer;
 
@@ -54,7 +48,7 @@ public class ScreenScreen extends Screen {
         int y = (height - contentHeight) / 2;
 
         terminalWidget = this.addRenderableWidget(
-                new TerminalWidget(buffer, x, y, contentWidth, contentHeight, Component.translatable("component.opencomputers.screen_terminal"))
+                new TerminalWidget(buffer, x, y, contentWidth, contentHeight, hasKeyboard, Component.translatable("component.opencomputers.screen_terminal"))
         );
     }
 
