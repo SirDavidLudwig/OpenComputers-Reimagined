@@ -1,7 +1,5 @@
 package tech.dlii.opencomputers.client.gui.widget;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.client.gui.ComponentPath;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -11,51 +9,41 @@ import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix3x2f;
 import tech.dlii.opencomputers.OpenComputers;
+import tech.dlii.opencomputers.client.gui.ExtendedGuiGraphics;
+import tech.dlii.opencomputers.client.gui.renderstate.TextBufferRenderState;
 import tech.dlii.opencomputers.common.machine.TextBuffer;
 
 import java.util.function.Supplier;
 
-public class TerminalWidget extends AbstractWidget {
+public class TextBufferWidget extends AbstractWidget {
 
     public final TextBuffer textBuffer;
     public final Supplier<Boolean> hasKeyboard;
 
-    public TerminalWidget(TextBuffer textBuffer, int x, int y, int width, int height, Supplier<Boolean> hasKeyboard, Component component) {
+    public TextBufferWidget(TextBuffer textBuffer, int x, int y, int width, int height, Supplier<Boolean> hasKeyboard, Component component) {
         super(x, y, width, height, component);
         this.textBuffer = textBuffer;
         this.hasKeyboard = hasKeyboard;
     }
 
-    // Platform-specific implementation
-    @ExpectPlatform
-    public static void drawBuffer(
-            TerminalWidget instance,
-            GuiGraphics guiGraphics,
-            TextBuffer textBuffer,
-            int x,
-            int y,
-            int width,
-            int height
-    ) {
-        throw new AssertionError();
-    }
-
     @Override
     protected void renderWidget(GuiGraphics guiGraphics, int i, int j, float f) {
-        drawBuffer(this, guiGraphics, textBuffer, getX(), getY(), getWidth(), getHeight());
+        draw(guiGraphics, true);
+        draw(guiGraphics, false);
     }
 
-    protected void drawQuad(VertexConsumer buffer, Matrix3x2f pose, float x0, float y0, float x1, float y1, int color, float u0, float v0, float u1, float v1, int packedLight) {
-        addVertex(buffer, pose, x0, y1, color, u0, v1, packedLight);
-        addVertex(buffer, pose, x1, y1, color, u1, v1, packedLight);
-        addVertex(buffer, pose, x1, y0, color, u1, v0, packedLight);
-        addVertex(buffer, pose, x0, y0, color, u0, v0, packedLight);
-    }
-
-    protected void addVertex(VertexConsumer buffer, Matrix3x2f pose, float x, float y, int color, float u, float v, int packedLight) {
-        buffer.addVertexWith2DPose(pose, x, y, -1.0f).setColor(color).setUv(u, v).setLight(packedLight).setNormal(0.0f, 1.0f, 0.0f).setUv1(0, 0).setUv2(0, 0);
+    protected void draw(GuiGraphics guiGraphics, boolean background) {
+        ExtendedGuiGraphics.submitGuiElement(guiGraphics, new TextBufferRenderState(
+                guiGraphics.pose(),
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight(),
+                ExtendedGuiGraphics.peekScissorArea(guiGraphics),
+                textBuffer,
+                background
+        ));
     }
 
     @Override

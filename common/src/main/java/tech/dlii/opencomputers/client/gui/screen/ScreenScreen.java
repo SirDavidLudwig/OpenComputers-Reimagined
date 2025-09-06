@@ -5,7 +5,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import tech.dlii.opencomputers.client.Textures;
-import tech.dlii.opencomputers.client.gui.widget.TerminalWidget;
+import tech.dlii.opencomputers.client.gui.widget.TextBufferWidget;
 import tech.dlii.opencomputers.common.machine.TextBuffer;
 
 import java.util.function.Supplier;
@@ -20,7 +20,7 @@ public class ScreenScreen extends Screen {
     public static final int INNER_MARGIN = 1;
     public static final int OUTER_MARGIN = 7;
 
-    private TerminalWidget terminalWidget;
+    private TextBufferWidget terminalWidget;
 
     public ScreenScreen(TextBuffer buffer, int tier, Supplier<Boolean> hasKeyboard) {
         super(Component.translatable("screen.opencomputers.screen"));
@@ -48,7 +48,7 @@ public class ScreenScreen extends Screen {
         int y = (height - contentHeight) / 2;
 
         terminalWidget = this.addRenderableWidget(
-                new TerminalWidget(buffer, x, y, contentWidth, contentHeight, hasKeyboard, Component.translatable("component.opencomputers.screen_terminal"))
+                new TextBufferWidget(buffer, x, y, contentWidth, contentHeight, hasKeyboard, Component.translatable("component.opencomputers.screen_terminal"))
         );
     }
 
