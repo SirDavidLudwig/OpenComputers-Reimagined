@@ -73,9 +73,8 @@ public class ScreenBlock extends BaseEntityBlock implements InteractionEvent.Rig
         }
         if (player.level().isClientSide()) {
             openGui(blockEntity);
-            return InteractionResult.SUCCESS;
         }
-        return InteractionResult.PASS;
+        return InteractionResult.SUCCESS;
     }
 
     public void openGui(ScreenBlockEntity blockEntity) {

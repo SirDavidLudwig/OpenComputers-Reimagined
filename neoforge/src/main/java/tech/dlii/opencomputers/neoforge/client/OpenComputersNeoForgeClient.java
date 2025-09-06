@@ -1,5 +1,6 @@
 package tech.dlii.opencomputers.neoforge.client;
 
+import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,7 +16,6 @@ import tech.dlii.opencomputers.client.renderer.color.CaseBlockColor;
 import tech.dlii.opencomputers.client.renderer.color.ScreenBlockColor;
 import tech.dlii.opencomputers.common.block.Blocks;
 import tech.dlii.opencomputers.common.block.entity.BlockEntityTypes;
-import tech.dlii.opencomputers.common.block.entity.ScreenBlockEntity;
 import tech.dlii.opencomputers.common.inventory.MenuTypes;
 
 @Mod(value=API.MOD_ID, dist=Dist.CLIENT)
@@ -23,8 +23,6 @@ public final class OpenComputersNeoForgeClient {
     public OpenComputersNeoForgeClient(IEventBus modBus) {
         modBus.register(OpenComputersNeoForgeClient.class);
     }
-
-
 
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
