@@ -45,16 +45,17 @@ public class TerminalWidgetImpl {
                     float x0 = x;
                     float y0 = y + (row*32*scale);
                     for (int col = 0; col < textBuffer.getWidth(); col++) {
-                        Fonts.FontStyle style = Fonts.FontStyle.REGULAR;
-                        Glyph glyph = Fonts.getGlyph(textBuffer.data.get(row, col), style);
+                        TextBuffer.Character character = textBuffer.get(row, col);
+                        Glyph glyph = Fonts.getGlyph(character.codePoint, character.fontStyle);
+                        int color = character.backgroundColor;
 
                         float x1 = x0 + glyph.width*scale;
                         float y1 = y0 + glyph.height*scale;
 
-                        consumer.addVertexWith2DPose(this.pose, x0,  y0,  z).setUv(glyph.uStart, glyph.vStart).setColor(0xFFFF0000);
-                        consumer.addVertexWith2DPose(this.pose, x0,  y1, z).setUv(glyph.uStart, glyph.vEnd).setColor(0xFFFF0000);
-                        consumer.addVertexWith2DPose(this.pose, x1, y1, z).setUv(glyph.uEnd, glyph.vEnd).setColor(0xFFFF0000);
-                        consumer.addVertexWith2DPose(this.pose, x1, y0,  z).setUv(glyph.uEnd, glyph.vStart).setColor(0xFFFF0000);
+                        consumer.addVertexWith2DPose(this.pose, x0,  y0,  z).setUv(glyph.uStart, glyph.vStart).setColor(color);
+                        consumer.addVertexWith2DPose(this.pose, x0,  y1, z).setUv(glyph.uStart, glyph.vEnd).setColor(color);
+                        consumer.addVertexWith2DPose(this.pose, x1, y1, z).setUv(glyph.uEnd, glyph.vEnd).setColor(color);
+                        consumer.addVertexWith2DPose(this.pose, x1, y0,  z).setUv(glyph.uEnd, glyph.vStart).setColor(color);
 
                         x0 += glyph.advance * scale;
                     }
@@ -98,17 +99,17 @@ public class TerminalWidgetImpl {
                     float x0 = x;
                     float y0 = y + (row*32*scale);
                     for (int col = 0; col < textBuffer.getWidth(); col++) {
-                        Fonts.FontStyle style = Fonts.FontStyle.REGULAR;
-                        int cp = textBuffer.data.get(row, col);
-                        Glyph glyph = Fonts.getGlyph(cp, style);
+                        TextBuffer.Character character = textBuffer.get(row, col);
+                        Glyph glyph = Fonts.getGlyph(character.codePoint, character.fontStyle);
+                        int color = character.foregroundColor;
 
                         float x1 = x0 + glyph.width*scale;
                         float y1 = y0 + glyph.height*scale;
 
-                        consumer.addVertexWith2DPose(this.pose, x0,  y0,  z).setUv(glyph.uStart, glyph.vStart).setColor(0xFFFFFFFF);
-                        consumer.addVertexWith2DPose(this.pose, x0,  y1, z).setUv(glyph.uStart, glyph.vEnd).setColor(0xFFFFFFFF);
-                        consumer.addVertexWith2DPose(this.pose, x1, y1, z).setUv(glyph.uEnd, glyph.vEnd).setColor(0xFFFFFFFF);
-                        consumer.addVertexWith2DPose(this.pose, x1, y0,  z).setUv(glyph.uEnd, glyph.vStart).setColor(0xFFFFFFFF);
+                        consumer.addVertexWith2DPose(this.pose, x0,  y0,  z).setUv(glyph.uStart, glyph.vStart).setColor(color);
+                        consumer.addVertexWith2DPose(this.pose, x0,  y1, z).setUv(glyph.uStart, glyph.vEnd).setColor(color);
+                        consumer.addVertexWith2DPose(this.pose, x1, y1, z).setUv(glyph.uEnd, glyph.vEnd).setColor(color);
+                        consumer.addVertexWith2DPose(this.pose, x1, y0,  z).setUv(glyph.uEnd, glyph.vStart).setColor(color);
 
                         x0 += glyph.advance * scale;
                     }

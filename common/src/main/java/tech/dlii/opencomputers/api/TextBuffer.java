@@ -11,6 +11,9 @@ public interface TextBuffer {
      */
     double getAspectRatio();
 
+    int getMaxWidth();
+    int getMaxHeight();
+
     /**
      * Get the current horizontal resolution.
      *

@@ -15,6 +15,7 @@ import tech.dlii.opencomputers.client.font.Glyph;
 import tech.dlii.opencomputers.common.block.entity.ScreenBlockEntity;
 import tech.dlii.opencomputers.common.machine.TextBuffer;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ScreenBlockEntityRenderer implements BlockEntityRenderer<ScreenBlockEntity> {
@@ -33,10 +34,11 @@ public class ScreenBlockEntityRenderer implements BlockEntityRenderer<ScreenBloc
     public void render(ScreenBlockEntity screen, float partialTicks, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
         poseStack.pushPose();
         transform(screen, poseStack);
-//
-//        // Insert some test data into the buffer.
+
+        // @TODO Remove later
+        // Insert some test data into the buffer.
         for (int i = 0; i < screen.buffer.getWidth(); i++) {
-            screen.buffer.data.set(0, i, Integer.toString(i % 10), false);
+            screen.buffer.set(0, i, Integer.toString(i % 10), false);
         }
 
         // Background
@@ -44,14 +46,14 @@ public class ScreenBlockEntityRenderer implements BlockEntityRenderer<ScreenBloc
                 multiBufferSource.getBuffer(CustomRenderTypes.screenTextBackground()),
                 poseStack.last().pose(),
                 screen.buffer,
-                () -> 0xFFFF0000
+                (character) -> character.backgroundColor
         );
         // Foreground
         draw(
                 multiBufferSource.getBuffer(CustomRenderTypes.screenText(Fonts.getAtlas())),
                 poseStack.last().pose(),
                 screen.buffer,
-                () -> 0xFFFFFFFF
+                (character) -> character.foregroundColor
         );
         poseStack.popPose();
     }
@@ -89,16 +91,15 @@ public class ScreenBlockEntityRenderer implements BlockEntityRenderer<ScreenBloc
         poseStack.scale(scale, scale, 1f);
     }
 
-    protected void draw(VertexConsumer buffer, Matrix4f pose, TextBuffer textBuffer, Supplier<Integer> getColor) {
+    protected void draw(VertexConsumer buffer, Matrix4f pose, TextBuffer textBuffer, Function<TextBuffer.Character, Integer> getColor) {
         float CHAR_HEIGHT = 32;
         float x0, y0, x1, y1;
         for (int row = 0; row < textBuffer.getHeight(); row++) {
             x0 = 0.0f;
             y0 = row * CHAR_HEIGHT;
             for (int col = 0; col < textBuffer.getWidth(); col++) {
-                int codePoint = textBuffer.data.get(row, col); // character to draw
-                Fonts.FontStyle style = Fonts.FontStyle.REGULAR;
-                Glyph glyph = Fonts.getGlyph(codePoint, style);
+                TextBuffer.Character character = textBuffer.get(row, col);
+                Glyph glyph = Fonts.getGlyph(character.codePoint, character.fontStyle);
 
                 x1 = x0 + glyph.width;
                 y1 = y0 + glyph.height;
@@ -107,7 +108,7 @@ public class ScreenBlockEntityRenderer implements BlockEntityRenderer<ScreenBloc
                         buffer,
                         pose,
                         x0, y0, x1, y1,
-                        getColor.get(),
+                        getColor.apply(character),
                         glyph.uStart, glyph.vStart, glyph.uEnd, glyph.vEnd,
                         15728880
                 );
