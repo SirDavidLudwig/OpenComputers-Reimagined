@@ -48,6 +48,7 @@ public class ScreenBlockEntity extends BlockEntity {
         OpenComputers.LOGGER.info("Removed screen block");
     }
 
+
     public Direction pitch() {
         return this.pitch;
     }
@@ -58,6 +59,10 @@ public class ScreenBlockEntity extends BlockEntity {
 
     public ScreenBlockEntity origin() {
         return this.origin;
+    }
+
+    public boolean isOrigin() {
+        return this.origin == this;
     }
 
     public TextBuffer buffer() {

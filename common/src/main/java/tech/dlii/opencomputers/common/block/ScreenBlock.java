@@ -7,16 +7,19 @@ import dev.architectury.event.events.common.InteractionEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
 import tech.dlii.opencomputers.client.gui.screen.ScreenScreen;
 import tech.dlii.opencomputers.common.block.entity.ScreenBlockEntity;
@@ -56,10 +59,6 @@ public class ScreenBlock extends BaseEntityBlock implements InteractionEvent.Rig
                 });
     }
 
-    public int tier() {
-        return this.tier;
-    }
-
     @Override
     public InteractionResult click(Player player, InteractionHand hand, BlockPos pos, Direction face) {
         if (player.level().getBlockEntity(pos) == null || !(player.level().getBlockEntity(pos) instanceof ScreenBlockEntity blockEntity)) {
@@ -74,6 +73,24 @@ public class ScreenBlock extends BaseEntityBlock implements InteractionEvent.Rig
         return InteractionResult.SUCCESS;
     }
 
+    @Override
+    protected void onPlace(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
+        super.onPlace(blockState, level, blockPos, blockState2, bl);
+        // Try to add to multiblock.
+    }
+
+    @Override
+    protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, @Nullable Orientation orientation, boolean bl) {
+        super.neighborChanged(blockState, level, blockPos, block, orientation, bl);
+        // Destroy any invalid multiblocks
+    }
+
+    @Override
+    protected void affectNeighborsAfterRemoval(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, boolean bl) {
+        super.affectNeighborsAfterRemoval(blockState, serverLevel, blockPos, bl);
+        // Destroy invalid multiblocks
+    }
+
     public void openGui(ScreenBlockEntity blockEntity) {
         Minecraft.getInstance().setScreen(
                 new ScreenScreen(
@@ -82,6 +99,10 @@ public class ScreenBlock extends BaseEntityBlock implements InteractionEvent.Rig
                         () -> blockEntity.origin().hasKeyboard()
                 )
         );
+    }
+
+    public int tier() {
+        return this.tier;
     }
 
     @Override

@@ -32,6 +32,9 @@ public class ScreenBlockEntityRenderer implements BlockEntityRenderer<ScreenBloc
 
     @Override
     public void render(ScreenBlockEntity screen, float partialTicks, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
+        if (!screen.isOrigin()) {
+            return;
+        }
         poseStack.pushPose();
         transform(screen, poseStack);
 
