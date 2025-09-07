@@ -43,6 +43,7 @@ public class Items {
     public static final RegistrySupplier<Item> DIAMOND_NUGGET = register("diamond_nugget", () -> new Item(baseProperties("diamond_nugget")));
     public static final RegistrySupplier<Item> DISK = register("disk", () -> new Item(baseProperties("disk")));
 
+    public static final RegistrySupplier<Item> EEPROM = register("eeprom", () -> new EEPROMItem(baseProperties("eeprom")));
     public static final RegistrySupplier<Item> FLOPPY = register("floppy", () -> new FloppyItem(baseProperties("floppy")));
     public static final RegistrySupplier<Item> GPU_TIER_1 = register("gpu_0", () -> new GPUItem(Tier.ONE, baseProperties("gpu_0")));
     public static final RegistrySupplier<Item> GPU_TIER_2 = register("gpu_1", () -> new GPUItem(Tier.TWO, baseProperties("gpu_1")));

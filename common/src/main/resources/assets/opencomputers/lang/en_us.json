@@ -30,6 +30,7 @@
   "item.opencomputers.disk": "Disk",
   "item.opencomputers.interweb": "Interweb",
 
+  "item.opencomputers.eeprom": "EEPROM",
   "item.opencomputers.floppy": "Floppy",
 
   "item.opencomputers.gpu_0": "GPU (Tier 1)",
