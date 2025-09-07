@@ -42,7 +42,17 @@ public class Items {
 
     public static final RegistrySupplier<Item> DIAMOND_NUGGET = register("diamond_nugget", () -> new Item(baseProperties("diamond_nugget")));
     public static final RegistrySupplier<Item> DISK = register("disk", () -> new Item(baseProperties("disk")));
+
+    public static final RegistrySupplier<Item> FLOPPY = register("floppy", () -> new FloppyItem(baseProperties("floppy")));
+    public static final RegistrySupplier<Item> GPU_TIER_1 = register("gpu_0", () -> new GPUItem(Tier.ONE, baseProperties("gpu_0")));
+    public static final RegistrySupplier<Item> GPU_TIER_2 = register("gpu_1", () -> new GPUItem(Tier.TWO, baseProperties("gpu_1")));
+    public static final RegistrySupplier<Item> GPU_TIER_3 = register("gpu_2", () -> new GPUItem(Tier.THREE, baseProperties("gpu_2")));
+
     public static final RegistrySupplier<Item> INTERWEB = register("interweb", () -> new Item(baseProperties("interweb")));
+
+    public static final RegistrySupplier<Item> HDD_TIER_1 = register("hdd_0", () -> new HardDriveItem(Tier.ONE, baseProperties("hdd_0")));
+    public static final RegistrySupplier<Item> HDD_TIER_2 = register("hdd_1", () -> new HardDriveItem(Tier.TWO, baseProperties("hdd_1")));
+    public static final RegistrySupplier<Item> HDD_TIER_3 = register("hdd_2", () -> new HardDriveItem(Tier.THREE, baseProperties("hdd_2")));
 
     public static final RegistrySupplier<Item> MEMORY1 = register("memory1", () -> new MemoryItem(Tier.ONE, baseProperties("memory1")));
     public static final RegistrySupplier<Item> MEMORY2 = register("memory2", () -> new MemoryItem(Tier.ONE, baseProperties("memory2")));

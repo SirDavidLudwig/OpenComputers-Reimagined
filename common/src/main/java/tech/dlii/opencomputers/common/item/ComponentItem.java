@@ -19,11 +19,11 @@ public class ComponentItem extends Item {
         this.tier = tier;
     }
 
-    public int tier() {
-        return this.tier;
-    }
-
     public String slotType() {
         return this.slotType;
+    }
+
+    public int tier() {
+        return this.tier;
     }
 }

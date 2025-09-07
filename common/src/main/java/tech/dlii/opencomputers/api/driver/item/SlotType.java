@@ -12,7 +12,7 @@ public class SlotType {
     public static final String CPU = "cpu";
     public static final String EEPROM = "eeprom";
     public static final String FLOPPY = "floppy";
-    public static final String HDD = "hdd";
+    public static final String STORAGE = "storage";
     public static final String MEMORY = "memory";
     public static final String RACK_MOUNTABLE = "rack_mountable";
     public static final String TABLET = "tablet";

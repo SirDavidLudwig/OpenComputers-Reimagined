@@ -30,6 +30,16 @@
   "item.opencomputers.disk": "Disk",
   "item.opencomputers.interweb": "Interweb",
 
+  "item.opencomputers.floppy": "Floppy",
+
+  "item.opencomputers.gpu_0": "GPU (Tier 1)",
+  "item.opencomputers.gpu_1": "GPU (Tier 2)",
+  "item.opencomputers.gpu_2": "GPU (Tier 3)",
+
+  "item.opencomputers.hdd_0": "Hard Drive (Tier 1)",
+  "item.opencomputers.hdd_1": "Hard Drive (Tier 2)",
+  "item.opencomputers.hdd_2": "Hard Drive (Tier 3)",
+
   "item.opencomputers.memory1": "Memory (Tier 1)",
   "item.opencomputers.memory2": "Memory (Tier 1.5)",
   "item.opencomputers.memory3": "Memory (Tier 2)",

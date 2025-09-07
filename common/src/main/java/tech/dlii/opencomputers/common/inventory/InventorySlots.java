@@ -15,7 +15,7 @@ public final class InventorySlots {
                     .put(SlotType.CARD, Tier.ONE, Tier.ONE)
                     .put(SlotType.CPU, Tier.ONE)
                     .put(SlotType.EEPROM, Tier.ANY)
-                    .put(SlotType.HDD, Tier.ONE)
+                    .put(SlotType.STORAGE, Tier.ONE)
                     .put(SlotType.MEMORY, Tier.ONE, Tier.ONE)
                     .build(),
 
@@ -24,7 +24,7 @@ public final class InventorySlots {
                     .put(SlotType.CARD, Tier.TWO, Tier.ONE)
                     .put(SlotType.CPU, Tier.TWO)
                     .put(SlotType.EEPROM, Tier.ANY)
-                    .put(SlotType.HDD, Tier.TWO, Tier.ONE)
+                    .put(SlotType.STORAGE, Tier.TWO, Tier.ONE)
                     .put(SlotType.MEMORY, Tier.TWO, Tier.TWO)
                     .build(),
 
@@ -34,7 +34,7 @@ public final class InventorySlots {
                     .put(SlotType.CPU, Tier.THREE)
                     .put(SlotType.EEPROM, Tier.ANY)
                     .put(SlotType.FLOPPY, Tier.ONE)
-                    .put(SlotType.HDD, Tier.THREE, Tier.TWO)
+                    .put(SlotType.STORAGE, Tier.THREE, Tier.TWO)
                     .put(SlotType.MEMORY, Tier.THREE, Tier.THREE)
                     .build(),
 
@@ -44,7 +44,7 @@ public final class InventorySlots {
                     .put(SlotType.CPU, Tier.THREE)
                     .put(SlotType.EEPROM, Tier.ANY)
                     .put(SlotType.FLOPPY, Tier.ONE)
-                    .put(SlotType.HDD, Tier.THREE, Tier.THREE)
+                    .put(SlotType.STORAGE, Tier.THREE, Tier.THREE)
                     .put(SlotType.MEMORY, Tier.THREE, Tier.THREE)
                     .build()
     );

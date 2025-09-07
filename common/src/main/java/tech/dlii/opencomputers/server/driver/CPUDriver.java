@@ -8,21 +8,22 @@ import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.CallBudget;
 import tech.dlii.opencomputers.api.driver.item.MutableControlProcessingUnit;
-import tech.dlii.opencomputers.api.driver.item.SlotType;
 import tech.dlii.opencomputers.common.component.DataComponents;
 import tech.dlii.opencomputers.common.config.Configuration;
-import tech.dlii.opencomputers.common.item.CPUItem;
 import tech.dlii.opencomputers.common.item.Items;
 
 import java.util.List;
 
 public class CPUDriver extends ComponentDriver implements MutableControlProcessingUnit, CallBudget {
 
-    private final List<RegistrySupplier<Item>> COMPATIBLE_ITEMS = List.of(
-            Items.CPU_TIER_1,
-            Items.CPU_TIER_2,
-            Items.CPU_TIER_3
-    );
+    @Override
+    protected List<RegistrySupplier<Item>> compatibleItems() {
+        return List.of(
+                Items.CPU_TIER_1,
+                Items.CPU_TIER_2,
+                Items.CPU_TIER_3
+        );
+    }
 
     @Override
     public List<ResourceLocation> architectures() {
@@ -54,25 +55,6 @@ public class CPUDriver extends ComponentDriver implements MutableControlProcessi
     @Override
     public int supportedComponents(ItemStack stack) {
         return Configuration.CPU_COMPONENT_COUNT[tier(stack)];
-    }
-
-    @Override
-    public boolean worksWith(ItemStack stack) {
-        Item stackItem = stack.getItem();
-        return COMPATIBLE_ITEMS.stream().anyMatch(item -> item.get() == stackItem);
-    }
-
-    @Override
-    public String slotType(ItemStack stack) {
-        return SlotType.CPU;
-    }
-
-    @Override
-    public int tier(ItemStack stack) {
-        if (stack.getItem() instanceof CPUItem cpu) {
-            return cpu.tier();
-        }
-        return Tier.ONE;
     }
 
     @Override

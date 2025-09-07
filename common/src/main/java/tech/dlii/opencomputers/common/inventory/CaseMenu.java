@@ -11,7 +11,6 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
-import tech.dlii.opencomputers.common.item.MemoryItem;
 
 import java.util.List;
 
@@ -168,7 +167,7 @@ public class CaseMenu extends AbstractBaseContainerMenu {
         }
 
         // Drives
-        slots = inventorySlots.get(SlotType.HDD);
+        slots = inventorySlots.get(SlotType.STORAGE);
         for (int i = 0; i < slots.size(); i++) {
             slot = slots.get(i);
             this.addSlot(new ComponentSlot(container, slot.index(), 142, 16 +  i*18, slot.type(), slot.tier()));
@@ -178,7 +177,7 @@ public class CaseMenu extends AbstractBaseContainerMenu {
         slots = inventorySlots.get(SlotType.FLOPPY);
         for (int i = 0; i < slots.size(); i++) {
             slot = slots.get(i);
-            this.addSlot(new ComponentSlot(container, slot.index(), 142, 16 + (i+inventorySlots.get(SlotType.HDD).size())*18, slot.type(), slot.tier()));
+            this.addSlot(new ComponentSlot(container, slot.index(), 142, 16 + (i+inventorySlots.get(SlotType.STORAGE).size())*18, slot.type(), slot.tier()));
         }
 
         bindInventory(playerInventory);

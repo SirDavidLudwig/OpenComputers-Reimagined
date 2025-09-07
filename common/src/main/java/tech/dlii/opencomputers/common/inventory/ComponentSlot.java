@@ -37,7 +37,7 @@ public class ComponentSlot extends net.minecraft.world.inventory.Slot {
             case SlotType.CPU -> Textures.Icon.CPU;
             case SlotType.EEPROM -> Textures.Icon.EEPROM;
             case SlotType.FLOPPY -> Textures.Icon.FLOPPY;
-            case SlotType.HDD -> Textures.Icon.HDD;
+            case SlotType.STORAGE -> Textures.Icon.HDD;
             case SlotType.MEMORY -> Textures.Icon.MEMORY;
             default -> null;
         };

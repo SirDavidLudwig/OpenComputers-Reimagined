@@ -16,7 +16,9 @@ public class Drivers implements DriverAPI {
     public static void initialize() {
         API.driver = new Drivers();
         API.driver.register(new CPUDriver());
+        API.driver.register(new GPUDriver());
         API.driver.register(new MemoryDriver());
+        API.driver.register(new StorageDriver());
     }
 
     @Override
