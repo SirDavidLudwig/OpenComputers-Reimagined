@@ -31,6 +31,7 @@ public class Items {
     // Items
     public static final RegistrySupplier<Item> ACID = register("acid", () -> new Item(baseProperties("acid").component(DataComponents.CONSUMABLE, Consumables.ACID)));
     public static final RegistrySupplier<Item> ALU = register("alu", () -> new Item(baseProperties("alu")));
+    public static final RegistrySupplier<Item> ANALYZER = register("analyzer", () -> new AnalyzerItem(baseProperties("analyzer")));
     public static final RegistrySupplier<Item> ARROW_KEYS = register("arrow_keys", () -> new Item(baseProperties("arrow_keys")));
     public static final RegistrySupplier<Item> BUTTON_GROUP = register("button_group", () -> new Item(baseProperties("button_group")));
     public static final RegistrySupplier<Item> CARD_BASE = register("card_base", () -> new Item(baseProperties("card_base")));
