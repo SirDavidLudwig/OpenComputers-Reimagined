@@ -14,8 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
-import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.api.Tier;
+import tech.dlii.opencomputers.api.machine.Machine;
 import tech.dlii.opencomputers.common.block.CaseBlock;
 import tech.dlii.opencomputers.common.inventory.CaseMenu;
 import tech.dlii.opencomputers.common.inventory.InventorySlots;
@@ -26,7 +26,7 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
     private NonNullList<ItemStack> items;
     public final ContainerData dataAccess;
 
-    boolean isRunning = false;
+    private Machine machine = null;
 
     public CaseBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityTypes.CASE.get(), blockPos, blockState);
@@ -36,16 +36,16 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
             @Override
             public int get(int i) {
                 if (i == 0) {
-                    return isRunning ? 1 : 0;
+                    return isRunning() ? 1 : 0;
                 }
                 return -1;
             }
 
             @Override
             public void set(int i, int value) {
-                if (i == 0) {
-                    setRunning(value != 0);
-                }
+//                if (i == 0) {
+//                    setRunning(value != 0);
+//                }
             }
 
             @Override
@@ -97,9 +97,24 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
         return InventorySlots.CASE.get(tier).size();
     }
 
-    public void setRunning(boolean running) {
-        isRunning = running;
-        OpenComputers.LOGGER.info("Powering on");
+    public boolean isServer() {
+        return getLevel() != null && !getLevel().isClientSide();
+    }
+
+    // MachineHost Methods ---------------------------------------------------------------------------------------------
+
+
+//    @Override
+//    public tech.dlii.opencomputers.api.machine.Machine machine() {
+//        if (machine == null && isServer()) {
+//            machine = API.machine.create(this);
+//        }
+//        return this.machine;
+//    }
+
+    public boolean isRunning() {
+//        return machine.st();
+        return false;
     }
 
 //    public static class Ticker<T extends BlockEntity> implements BlockEntityTicker<T> {
@@ -108,20 +123,4 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
 //            OpenComputers.LOGGER.info("Tier " + ((CaseBlockEntity) blockEntity).tier + ": Ticker at " + blockPos.toShortString() + " with state " + blockState.toString() + " and entity type " + blockEntity.getClass().getName());
 //        }
 //    }
-
-    // Machine Stuff
-
-    public void updateComponents() {
-
-    }
-
-    public void connectComponents() {
-        // Loop over container slots
-        // If the slot is a component slot, not empty, and it has not yet been added as a component,
-        // Create the environment
-    }
-
-    public void disconnectComponents() {
-        // Loop through registered components and remove the nodes.
-    }
 }
