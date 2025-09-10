@@ -7,6 +7,7 @@
 
   "container.opencomputers.case": "Computer",
 
+  "item.opencomputers.capacitor": "Capacitor",
   "item.opencomputers.case_0": "Case (Tier 1)",
   "item.opencomputers.case_1": "Case (Tier 2)",
   "item.opencomputers.case_2": "Case (Tier 3)",

@@ -19,6 +19,8 @@ import java.util.function.Supplier;
 public class Items {
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(API.MOD_ID, Registries.ITEM);
 
+    public static final RegistrySupplier<Item> CAPACITOR = register(Blocks.CAPACITOR.getId().getPath(), () -> new BlockItem(Blocks.CAPACITOR.get(), baseProperties(Blocks.CAPACITOR.getId().getPath())));
+
     public static final RegistrySupplier<Item> CASE_TIER_1 = register(Blocks.CASE_TIER_1.getId().getPath(), () -> new BlockItem(Blocks.CASE_TIER_1.get(), baseProperties(Blocks.CASE_TIER_1.getId().getPath())));
     public static final RegistrySupplier<Item> CASE_TIER_2 = register(Blocks.CASE_TIER_2.getId().getPath(), () -> new BlockItem(Blocks.CASE_TIER_2.get(), baseProperties(Blocks.CASE_TIER_2.getId().getPath())));
     public static final RegistrySupplier<Item> CASE_TIER_3 = register(Blocks.CASE_TIER_3.getId().getPath(), () -> new BlockItem(Blocks.CASE_TIER_3.get(), baseProperties(Blocks.CASE_TIER_3.getId().getPath())));

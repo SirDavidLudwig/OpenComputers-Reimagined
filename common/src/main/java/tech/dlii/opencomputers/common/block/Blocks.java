@@ -17,6 +17,7 @@ import java.util.function.Supplier;
 public class Blocks {
     private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(API.MOD_ID, Registries.BLOCK);
 
+    public static final RegistrySupplier<CapacitorBlock> CAPACITOR = BLOCKS.register("capacitor", () -> new CapacitorBlock(baseProperties("capacitor")));
     public static final RegistrySupplier<CaseBlock> CASE_TIER_1 = register("case_" + Tier.ONE, () -> new CaseBlock(Tier.ONE, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
     public static final RegistrySupplier<CaseBlock> CASE_TIER_2 = register("case_" + Tier.TWO, () -> new CaseBlock(Tier.TWO, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
     public static final RegistrySupplier<CaseBlock> CASE_TIER_3 = register("case_" + Tier.THREE, () -> new CaseBlock(Tier.THREE, baseProperties("case").mapColor(MapColor.METAL).sound(SoundType.METAL).strength(0.5f, 6.0f)));
@@ -36,5 +37,6 @@ public class Blocks {
     public static BlockBehaviour.Properties baseProperties(String name) {
         return BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(API.MOD_ID, name)));
     }
+
 }
 
