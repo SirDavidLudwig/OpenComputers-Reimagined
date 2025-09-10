@@ -8,10 +8,15 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import tech.dlii.opencomputers.api.API;
+import tech.dlii.opencomputers.common.network.clientbound.BeepSoundPayload;
 import tech.dlii.opencomputers.common.network.serverbound.ToggleComputerPowerPayload;
 
 public class PacketTypes {
 
+    // Clientbound
+    public static final CustomPacketPayload.Type<? extends ExtendedCustomPacketPayload> BEEP_SOUND = registerServerbound("beep_sound", BeepSoundPayload.STREAM_CODEC);
+
+    // Serverbound
     public static final CustomPacketPayload.Type<? extends ExtendedCustomPacketPayload> TOGGLE_COMPUTER_POWER = registerServerbound("toggle_computer_power", ToggleComputerPowerPayload.STREAM_CODEC);
 
     public static void initialize() {
