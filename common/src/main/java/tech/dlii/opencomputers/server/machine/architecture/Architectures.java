@@ -7,6 +7,7 @@ import tech.dlii.opencomputers.api.machine.ArchitectureAPI;
 import tech.dlii.opencomputers.server.machine.architecture.luac.NativeLua52Architecture;
 import tech.dlii.opencomputers.server.machine.architecture.luac.NativeLua53Architecture;
 import tech.dlii.opencomputers.server.machine.architecture.luac.NativeLua54Architecture;
+import tech.dlii.opencomputers.server.machine.architecture.luaj.LuaJLuaArchitecture;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,9 +18,10 @@ public class Architectures implements ArchitectureAPI {
 
     public static void initialize() {
         API.architectures = new Architectures();
-        register("lua52", NativeLua52Architecture.class);
-        register("lua53", NativeLua53Architecture.class);
-        register("lua54", NativeLua54Architecture.class);
+        register("luaj", LuaJLuaArchitecture.class);
+//        register("lua52", NativeLua52Architecture.class);
+//        register("lua53", NativeLua53Architecture.class);
+//        register("lua54", NativeLua54Architecture.class);
     }
 
     private static void register(String name, Class<? extends Architecture> architecture) {

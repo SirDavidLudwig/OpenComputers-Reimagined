@@ -14,13 +14,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
+import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.machine.Machine;
+import tech.dlii.opencomputers.api.machine.MachineHost;
 import tech.dlii.opencomputers.common.block.CaseBlock;
 import tech.dlii.opencomputers.common.inventory.CaseMenu;
 import tech.dlii.opencomputers.common.inventory.InventorySlots;
 
-public class CaseBlockEntity extends BaseContainerBlockEntity {
+public class CaseBlockEntity extends BaseContainerBlockEntity implements MachineHost {
 
     public final int tier;
     private NonNullList<ItemStack> items;
@@ -104,13 +106,18 @@ public class CaseBlockEntity extends BaseContainerBlockEntity {
     // MachineHost Methods ---------------------------------------------------------------------------------------------
 
 
-//    @Override
-//    public tech.dlii.opencomputers.api.machine.Machine machine() {
-//        if (machine == null && isServer()) {
-//            machine = API.machine.create(this);
-//        }
-//        return this.machine;
-//    }
+    @Override
+    public tech.dlii.opencomputers.api.machine.Machine machine() {
+        if (machine == null && isServer()) {
+            machine = API.machine.create(this);
+        }
+        return this.machine;
+    }
+
+    @Override
+    public int componentSlot(String address) {
+        return 0;
+    }
 
     public boolean isRunning() {
 //        return machine.st();

@@ -1,12 +1,13 @@
 package tech.dlii.opencomputers.client.gui.screen;
 
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.client.Textures;
 import tech.dlii.opencomputers.client.gui.widget.ImageButton;
+import tech.dlii.opencomputers.common.network.serverbound.ToggleComputerPowerPayload;
 import tech.dlii.opencomputers.common.inventory.CaseMenu;
 
 public class CaseScreen extends AbstractDynamicContainerScreen<CaseMenu> {
@@ -29,7 +30,9 @@ public class CaseScreen extends AbstractDynamicContainerScreen<CaseMenu> {
                     true,
                     Textures.GUI.POWER_BUTTON,
                     Component.translatable("component.opencomputers.power_button"),
-                    button -> OpenComputers.LOGGER.info("Power button pressed on tier " + menu.tier + " computer case.")
+                    button -> {
+                        NetworkManager.sendToServer(new ToggleComputerPowerPayload(menu.containerId, !powerButton.toggled));
+                    }
             )
         );
     }
