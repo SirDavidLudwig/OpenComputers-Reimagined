@@ -13,5 +13,5 @@ public interface MachineAPI {
      * @return the newly created machine.
      * @throws IllegalArgumentException if the specified architecture is invalid.
      */
-//    Machine create(MachineHost host);
+    Machine create(MachineHost host);
 }

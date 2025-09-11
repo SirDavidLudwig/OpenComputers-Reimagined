@@ -1,5 +1,7 @@
 package tech.dlii.opencomputers.api.machine;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Map;
 
 /**
@@ -7,13 +9,13 @@ import java.util.Map;
  * method {@link li.cil.oc.api.Machine#create(MachineHost)}.
  */
 @SuppressWarnings("unused")
-public interface Machine {
+public interface Machine extends Context {
     /**
      * The owner of the machine, usually a tile entity hosting the machine.
      *
      * @return the owner of the machine.
      */
-//    MachineHost host();
+    MachineHost host();
 
     /**
      * This must be called from the host when something relevant to the
@@ -46,7 +48,7 @@ public interface Machine {
      *
      * @return the list of attached components.
      */
-//    Map<String, String> components();
+    Map<String, String> components();
 
     /**
      * The number of connected components.
@@ -59,7 +61,7 @@ public interface Machine {
      *
      * @return the number of connected components.
      */
-//    int componentCount();
+    int componentCount();
 
     /**
      * The maximum number of components this machine can currently support.
@@ -69,7 +71,7 @@ public interface Machine {
      *
      * @return the maximum number of components supported.
      */
-//    int maxComponents();
+    int maxComponents();
 
     /**
      * Gets the amount of energy this machine consumes per tick when it is
@@ -111,7 +113,7 @@ public interface Machine {
      *
      * @return the last error message, or {@code null}.
      */
-//    String lastError();
+    @Nullable String lastError();
 
     /**
      * The current world time. This is updated each tick and provides a thread
@@ -121,7 +123,7 @@ public interface Machine {
      *
      * @return the current world time.
      */
-//    long worldTime();
+    long worldTime();
 
     /**
      * The time that has passed since the machine was started, in seconds.
@@ -130,14 +132,14 @@ public interface Machine {
      * pretty limited. This is done to avoid 'time skips' when leaving the game
      * and coming back later, resuming a persisted machine.
      */
-//    double upTime();
+    double upTime();
 
     /**
      * The time spent running the underlying architecture in execution threads,
      * i.e. the time spent in {@link Architecture#runThreaded(boolean)} since
      * the machine was last started, in seconds.
      */
-//    double cpuTime();
+    double cpuTime();
 
     // ----------------------------------------------------------------------- //
 
@@ -194,7 +196,7 @@ public interface Machine {
      * @param message the message to set.
      * @return {@code true} if the computer switched to the stopping state.
      */
-//    boolean crash(String message);
+    boolean crash(String message);
 
     /**
      * Tries to pop a signal from the queue and returns it.
@@ -204,7 +206,7 @@ public interface Machine {
      *
      * @return a signal or {@code null} if the queue was empty.
      */
-//    Signal popSignal();
+    Signal popSignal();
 
     /**
      * Get a list of all methods and their annotations of the specified object.
