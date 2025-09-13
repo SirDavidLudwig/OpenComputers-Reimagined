@@ -1,4 +1,5 @@
 {
+  "architecture.opencomputers.luaj": "LuaJ",
   "architecture.opencomputers.lua52": "Lua 5.2",
   "architecture.opencomputers.lua53": "Lua 5.3",
   "architecture.opencomputers.lua54": "Lua 5.4",
@@ -64,5 +65,7 @@
   "config.opencomputers.client.screen_render_distance": "Screen Render Distance",
   "config.opencomputers.client.screen_render_distance.desc": "How far away screens will render, 0 to disable",
 
-  "config.opencomputers.common": "Common"
+  "config.opencomputers.common": "Common",
+
+  "tooltip.opencomputers.architecture": "Architecture: %s"
 }

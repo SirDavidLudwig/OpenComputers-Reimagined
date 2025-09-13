@@ -1,6 +1,5 @@
 package tech.dlii.opencomputers.neoforge.client;
 
-import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;

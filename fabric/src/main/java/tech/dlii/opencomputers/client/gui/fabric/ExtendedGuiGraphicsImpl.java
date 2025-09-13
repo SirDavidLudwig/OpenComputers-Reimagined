@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.state.GuiElementRenderState;
 
-public class ExtendedGuiGraphicsImpl {
+public final class ExtendedGuiGraphicsImpl {
     public static void submitGuiElement(GuiGraphics guiGraphics, GuiElementRenderState renderState) {
         guiGraphics.guiRenderState.submitGuiElement(renderState);
     }

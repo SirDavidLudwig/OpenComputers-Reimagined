@@ -4,13 +4,19 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import tech.dlii.opencomputers.api.API;
 
 import java.util.function.UnaryOperator;
 
-public class DataComponents {
+public class CustomDataComponents {
     private static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.create(API.MOD_ID, Registries.DATA_COMPONENT_TYPE);
+
+    public static final RegistrySupplier<DataComponentType<String>> ADDRESS = register(
+            "address",
+            builder -> builder.persistent(ExtraCodecs.NON_EMPTY_STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8));
 
     public static final RegistrySupplier<DataComponentType<ResourceLocation>> ARCHITECTURE = register(
             "architecture",

@@ -11,13 +11,13 @@ import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.api.driver.item.DriverItem;
 import tech.dlii.opencomputers.api.driver.item.MutableControlProcessingUnit;
 import tech.dlii.opencomputers.api.driver.item.SlotType;
-import tech.dlii.opencomputers.common.component.DataComponents;
+import tech.dlii.opencomputers.common.component.CustomDataComponents;
 
 import java.util.List;
 
 public class CPUItem extends ComponentItem {
     public CPUItem(int tier, Properties properties) {
-        super(SlotType.CPU, tier, properties.component(DataComponents.ARCHITECTURE.get(), API.architectures.defaultArchitecture().getKey()));
+        super(SlotType.CPU, tier, properties.component(CustomDataComponents.ARCHITECTURE.get(), API.architectures.defaultArchitecture().getKey()));
     }
 
     @Override
@@ -31,10 +31,11 @@ public class CPUItem extends ComponentItem {
             return InteractionResult.PASS;
         }
         List<ResourceLocation> architectures = cpuDriver.architectures();
-        int currentIndex = architectures.indexOf(itemStack.get(DataComponents.ARCHITECTURE.get()));
+        int currentIndex = architectures.indexOf(itemStack.get(CustomDataComponents.ARCHITECTURE.get()));
         int newIndex = (currentIndex + 1) % architectures.size();
         cpuDriver.setArchitecture(itemStack, architectures.get(newIndex));
-        player.displayClientMessage(Component.translatable(architectures.get(newIndex).toLanguageKey("architecture")), true);
+        Component architectureName = Component.translatable(architectures.get(newIndex).toLanguageKey("architecture"));
+        player.displayClientMessage(Component.translatable("tooltip.opencomputers.architecture", architectureName), true);
         return InteractionResult.SUCCESS;
 
 
