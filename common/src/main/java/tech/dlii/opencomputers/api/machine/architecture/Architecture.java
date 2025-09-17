@@ -1,9 +1,8 @@
-package tech.dlii.opencomputers.api.machine;
+package tech.dlii.opencomputers.api.machine.architecture;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-
-import java.lang.annotation.*;
+import tech.dlii.opencomputers.api.machine.Context;
+import tech.dlii.opencomputers.api.machine.Machine;
 
 /**
  * This interface abstracts away any language specific details for the Machine.
@@ -67,7 +66,7 @@ public interface Architecture {
 
     /**
      * Performs a synchronized call initialized in a previous call to
-     * {@link #runThreaded(boolean)}.
+     * {@link #runAsynchronous(boolean)}.
      * <br>
      * This method is invoked from the main server thread, meaning it is safe
      * to interact with the world without having to perform manual
@@ -77,9 +76,9 @@ public interface Architecture {
      * prepared to next be called with {@code runThreaded(true)}. For example,
      * the Lua architecture will leave the results of the synchronized call on
      * the stack so they can be further processed in the next call to
-     * {@link #runThreaded(boolean) runThreaded}.
+     * {@link #runAsynchronous(boolean) runThreaded}.
      */
-    void runSynchronized();
+    void run();
 
     /**
      * Continues execution of the machine. The first call may be used to
@@ -88,7 +87,7 @@ public interface Architecture {
      * <em>should</em> return {@code true} from {@link #isInitialized()}.
      * <br>
      * The resumed state is either a return from a synchronized call, when a
-     * synchronized call has been completed (via {@link #runSynchronized}), or
+     * synchronized call has been completed (via {@link #run}), or
      * a normal yield in all other cases (sleep, interrupt, boot, ...).
      * <br>
      * This is expected to return within a very short time, usually. For example,
@@ -105,16 +104,16 @@ public interface Architecture {
      *                             now on the stack, for example.
      * @return the result of the execution. Used to determine the new state.
      */
-    ExecutionResult runThreaded(boolean isSynchronizedReturn);
+    ExecutionResult runAsynchronous(boolean isSynchronizedReturn);
 
     /**
      * Called when a new signal is queued in the hosting {@link Machine}.
      * <br>
      * Depending on how you structure your architecture, you may not need this
      * callback. For example, the Lua architectures simply pull the next signal
-     * from the queue whenever {@link #runThreaded} is called again. However,
+     * from the queue whenever {@link #runAsynchronous} is called again. However,
      * if you'd like to react to signals in a more timely manner, you can
-     * react to this <em>while</em> you are in a {@link #runThreaded} call,
+     * react to this <em>while</em> you are in a {@link #runAsynchronous} call,
      * which is what it is intended to be used for.
      * <br>
      * Keep in mind that this may be called from any random thread, since

@@ -1,29 +1,29 @@
 package tech.dlii.opencomputers.server.component;
 
-import tech.dlii.opencomputers.api.driver.DeviceInfo;
+import tech.dlii.opencomputers.api.API;
+import tech.dlii.opencomputers.api.network.node.Node;
+import tech.dlii.opencomputers.api.network.Visibility;
 import tech.dlii.opencomputers.common.config.Configuration;
 
 import java.util.Map;
 
-public class MemoryComponent implements DeviceInfo {
+public class MemoryComponent extends AbstractComponent {
 
-    int tier;
-    private final Map<String, String> deviceInfo;
+    private final int tier;
 
     public MemoryComponent(int tier) {
-        this.tier = tier;
-        int x = ((int) Configuration.CALL_BUDGETS[tier] * 1000);
-        this.deviceInfo = Map.of(
+        super(Map.of(
                 DeviceAttribute.Class, DeviceClass.Processor,
                 DeviceAttribute.Description, "Memory bank",
                 DeviceAttribute.Vendor, "",
                 DeviceAttribute.Product, "",
                 DeviceAttribute.Clock, Integer.toString((int) Configuration.CALL_BUDGETS[tier] * 1000)
-        );
+        ));
+        this.tier = tier;
     }
 
     @Override
-    public Map<String, String> getDeviceInfo() {
-        return Map.of();
+    protected Node initializeNode() {
+        return API.network.newNode(this, Visibility.Neighbors).build();
     }
 }

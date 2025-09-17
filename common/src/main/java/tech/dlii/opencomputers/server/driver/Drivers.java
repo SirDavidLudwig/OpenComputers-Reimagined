@@ -18,8 +18,8 @@ public class Drivers implements DriverAPI {
         API.driver.register(new CPUDriver());
         API.driver.register(new EEPROMDriver());
         API.driver.register(new GPUDriver());
+        API.driver.register(new FileSystemDriver());
         API.driver.register(new MemoryDriver());
-        API.driver.register(new StorageDriver());
     }
 
     @Override

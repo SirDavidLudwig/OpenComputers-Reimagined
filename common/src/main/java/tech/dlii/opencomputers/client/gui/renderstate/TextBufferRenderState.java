@@ -3,9 +3,7 @@ package tech.dlii.opencomputers.client.gui.renderstate;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.textures.GpuTextureView;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.gui.render.state.GuiElementRenderState;
@@ -14,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2f;
 import tech.dlii.opencomputers.client.font.Fonts;
 import tech.dlii.opencomputers.client.font.Glyph;
-import tech.dlii.opencomputers.common.machine.TextBuffer;
+import tech.dlii.opencomputers.common.machine.component.TextBufferComponent;
 
 /**
  * This renders the actual text buffer to the screen using GuiGraphics.
@@ -28,7 +26,7 @@ public class TextBufferRenderState implements GuiElementRenderState {
     private final int height;
     @Nullable
     private final ScreenRectangle scissorArea;
-    TextBuffer textBuffer;
+    TextBufferComponent textBuffer;
     boolean isBackground;
 
     public TextBufferRenderState(
@@ -38,7 +36,7 @@ public class TextBufferRenderState implements GuiElementRenderState {
             int width,
             int height,
             @Nullable ScreenRectangle scissorArea,
-            TextBuffer textBuffer,
+            TextBufferComponent textBuffer,
             boolean isBackground
     ) {
         this.pose = pose;
@@ -64,7 +62,7 @@ public class TextBufferRenderState implements GuiElementRenderState {
         for (int row = 0; row < textBuffer.getHeight(); row++) {
             float x0 = x;
             for (int col = 0; col < textBuffer.getWidth(); col++) {
-                TextBuffer.Character character = textBuffer.get(row, col);
+                TextBufferComponent.Character character = textBuffer.get(row, col);
                 Glyph glyph = Fonts.getGlyph(character.codePoint, character.fontStyle);
                 int color = isBackground ? character.backgroundColor : character.foregroundColor;
 

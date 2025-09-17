@@ -10,11 +10,11 @@ import tech.dlii.opencomputers.common.item.ComponentItem;
 
 import java.util.List;
 
-public class ComponentDriver implements DriverItem {
+public abstract class AbstractComponentDriver implements DriverItem {
 
     private final List<RegistrySupplier<Item>> COMPATIBLE_ITEMS;
 
-    public ComponentDriver() {
+    public AbstractComponentDriver() {
         this.COMPATIBLE_ITEMS = compatibleItems();
     }
 

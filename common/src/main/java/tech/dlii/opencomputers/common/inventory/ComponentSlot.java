@@ -73,4 +73,6 @@ public class ComponentSlot extends net.minecraft.world.inventory.Slot {
             default -> 1;
         };
     }
+
+
 }

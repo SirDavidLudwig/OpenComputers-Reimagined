@@ -1,5 +1,7 @@
 package tech.dlii.opencomputers.api.machine;
 
+import tech.dlii.opencomputers.api.network.node.Node;
+
 /**
  * This is used to provide some context to {@link li.cil.oc.api.machine.Callback}s, i.e. the
  * computer from which the callback was called.
@@ -8,7 +10,7 @@ public interface Context {
     /**
      * The node through which the computer is attached to the component network.
      */
-//    Node node();
+    Node node();
 
     /**
      * Tests whether a player is allowed to use the computer.

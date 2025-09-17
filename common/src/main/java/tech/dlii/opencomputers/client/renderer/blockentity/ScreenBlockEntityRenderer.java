@@ -13,10 +13,9 @@ import tech.dlii.opencomputers.client.renderer.CustomRenderTypes;
 import tech.dlii.opencomputers.client.font.Fonts;
 import tech.dlii.opencomputers.client.font.Glyph;
 import tech.dlii.opencomputers.common.block.entity.ScreenBlockEntity;
-import tech.dlii.opencomputers.common.machine.TextBuffer;
+import tech.dlii.opencomputers.common.machine.component.TextBufferComponent;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class ScreenBlockEntityRenderer implements BlockEntityRenderer<ScreenBlockEntity> {
 
@@ -94,14 +93,14 @@ public class ScreenBlockEntityRenderer implements BlockEntityRenderer<ScreenBloc
         poseStack.scale(scale, scale, 1f);
     }
 
-    protected void draw(VertexConsumer buffer, Matrix4f pose, TextBuffer textBuffer, Function<TextBuffer.Character, Integer> getColor) {
+    protected void draw(VertexConsumer buffer, Matrix4f pose, TextBufferComponent textBuffer, Function<TextBufferComponent.Character, Integer> getColor) {
         float CHAR_HEIGHT = 32;
         float x0, y0, x1, y1;
         for (int row = 0; row < textBuffer.getHeight(); row++) {
             x0 = 0.0f;
             y0 = row * CHAR_HEIGHT;
             for (int col = 0; col < textBuffer.getWidth(); col++) {
-                TextBuffer.Character character = textBuffer.get(row, col);
+                TextBufferComponent.Character character = textBuffer.get(row, col);
                 Glyph glyph = Fonts.getGlyph(character.codePoint, character.fontStyle);
 
                 x1 = x0 + glyph.width;

@@ -5,13 +5,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.CallBudget;
+import tech.dlii.opencomputers.api.network.EnvironmentHost;
+import tech.dlii.opencomputers.api.network.ManagedEnvironment;
 import tech.dlii.opencomputers.common.config.Configuration;
 import tech.dlii.opencomputers.common.item.MemoryItem;
 import tech.dlii.opencomputers.common.item.Items;
+import tech.dlii.opencomputers.server.component.MemoryComponent;
 
 import java.util.List;
 
-public class MemoryDriver extends ComponentDriver implements tech.dlii.opencomputers.api.driver.item.Memory, CallBudget {
+public class MemoryDriver extends AbstractComponentDriver implements tech.dlii.opencomputers.api.driver.item.Memory, CallBudget {
 
     @Override
     protected List<RegistrySupplier<Item>> compatibleItems() {
@@ -23,6 +26,11 @@ public class MemoryDriver extends ComponentDriver implements tech.dlii.opencompu
                 Items.MEMORY5,
                 Items.MEMORY6
         );
+    }
+
+    @Override
+    public ManagedEnvironment createEnvironment(ItemStack stack, EnvironmentHost host) {
+        return new MemoryComponent(tier(stack));
     }
 
     @Override

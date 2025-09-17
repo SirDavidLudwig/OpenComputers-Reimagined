@@ -8,13 +8,21 @@ import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.api.Tier;
 import tech.dlii.opencomputers.api.driver.item.CallBudget;
 import tech.dlii.opencomputers.api.driver.item.MutableControlProcessingUnit;
-import tech.dlii.opencomputers.common.component.DataComponents;
+import tech.dlii.opencomputers.api.network.EnvironmentHost;
+import tech.dlii.opencomputers.api.network.ManagedEnvironment;
+import tech.dlii.opencomputers.common.component.CustomDataComponents;
 import tech.dlii.opencomputers.common.config.Configuration;
 import tech.dlii.opencomputers.common.item.Items;
+import tech.dlii.opencomputers.server.component.CPUComponent;
 
 import java.util.List;
 
-public class CPUDriver extends ComponentDriver implements MutableControlProcessingUnit, CallBudget {
+public class CPUDriver extends AbstractComponentDriver implements MutableControlProcessingUnit, CallBudget {
+
+    @Override
+    public ManagedEnvironment createEnvironment(ItemStack stack, EnvironmentHost host) {
+        return new CPUComponent(tier(stack));
+    }
 
     @Override
     protected List<RegistrySupplier<Item>> compatibleItems() {
@@ -32,7 +40,7 @@ public class CPUDriver extends ComponentDriver implements MutableControlProcessi
 
     @Override
     public ResourceLocation architecture(ItemStack stack) {
-        ResourceLocation architecture = stack.get(DataComponents.ARCHITECTURE.get());
+        ResourceLocation architecture = stack.get(CustomDataComponents.ARCHITECTURE.get());
         if (architecture == null || !API.architectures.has(architecture)) {
             // Assign default architecture
             architecture = API.architectures.defaultArchitecture().getKey();
@@ -49,7 +57,7 @@ public class CPUDriver extends ComponentDriver implements MutableControlProcessi
         if (!API.architectures.has(identifier)) {
             return;
         }
-        stack.set(DataComponents.ARCHITECTURE.get(), identifier);
+        stack.set(CustomDataComponents.ARCHITECTURE.get(), identifier);
     }
 
     @Override

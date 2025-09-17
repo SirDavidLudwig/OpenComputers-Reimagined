@@ -9,6 +9,7 @@ public abstract class LuaJAPI extends AbstractArchitectureAPI {
 
     public LuaJAPI(LuaJLuaArchitecture owner) {
         super(owner.machine());
+        this.owner = owner;
     }
 
     public Globals lua() {

@@ -1,11 +1,9 @@
-package tech.dlii.opencomputers.common.machine;
+package tech.dlii.opencomputers.common.machine.component;
 
 import tech.dlii.opencomputers.client.font.Fonts;
 import tech.dlii.opencomputers.util.ExtendedUnicodeHelper;
 
-import java.util.Arrays;
-
-public class TextBuffer implements tech.dlii.opencomputers.api.TextBuffer {
+public class TextBufferComponent implements tech.dlii.opencomputers.api.TextBuffer {
 
     // Buffer Settings
     private final int maxWidth;
@@ -19,7 +17,7 @@ public class TextBuffer implements tech.dlii.opencomputers.api.TextBuffer {
     int currentBackgroundColor = 0xFF000000;
     Fonts.FontStyle currentFontStyle = Fonts.FontStyle.REGULAR;
 
-    public TextBuffer(int width, int height) {
+    public TextBufferComponent(int width, int height) {
         this.maxWidth = width;
         this.maxHeight = height;
         this.data = new Character[height][width];

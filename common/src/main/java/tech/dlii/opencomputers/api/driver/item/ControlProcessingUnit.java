@@ -2,7 +2,6 @@ package tech.dlii.opencomputers.api.driver.item;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import tech.dlii.opencomputers.api.machine.Architecture;
 
 /**
  * Use this interface to implement item drivers extending the number of

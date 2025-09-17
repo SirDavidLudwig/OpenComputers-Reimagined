@@ -1,27 +1,25 @@
 package tech.dlii.opencomputers.server.component;
 
-import tech.dlii.opencomputers.api.driver.DeviceInfo;
+import tech.dlii.opencomputers.api.API;
+import tech.dlii.opencomputers.api.network.node.Node;
+import tech.dlii.opencomputers.api.network.Visibility;
 
 import java.util.Map;
 
-public class CPUComponent implements DeviceInfo {
-
-    int tier;
-    private final Map<String, String> deviceInfo;
+public class CPUComponent extends AbstractComponent {
 
     public CPUComponent(int tier) {
-        this.tier = tier;
-        this.deviceInfo = Map.of(
+        super(Map.of(
                 DeviceAttribute.Class, DeviceClass.Processor,
                 DeviceAttribute.Description, "CPU",
                 DeviceAttribute.Vendor, "",
-                DeviceAttribute.Product, "",
+                DeviceAttribute.Product, "FlixiArch " + (tier + 1) + " Processor",
                 DeviceAttribute.Clock, "Clock speed"
-        );
+        ));
     }
 
     @Override
-    public Map<String, String> getDeviceInfo() {
-        return deviceInfo;
+    protected Node initializeNode() {
+        return API.network.newNode(this, Visibility.Neighbors).build();
     }
 }

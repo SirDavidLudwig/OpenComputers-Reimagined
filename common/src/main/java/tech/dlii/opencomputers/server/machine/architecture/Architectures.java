@@ -2,11 +2,8 @@ package tech.dlii.opencomputers.server.machine.architecture;
 
 import net.minecraft.resources.ResourceLocation;
 import tech.dlii.opencomputers.api.API;
-import tech.dlii.opencomputers.api.machine.Architecture;
-import tech.dlii.opencomputers.api.machine.ArchitectureAPI;
-import tech.dlii.opencomputers.server.machine.architecture.luac.NativeLua52Architecture;
-import tech.dlii.opencomputers.server.machine.architecture.luac.NativeLua53Architecture;
-import tech.dlii.opencomputers.server.machine.architecture.luac.NativeLua54Architecture;
+import tech.dlii.opencomputers.api.machine.architecture.Architecture;
+import tech.dlii.opencomputers.api.machine.architecture.ArchitectureAPI;
 import tech.dlii.opencomputers.server.machine.architecture.luaj.LuaJLuaArchitecture;
 
 import java.util.LinkedHashMap;

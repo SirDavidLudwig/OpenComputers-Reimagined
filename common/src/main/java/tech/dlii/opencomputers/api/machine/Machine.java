@@ -1,6 +1,8 @@
 package tech.dlii.opencomputers.api.machine;
 
 import org.jetbrains.annotations.Nullable;
+import tech.dlii.opencomputers.api.machine.architecture.Architecture;
+import tech.dlii.opencomputers.api.network.ManagedEnvironment;
 
 import java.util.Map;
 
@@ -9,7 +11,7 @@ import java.util.Map;
  * method {@link li.cil.oc.api.Machine#create(MachineHost)}.
  */
 @SuppressWarnings("unused")
-public interface Machine extends Context {
+public interface Machine extends ManagedEnvironment, Context {
     /**
      * The owner of the machine, usually a tile entity hosting the machine.
      *
@@ -136,7 +138,7 @@ public interface Machine extends Context {
 
     /**
      * The time spent running the underlying architecture in execution threads,
-     * i.e. the time spent in {@link Architecture#runThreaded(boolean)} since
+     * i.e. the time spent in {@link Architecture#runAsynchronous(boolean)} since
      * the machine was last started, in seconds.
      */
     double cpuTime();

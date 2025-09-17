@@ -6,13 +6,13 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import tech.dlii.opencomputers.client.Textures;
 import tech.dlii.opencomputers.client.gui.widget.TextBufferWidget;
-import tech.dlii.opencomputers.common.machine.TextBuffer;
+import tech.dlii.opencomputers.common.machine.component.TextBufferComponent;
 
 import java.util.function.Supplier;
 
 public class ScreenScreen extends Screen {
 
-    private TextBuffer buffer;
+    private TextBufferComponent buffer;
     private int tier;
     private Supplier<Boolean> hasKeyboard;
 
@@ -22,7 +22,7 @@ public class ScreenScreen extends Screen {
 
     private TextBufferWidget terminalWidget;
 
-    public ScreenScreen(TextBuffer buffer, int tier, Supplier<Boolean> hasKeyboard) {
+    public ScreenScreen(TextBufferComponent buffer, int tier, Supplier<Boolean> hasKeyboard) {
         super(Component.translatable("screen.opencomputers.screen"));
         this.buffer = buffer;
         this.tier = tier;

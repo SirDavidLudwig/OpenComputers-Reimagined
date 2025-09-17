@@ -37,4 +37,8 @@ public final class Configuration {
             new int[] {80, 25},
             new int[] {160, 50}
     };
+
+    public static int[] HDD_SIZES = new int[] { 1024, 2048, 4096 };
+
+    public static int[] HDD_PLATTER_COUNTS = new int[] { 2, 4, 6 };
 }

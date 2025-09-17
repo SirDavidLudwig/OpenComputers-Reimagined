@@ -12,16 +12,16 @@ import org.jetbrains.annotations.Nullable;
 import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.client.gui.ExtendedGuiGraphics;
 import tech.dlii.opencomputers.client.gui.renderstate.TextBufferRenderState;
-import tech.dlii.opencomputers.common.machine.TextBuffer;
+import tech.dlii.opencomputers.common.machine.component.TextBufferComponent;
 
 import java.util.function.Supplier;
 
 public class TextBufferWidget extends AbstractWidget {
 
-    public final TextBuffer textBuffer;
+    public final TextBufferComponent textBuffer;
     public final Supplier<Boolean> hasKeyboard;
 
-    public TextBufferWidget(TextBuffer textBuffer, int x, int y, int width, int height, Supplier<Boolean> hasKeyboard, Component component) {
+    public TextBufferWidget(TextBufferComponent textBuffer, int x, int y, int width, int height, Supplier<Boolean> hasKeyboard, Component component) {
         super(x, y, width, height, component);
         this.textBuffer = textBuffer;
         this.hasKeyboard = hasKeyboard;

@@ -89,6 +89,9 @@ public class CaseBlock extends BaseEntityBlock implements InteractionEvent.Right
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return null;
+        if (level.isClientSide()) {
+            return null;
+        }
+        return new CaseBlockEntity.Ticker<>();
     }
 }

@@ -1,4 +1,4 @@
-package tech.dlii.opencomputers.api.machine;
+package tech.dlii.opencomputers.api.machine.architecture;
 
 import net.minecraft.resources.ResourceLocation;
 
@@ -11,7 +11,7 @@ public interface ArchitectureAPI {
      * Note that although registration is optional, it is strongly recommended
      * to allow {@link #architectures()} to be useful.
      *
-     * @param name
+     * @param identifier the identifier to register the architecture under.
      * @param architecture the architecture to register.
      * @throws IllegalArgumentException if the specified architecture is invalid.
      */
@@ -21,7 +21,7 @@ public interface ArchitectureAPI {
      * A list of all <em>registered</em> architectures.
      * <br>
      * Note that registration is optional, although automatic when calling
-     * {@link #create(li.cil.oc.api.machine.MachineHost)} with a not yet
+     * {@link #create(tech.dlii.opencomputers.api.machine.MachineHost)} with a not yet
      * registered architecture. What this means is that unless a mod providing
      * a custom architecture also registers it, you may not see it in this list
      * until it also created a new machine using that architecture.

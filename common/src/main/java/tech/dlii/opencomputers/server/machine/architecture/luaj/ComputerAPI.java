@@ -1,7 +1,9 @@
 package tech.dlii.opencomputers.server.machine.architecture.luaj;
 
+import li.cil.repack.org.luaj.vm2.LuaFunction;
 import li.cil.repack.org.luaj.vm2.LuaValue;
 import li.cil.repack.org.luaj.vm2.lib.ZeroArgFunction;
+import tech.dlii.opencomputers.OpenComputers;
 
 public class ComputerAPI extends LuaJAPI {
     public ComputerAPI(LuaJLuaArchitecture owner) {
@@ -24,6 +26,14 @@ public class ComputerAPI extends LuaJAPI {
             public LuaValue call() {
                 return LuaValue.valueOf(machine().upTime());
             }
+        });
+
+        computer.set("debugprint", new LuaFunction() {
+             @Override
+             public LuaValue call(LuaValue arg) {
+                 OpenComputers.LOGGER.info("Computer Debug: " + arg.toString());
+                 return LuaValue.NIL;
+             }
         });
 
 //        computer.set("tmpAddress", new ZeroArgFunction() {

@@ -1,8 +1,8 @@
 package tech.dlii.opencomputers.server.machine.architecture.luac;
 
 import net.minecraft.world.item.ItemStack;
-import tech.dlii.opencomputers.api.machine.Architecture;
-import tech.dlii.opencomputers.api.machine.ExecutionResult;
+import tech.dlii.opencomputers.api.machine.architecture.Architecture;
+import tech.dlii.opencomputers.api.machine.architecture.ExecutionResult;
 
 public abstract class AbstractNativeLuaArchitecture implements Architecture {
 
@@ -29,12 +29,12 @@ public abstract class AbstractNativeLuaArchitecture implements Architecture {
     }
 
     @Override
-    public void runSynchronized() {
+    public void run() {
 
     }
 
     @Override
-    public ExecutionResult runThreaded(boolean isSynchronizedReturn) {
+    public ExecutionResult runAsynchronous(boolean isSynchronizedReturn) {
         return null;
     }
 

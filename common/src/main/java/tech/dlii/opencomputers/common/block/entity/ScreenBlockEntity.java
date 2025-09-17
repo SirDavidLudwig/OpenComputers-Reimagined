@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.common.block.CustomBlockStateProperties;
 import tech.dlii.opencomputers.common.block.ScreenBlock;
-import tech.dlii.opencomputers.common.machine.TextBuffer;
+import tech.dlii.opencomputers.common.machine.component.TextBufferComponent;
 import tech.dlii.opencomputers.common.config.Configuration;
 
 public class ScreenBlockEntity extends BlockEntity {
@@ -21,7 +21,7 @@ public class ScreenBlockEntity extends BlockEntity {
     public int width = 1;
     public int height = 1;
 
-    public final TextBuffer buffer;
+    public final TextBufferComponent buffer;
 
     public ScreenBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(BlockEntityTypes.SCREEN.get(), blockPos, blockState);
@@ -29,7 +29,7 @@ public class ScreenBlockEntity extends BlockEntity {
         this.pitch = blockState.getValue(CustomBlockStateProperties.PITCH);
         this.yaw = blockState.getValue(CustomBlockStateProperties.YAW);
 
-        buffer = new TextBuffer(
+        buffer = new TextBufferComponent(
                 Configuration.SCREEN_RESOLUTIONS[tier][0],
                 Configuration.SCREEN_RESOLUTIONS[tier][1]
         );
@@ -65,7 +65,7 @@ public class ScreenBlockEntity extends BlockEntity {
         return this.origin == this;
     }
 
-    public TextBuffer buffer() {
+    public TextBufferComponent buffer() {
         if (origin != this) {
             return origin.buffer();
         }
