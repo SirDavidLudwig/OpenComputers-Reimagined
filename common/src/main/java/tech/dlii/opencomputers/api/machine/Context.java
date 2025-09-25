@@ -141,7 +141,7 @@ public interface Context {
      * This method allows dynamic costs for direct calls.
      * <br>
      * It will update the budget for direct calls in the current context, and
-     * throw a {@link LimitReachedException} that should <em>not</em> be caught
+     * throw a {@link TickCallLimitReachedException} that should <em>not</em> be caught
      * by the callback function. It will be handled in the calling code and
      * take care of switching states as necessary.
      * <br>

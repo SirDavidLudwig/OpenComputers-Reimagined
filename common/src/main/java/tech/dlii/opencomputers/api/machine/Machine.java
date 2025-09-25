@@ -2,6 +2,8 @@ package tech.dlii.opencomputers.api.machine;
 
 import org.jetbrains.annotations.Nullable;
 import tech.dlii.opencomputers.api.machine.architecture.Architecture;
+import tech.dlii.opencomputers.api.machine.architecture.Callback;
+import tech.dlii.opencomputers.api.machine.architecture.Value;
 import tech.dlii.opencomputers.api.network.ManagedEnvironment;
 
 import java.util.Map;
@@ -208,7 +210,7 @@ public interface Machine extends ManagedEnvironment, Context {
      *
      * @return a signal or {@code null} if the queue was empty.
      */
-    Signal popSignal();
+    MachineSignal popSignal();
 
     /**
      * Get a list of all methods and their annotations of the specified object.
@@ -221,7 +223,7 @@ public interface Machine extends ManagedEnvironment, Context {
      * @param value the value to get the method listing for.
      * @return the methods that can be called on the object.
      */
-//    Map<String, Callback> methods(Object value);
+    Map<String, Callback> methods(Object value);
 
     /**
      * Makes the machine call a component callback.
@@ -238,13 +240,13 @@ public interface Machine extends ManagedEnvironment, Context {
      * @param method  the name of the method to call.
      * @param args    the list of arguments to pass to the callback.
      * @return a list of results returned by the callback, or {@code null}.
-     * @throws LimitReachedException    when the called method supports direct
+     * @throws TickCallLimitReachedException    when the called method supports direct
      *                                  calling, but the number of calls in this
      *                                  tick has exceeded the allowed limit.
      * @throws IllegalArgumentException if there is no such component.
      * @throws Exception                if the callback throws an exception.
      */
-//    Object[] invoke(String address, String method, Object[] args) throws Exception;
+    Object[] invoke(String address, String method, Object[] args) throws TickCallLimitReachedException, IllegalArgumentException, Exception;
 
     /**
      * Makes the machine call a value callback.
@@ -260,13 +262,13 @@ public interface Machine extends ManagedEnvironment, Context {
      * @param method the name of the method to call.
      * @param args   the list of arguments to pass to the callback.
      * @return a list of results returned by the callback, or {@code null}.
-     * @throws LimitReachedException    when the called method supports direct
+     * @throws TickCallLimitReachedException    when the called method supports direct
      *                                  calling, but the number of calls in this
      *                                  tick has exceeded the allowed limit.
      * @throws IllegalArgumentException if there is no such component.
      * @throws Exception                if the callback throws an exception.
      */
-//    Object[] invoke(Value value, String method, Object[] args) throws Exception;
+    Object[] invoke(Value value, String method, Object[] args) throws TickCallLimitReachedException, IllegalArgumentException, Exception;
 
     // ----------------------------------------------------------------------- //
 

@@ -6,16 +6,17 @@ import tech.dlii.opencomputers.OpenComputers;
 import tech.dlii.opencomputers.api.API;
 import tech.dlii.opencomputers.api.machine.*;
 import tech.dlii.opencomputers.api.machine.architecture.Architecture;
+import tech.dlii.opencomputers.api.machine.architecture.Callback;
 import tech.dlii.opencomputers.api.machine.architecture.ExecutionResult;
+import tech.dlii.opencomputers.api.machine.architecture.Value;
 import tech.dlii.opencomputers.api.network.Visibility;
+import tech.dlii.opencomputers.api.network.node.ComponentNode;
+import tech.dlii.opencomputers.api.network.node.Node;
 import tech.dlii.opencomputers.api.network.prefab.AbstractManagedEnvironment;
 import tech.dlii.opencomputers.common.config.Configuration;
 import tech.dlii.opencomputers.server.machine.architecture.luaj.LuaJLuaArchitecture;
 
-import java.util.ArrayDeque;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Machine extends AbstractManagedEnvironment implements Runnable, tech.dlii.opencomputers.api.machine.Machine {
@@ -23,14 +24,18 @@ public class Machine extends AbstractManagedEnvironment implements Runnable, tec
     private Architecture architecture = null;
     private MachineHost host;
 
-    private Queue<Signal> signals = new ArrayDeque<>();
+    private Queue<MachineSignal> signals = new ArrayDeque<>();
     private Stack<MachineState> state = new Stack<>();
+    private double maxCallBudget = 1.0;
+    private int maxSignalQueueSize = Configuration.MAX_SIGNAL_QUEUE_SIZE;
+    private double callBudget = 1.0;
     private long worldTime = 0L;
     private long upTime = 0L;
     private long cpuStartTime = 0L;
     private long cpuTotalTime = 0L;
     private long remainingIdleTicks = 0L;
     private long remainingPauseTicks = 0L;
+    boolean isSynchronizedCall = false;
     private @Nullable String message = null;
 
     public Machine(MachineHost host) {
@@ -75,19 +80,84 @@ public class Machine extends AbstractManagedEnvironment implements Runnable, tec
     }
 
     public void tick() {
-//        worldTime = host.level().getDayTime()
+        worldTime = host.level().getDayTime();
         upTime++;
         if (remainingIdleTicks > 0) {
             remainingIdleTicks--;
         }
 
+        callBudget = maxCallBudget;
+
         synchronized (state) {
             switch (state.peek()) {
+                // Booting up.
                 case Starting:
                     switchTo(MachineState.Yielded);
                     break;
+                case Restarting:
+                    close();
+                    // @TODO erase tmp on reboot
+                    start();
+                    break;
+                case Sleeping:
+                    if (remainingIdleTicks <= 0 || signals.size() > 0) {
+                        switchTo(MachineState.Yielded);
+                    }
+                    break;
+                case Paused:
+                    if (remainingPauseTicks > 0) {
+                        remainingPauseTicks--;
+                    }
+                    else {
+                        // @TODO Verify components here
+                        state.pop();
+                        switchTo(state.peek());
+                    }
+                    break;
+                case SynchronizedCall:
+                    switchTo(MachineState.Running);
+                    try {
+                        isSynchronizedCall = true;
+                        architecture.run();
+                        isSynchronizedCall = false;
+                        if (state.peek() == MachineState.Running) {
+                            switchTo(MachineState.SynchronizedReturn);
+                        }
+                        else if (state.peek() == MachineState.Paused) {
+                            state.pop(); // Paused
+                            state.pop(); // Running, no switchTo to avoid new future.
+                            state.push(MachineState.SynchronizedReturn);
+                            state.push(MachineState.Paused);
+                        }
+                        else if (state.peek() == MachineState.Stopping) {
+                            state.clear();
+                            state.push(MachineState.Stopped);
+                        }
+                        else {
+                            throw new AssertionError();
+                        }
+                    }
+                    catch (Throwable t) {
+                        if (t instanceof Error e && e.getMessage().equals("not enough memory")) {
+                            crash("gui.error.out_of_memory");
+                        } else {
+                            OpenComputers.LOGGER.warn("Faulty architecture implementation for synchronized calls.", t);
+                            crash("gui.error.internal_error");
+                        }
+                    }
+                    finally {
+                        isSynchronizedCall = false;
+                    }
+                    break;
+            }
+
+            if (state.peek() == MachineState.Stopping) {
+                synchronized (this) {
+                    tryClose();
+                }
             }
         }
+
     }
 
     @Override
@@ -111,14 +181,70 @@ public class Machine extends AbstractManagedEnvironment implements Runnable, tec
             try {
                 ExecutionResult result = architecture.runAsynchronous(isSynchronizedReturn);
 
-                // Check if someone called pause() or stop() in the meantime.
-//                synchronized (state) {
-//
-//                }
+                synchronized (state) {
+                    switch (state.peek()) {
+                        case Running:
+                            switch (result) {
+                                case ExecutionResult.Sleep sleep:
+                                    synchronized (signals) {
+                                        if (signals.size() > 0 && sleep.ticks > 0) {
+                                            switchTo(MachineState.Sleeping);
+                                            remainingIdleTicks = sleep.ticks;
+                                        }
+                                        else {
+                                            switchTo(MachineState.Yielded);
+                                        }
+                                    }
+                                    switchTo(MachineState.Sleeping);
+                                    break;
+                                case ExecutionResult.SynchronizedCall synchronizedCall:
+                                    switchTo(MachineState.SynchronizedCall);
+                                    break;
+                                case ExecutionResult.Shutdown shutdown:
+                                    switchTo(shutdown.reboot ? MachineState.Restarting : MachineState.Stopping);
+                                    break;
+                                case ExecutionResult.Error error:
+//                                    beep("--");
+                                    crash(Optional.of(error.message).orElse("unknown error"));
+                                default:
+                            }
+                            break;
+                        case Paused:
+                            state.pop(); // Paused
+                            state.pop(); // Running, no switchTo to avoid new future.
+                            switch (result) {
+                                case ExecutionResult.Sleep sleep:
+                                    remainingIdleTicks = sleep.ticks;
+                                    state.push(MachineState.Sleeping);
+                                    break;
+                                case ExecutionResult.SynchronizedCall synchronizedCall:
+                                    state.push(MachineState.SynchronizedCall);
+                                    break;
+                                case ExecutionResult.Shutdown shutdown:
+                                    state.push(shutdown.reboot ? MachineState.Restarting : MachineState.Stopping);
+                                    break;
+                                case ExecutionResult.Error error:
+                                    crash(Optional.of(error.message).orElse("unknown error"));
+                                default:
+                            }
+                            break;
+                        case Stopping:
+                            state.clear();
+                            state.push(MachineState.Stopping);
+                            break;
+                        case Restarting:
+                            break;
+                        default:
+                            throw new AssertionError("Invalid state in executor post-processing.");
+                    }
+                    assert !isExecuting();
+                }
             } catch (Throwable throwable) {
                 OpenComputers.LOGGER.warn("Architecture's runThreaded threw an error. This should never happen!", throwable);
-                crash("gui.Error.InternalError");
+                crash("gui.error.internal_error");
             }
+
+            cpuTotalTime += System.nanoTime() - cpuStartTime;
         }
     }
 
@@ -201,7 +327,39 @@ public class Machine extends AbstractManagedEnvironment implements Runnable, tec
     }
 
     @Override
-    public @Nullable Signal popSignal() {
+    public Map<String, Callback> methods(Object value) {
+        return Map.of();
+    }
+
+    @Override
+    public Object[] invoke(String address, String method, Object[] args) throws TickCallLimitReachedException, IllegalArgumentException, Exception {
+        if (node() == null || node().network() == null) {
+            // Not really, but makes the VM stop, which is what we want in this case,
+            // because it means we've been disconnected / disposed already.
+            throw new TickCallLimitReachedException();
+        }
+        Node otherNode = node().network().node(address);
+        if (otherNode != node()) {
+            if (!(otherNode instanceof ComponentNode componentNode) || !componentNode.canBeSeenFrom(node())) {
+                throw new IllegalArgumentException("No such component");
+            }
+        }
+        ComponentNode componentNode = (ComponentNode) otherNode;
+        Callback annotation = componentNode.annotation(method);
+        if (annotation.async()) {
+            consumeCallBudget(1.0 / annotation.limit());
+        }
+        return componentNode.invoke(method, this, args);
+    }
+
+    @Override
+    public Object[] invoke(Value value, String method, Object[] args) throws TickCallLimitReachedException, IllegalArgumentException, Exception {
+        // Lookup callback via value
+        return new Object[0];
+    }
+
+    @Override
+    public @Nullable MachineSignal popSignal() {
         synchronized (signals) {
             return signals.poll(); // Dequeue, return null if empty
         }
@@ -219,7 +377,6 @@ public class Machine extends AbstractManagedEnvironment implements Runnable, tec
 
     private boolean isGamePaused() {
         boolean paused = Minecraft.getInstance().isPaused();
-        OpenComputers.LOGGER.info("Game is paused: " + paused);
         return paused;
     }
 
@@ -294,7 +451,23 @@ public class Machine extends AbstractManagedEnvironment implements Runnable, tec
 
     @Override
     public boolean signal(String name, Object... args) {
-        return false;
+        synchronized (state) {
+            if (state.peek() == MachineState.Stopped || state.peek() == MachineState.Stopping) {
+                return false;
+            }
+            synchronized (signals) {
+                if (signals.size() >= maxSignalQueueSize) {
+                    return false;
+                }
+                if (args == null) {
+                    signals.add(new MachineSignal(name, new Object[0]));
+                }
+                else {
+                    signals.add(new MachineSignal(name, args));
+                }
+            }
+        }
+        return true;
     }
 
     @Override

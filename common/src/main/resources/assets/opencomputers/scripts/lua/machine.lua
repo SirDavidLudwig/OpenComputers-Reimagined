@@ -1490,7 +1490,9 @@ sandbox.unicode = libunicode
 -------------------------------------------------------------------------------
 
 local function bootstrap()
+  computer.debugprint("Bootstrapping...")
   local eeprom = libcomponent.list("eeprom")()
+  computer.debugprint("Fetching BIOS from EEPROM...", eeprom)
   if eeprom then
     local code = libcomponent.invoke(eeprom, "get")
     if code and #code > 0 then
@@ -1508,6 +1510,7 @@ end
 
 local function main()
   -- Yield once to get a memory baseline.
+  computer.debugprint("Booting...")
   coroutine.yield()
 
   -- After memory footprint to avoid init.lua bumping the baseline.

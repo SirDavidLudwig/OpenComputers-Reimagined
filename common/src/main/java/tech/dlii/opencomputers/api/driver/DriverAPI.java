@@ -4,7 +4,22 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import tech.dlii.opencomputers.api.driver.item.DriverItem;
 
+import java.util.Map;
+
 public interface DriverAPI {
+    /**
+     * Registers a new type converter.
+     * <br>
+     * Type converters are used to automatically convert values returned from
+     * callbacks to a "simple" format that can be pushed to any architecture.
+     * <br>
+     * This must be called in the init phase, <em>not</em> the pre- or post-init
+     * phases.
+     *
+     * @param converter the converter to register.
+     */
+    void register(Converter converter);
+
     /**
      * Registers a new driver for an item component.
      * <br>
@@ -33,4 +48,7 @@ public interface DriverAPI {
      */
     @Nullable
     DriverItem driverFor(ItemStack stack);
+
+    // @TODO Need to move converter stuff somewhere else
+    public Object[] convert(Object[] value);
 }

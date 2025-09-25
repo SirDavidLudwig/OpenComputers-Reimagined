@@ -1,6 +1,7 @@
 package tech.dlii.opencomputers.api.machine;
 
 import net.minecraft.world.item.ItemStack;
+import tech.dlii.opencomputers.api.network.EnvironmentHost;
 
 /**
  * This interface has to be implemented by 'hosts' of machine instances.
@@ -8,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
  * It provides some context for the machine, in particular which world it is
  * running in, to allow querying the time of day, for example.
  */
-public interface MachineHost {
+public interface MachineHost extends EnvironmentHost {
     /**
      * The machine currently hosted.
      */

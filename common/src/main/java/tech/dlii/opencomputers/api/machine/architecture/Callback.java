@@ -58,7 +58,7 @@ public @interface Callback {
      * An exception to that rule is {@link tech.dlii.opencomputers.api.network.node.ConnectorNode#changeBuffer(double)},
      * which is synchronized, so you can consume/produce power in direct calls.
      */
-    boolean direct() default false;
+    boolean async() default false;
 
     /**
      * The maximum number of direct calls that may be performed on this
@@ -132,7 +132,7 @@ public @interface Callback {
      * Whether this callback should work like a setter.
      * <br>
      * Callbacks that are setters do not appear as methods on a component's
-     * proxy. Instead they are accessed as fields, for example in Lua via the
+     * proxy. Instead, they are accessed as fields, for example in Lua via the
      * proxy's {@code __newindex} metamethod, with its only two parameters
      * being the accessed key and the new value.
      * <br>

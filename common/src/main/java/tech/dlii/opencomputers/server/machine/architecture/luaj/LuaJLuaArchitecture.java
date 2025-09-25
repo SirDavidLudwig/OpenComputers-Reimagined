@@ -1,15 +1,19 @@
 package tech.dlii.opencomputers.server.machine.architecture.luaj;
 
+import com.google.common.base.Strings;
 import li.cil.repack.org.luaj.vm2.*;
 import li.cil.repack.org.luaj.vm2.lib.jse.JsePlatform;
 import net.minecraft.world.item.ItemStack;
 import tech.dlii.opencomputers.OpenComputers;
+import tech.dlii.opencomputers.api.machine.TickCallLimitReachedException;
 import tech.dlii.opencomputers.api.machine.architecture.Architecture;
 import tech.dlii.opencomputers.api.machine.architecture.ExecutionResult;
 import tech.dlii.opencomputers.api.machine.Machine;
-import tech.dlii.opencomputers.api.machine.Signal;
+import tech.dlii.opencomputers.api.machine.MachineSignal;
+import tech.dlii.opencomputers.common.config.Configuration;
 
 import java.util.Arrays;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class LuaJLuaArchitecture implements Architecture {
@@ -29,8 +33,10 @@ public class LuaJLuaArchitecture implements Architecture {
     public LuaJLuaArchitecture(Machine machine) {
         this.machine = machine;
         apis = new LuaJAPI[] {
+                new ComponentAPI(this),
                 new ComputerAPI(this),
-                new OSAPI(this)
+                new OSAPI(this),
+                new UserdataAPI(this)
         };
     }
 
@@ -61,30 +67,66 @@ public class LuaJLuaArchitecture implements Architecture {
         return true;
     }
 
-    @Override
-    public boolean isInitialized() {
-        return initialized;
+    public Varargs documentation(Supplier<String> f) {
+        try {
+            String doc = f.get();
+            if (Strings.isNullOrEmpty(doc)) {
+                return LuaValue.NIL;
+            }
+            return LuaValue.valueOf(doc);
+        } catch (Throwable e) {
+            return LuaValue.varargsOf(LuaValue.NIL, LuaValue.valueOf((e.getMessage() != null) ? e.getMessage() : e.toString()));
+        }
     }
 
-    @Override
-    public boolean recomputeMemory(Iterable<ItemStack> components) {
-//        memory = memoryInBytes(components);
-        return memory > 0;
-    }
-
-    @Override
-    public void close() {
-        lua = null;
-        thread = null;
-        synchronizedCall = null;
-        synchronizedResult = null;
-        initialized = false;
+    public Varargs invoke(MachineInvocationSupplier<Object[]> f) {
+        try {
+            Object[] results = f.get();
+            if (results != null && results.length > 0) {
+                LuaValue[] luaResults = new LuaValue[results.length + 1];
+                luaResults[0] = LuaValue.TRUE;
+                for (int i = 0; i < results.length; i++) {
+                    luaResults[i + 1] = LuaJCoercion.toValue(results[i]);
+                }
+                return LuaValue.varargsOf(luaResults);
+            } else {
+                return LuaValue.TRUE;
+            }
+        } catch (TickCallLimitReachedException e) {
+            return LuaValue.NONE;
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage() != null) {
+                return LuaValue.varargsOf(LuaValue.FALSE, LuaValue.valueOf(e.getMessage()));
+            } else {
+                return LuaValue.varargsOf(LuaValue.FALSE, LuaValue.valueOf("bad argument"));
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return LuaValue.varargsOf(LuaValue.FALSE, LuaValue.valueOf("index out of bounds"));
+        } catch (NoSuchMethodException e) {
+            return LuaValue.varargsOf(LuaValue.FALSE, LuaValue.valueOf("no such method"));
+        } catch (java.io.FileNotFoundException e) {
+            return LuaValue.varargsOf(LuaValue.TRUE, LuaValue.NIL, LuaValue.valueOf("file not found"));
+        } catch (SecurityException e) {
+            return LuaValue.varargsOf(LuaValue.TRUE, LuaValue.NIL, LuaValue.valueOf("access denied"));
+        } catch (java.io.IOException e) {
+            return LuaValue.varargsOf(LuaValue.TRUE, LuaValue.NIL, LuaValue.valueOf("i/o error"));
+        } catch (Throwable e) {
+            if (Configuration.LOG_ARCHITECTURE_CALLBACK_ERRORS) {
+                OpenComputers.LOGGER.warn("Exception in Lua callback.", e);
+            }
+            if (e.getMessage() != null) {
+                return LuaValue.varargsOf(LuaValue.TRUE, LuaValue.NIL, LuaValue.valueOf(e.getMessage()));
+            } else {
+                OpenComputers.LOGGER.warn("Unexpected error in Lua callback.", e);
+                return LuaValue.varargsOf(LuaValue.TRUE, LuaValue.NIL, LuaValue.valueOf("unknown error"));
+            }
+        }
     }
 
     @Override
     public void run() {
-    synchronizedResult = synchronizedCall.call();
-    synchronizedCall = null;
+        synchronizedResult = synchronizedCall.call();
+        synchronizedCall = null;
     }
 
     @Override
@@ -102,19 +144,18 @@ public class LuaJLuaArchitecture implements Architecture {
                     // calls when we actually need direct ones in the init phase.
                     initialized = true;
                     // We expect to get nothing here, if we do we had an error.
-                    if (results.narg() > 0) {
+                    if (results.narg() == 1) {
                         // Fake zero sleep to avoid stopping if there are no signals.
-                        OpenComputers.LOGGER.warn("Kernel returned unexpected results. " + results);
                         results = LuaValue.varargsOf(LuaValue.TRUE, LuaValue.valueOf(0));
                     }
                 }
                 else {
-                    Signal signal = machine.popSignal();
+                    MachineSignal signal = machine.popSignal();
                     if (signal != null) {
                         results = thread.resume(LuaValue.varargsOf(
                                 Stream.concat(
                                         Stream.of(LuaValue.valueOf(signal.name())),
-                                        Arrays.stream(signal.args()).map(LuaJCeorcion::toValue)).toArray(LuaValue[]::new)
+                                        Arrays.stream(signal.args()).map(LuaJCoercion::toValue)).toArray(LuaValue[]::new)
                         ));
                     } else {
                         results = thread.resume(LuaValue.NONE);
@@ -122,7 +163,7 @@ public class LuaJLuaArchitecture implements Architecture {
                 }
             }
             // Check if the kernel is still alive.
-            if (thread.state.status != LuaThread.STATUS_SUSPENDED) {
+            if (thread.state.status == LuaThread.STATUS_SUSPENDED) {
                 // If we get one function it must be a wrapper for a synchronized
                 // call. The protocol is that a closure is pushed that is then called
                 // from the main server thread, and returns a table, which is in turn
@@ -131,7 +172,7 @@ public class LuaJLuaArchitecture implements Architecture {
                     synchronizedCall = results.checkfunction(2);
                     return new ExecutionResult.SynchronizedCall();
                 }
-                // Check if we are shutting down, and if so if we're rebooting. This
+                // Check if we are shutting down, and if so, if we're rebooting. This
                 // is signalled by boolean values, where `false` means shut down,
                 // `true` means reboot (i.e shutdown then start again).
                 else if (results.narg() == 2 && results.type(2) == LuaValue.TBOOLEAN) {
@@ -194,13 +235,31 @@ public class LuaJLuaArchitecture implements Architecture {
     }
 
     @Override
-    public void onSignal() {
+    public boolean recomputeMemory(Iterable<ItemStack> components) {
+//        memory = memoryInBytes(components);
+        return memory > 0;
+    }
 
+    @Override
+    public void close() {
+        lua = null;
+        thread = null;
+        synchronizedCall = null;
+        synchronizedResult = null;
+        initialized = false;
+    }
+
+    @Override
+    public void onSignal() {
     }
 
     @Override
     public void onConnect() {
+    }
 
+    @Override
+    public boolean isInitialized() {
+        return initialized;
     }
 
     public Globals lua() {
@@ -209,5 +268,10 @@ public class LuaJLuaArchitecture implements Architecture {
 
     public Machine machine() {
         return this.machine;
+    }
+
+    @FunctionalInterface
+    public interface MachineInvocationSupplier<T> {
+        T get() throws TickCallLimitReachedException, IllegalArgumentException, Exception;
     }
 }

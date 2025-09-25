@@ -30,7 +30,6 @@ public abstract class AbstractNativeLuaArchitecture implements Architecture {
 
     @Override
     public void run() {
-
     }
 
     @Override
@@ -40,11 +39,9 @@ public abstract class AbstractNativeLuaArchitecture implements Architecture {
 
     @Override
     public void onSignal() {
-
     }
 
     @Override
     public void onConnect() {
-
     }
 }

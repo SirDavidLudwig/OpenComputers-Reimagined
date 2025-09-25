@@ -2,6 +2,14 @@ package tech.dlii.opencomputers.common.config;
 
 public final class Configuration {
 
+
+    // Not sure how this works without user data yet...
+    public static boolean ALLOW_USER_DATA = true;
+
+    public static boolean LOG_ARCHITECTURE_CALLBACK_ERRORS = true;
+
+    public static int MAX_SIGNAL_QUEUE_SIZE = 256;
+
     public static int EEPROM_DATA_SIZE = 256;
 
     public static int EEPROM_SIZE = 4096;

@@ -73,10 +73,10 @@ public interface Architecture {
      * synchronization.
      * <br>
      * This method is expected to leave the architecture in a state so it is
-     * prepared to next be called with {@code runThreaded(true)}. For example,
+     * prepared to next be called with {@code runAsynchronous(true)}. For example,
      * the Lua architecture will leave the results of the synchronized call on
      * the stack so they can be further processed in the next call to
-     * {@link #runAsynchronous(boolean) runThreaded}.
+     * {@link #runAsynchronous(boolean) runAsynchronous}.
      */
     void run();
 
